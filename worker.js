@@ -35,6 +35,16 @@ export default {
     }
 
     // 3. Fall through to static asset binding
-    return env.ASSETS.fetch(request);
+    const response = await env.ASSETS.fetch(request);
+
+    // Workers ignores _headers files — inject noindex for workers.dev staging
+    // so Google doesn't index the preview environment against production canonicals.
+    if (url.hostname.endsWith('.workers.dev')) {
+      const headers = new Headers(response.headers);
+      headers.set('X-Robots-Tag', 'noindex, nofollow');
+      return new Response(response.body, { status: response.status, headers });
+    }
+
+    return response;
   },
 };

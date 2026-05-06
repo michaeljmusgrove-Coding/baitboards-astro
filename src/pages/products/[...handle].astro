@@ -36,7 +36,7 @@ const productSchema = {
 };
 ---
 
-<BaseLayout title={title} description={description} schema={productSchema} preloadImage={product.image}>
+<BaseLayout title={title} description={description} schema={productSchema} preloadImage={product.image} ogType="product" productMeta={{ price: product.price, priceCurrency: 'AUD', availability: 'instock' }}>
 
   <!-- Breadcrumb -->
   <div class="border-b border-border bg-bg-alt">

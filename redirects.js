@@ -19,6 +19,9 @@ const redirects = [
   { from: '/collections/all',                        to: '/collections/bait-boards', status: 301 },
   { from: '/collections/frontpage',                  to: '/',                        status: 301 },
 
+  // Sitemap conventional path — crawlers expect /sitemap.xml
+  { from: '/sitemap.xml', to: '/sitemap-index.xml', status: 301 },
+
   // Shopify system pages with no equivalent
   { from: '/cart',     to: '/', status: 301 },
   { from: '/search',   to: '/collections/bait-boards', status: 301 },

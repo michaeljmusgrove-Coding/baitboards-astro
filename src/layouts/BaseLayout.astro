@@ -22,6 +22,11 @@ interface Props {
     section?: string;
     tags?: string[];
   };
+  productMeta?: {
+    price: number;
+    priceCurrency: string;
+    availability: string;
+  };
 }
 
 const {
@@ -34,6 +39,7 @@ const {
   noindex = false,
   ogType = 'website',
   articleMeta,
+  productMeta,
 } = Astro.props;
 
 // build.format: 'file' causes Astro.url.href to include .html on non-homepage pages.
@@ -168,7 +174,6 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
          would be flagged as unused by Lighthouse during measurement window -->
     <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
     <link rel="dns-prefetch" href="https://www.google-analytics.com" />
-    <link rel="dns-prefetch" href="https://cdn.shopify.com" />
     <link rel="dns-prefetch" href="https://baitboardsdirect.myshopify.com" />
 
     <!-- Self-hosted fonts (no Google Fonts external request) -->
@@ -199,6 +204,14 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
         {articleMeta.author && <meta property="article:author" content={articleMeta.author} />}
         {articleMeta.section && <meta property="article:section" content={articleMeta.section} />}
         {articleMeta.tags && articleMeta.tags.map((t) => <meta property="article:tag" content={t} />)}
+      </>
+    )}
+
+    {productMeta && (
+      <>
+        <meta property="product:price:amount" content={productMeta.price.toString()} />
+        <meta property="product:price:currency" content={productMeta.priceCurrency} />
+        <meta property="product:availability" content={productMeta.availability} />
       </>
     )}
 
@@ -247,12 +260,13 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
       })();
     </script>
 
-    <!-- Analytics: GTM + Microsoft Clarity.
+    <!-- Analytics: GA4 (direct gtag.js) + Microsoft Clarity.
+         GTM removed — strategy is SEO-only, no Google Ads conversion tracking needed.
          Both deferred until after page load + requestIdleCallback to keep LCP/TBT clean. -->
     <script
       is:inline
       define:vars={{
-        gtmId: site.analytics.gtm,
+        ga4Id: site.analytics.ga4,
         clarityId: site.analytics.clarityId,
       }}
     >
@@ -261,13 +275,17 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
           if (window.__bbdAnalyticsLoaded) return;
           window.__bbdAnalyticsLoaded = true;
 
-          if (gtmId && !gtmId.startsWith('__TODO__')) {
+          if (ga4Id && !ga4Id.startsWith('__TODO__')) {
             window.dataLayer = window.dataLayer || [];
-            window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
-            var gtm = document.createElement('script');
-            gtm.async = true;
-            gtm.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtmId;
-            document.head.appendChild(gtm);
+            var ga4Script = document.createElement('script');
+            ga4Script.async = true;
+            ga4Script.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+            document.head.appendChild(ga4Script);
+            ga4Script.onload = function () {
+              function gtag() { window.dataLayer.push(arguments); }
+              gtag('js', new Date());
+              gtag('config', ga4Id);
+            };
           }
 
           if (clarityId && !clarityId.startsWith('__TODO__')) {
