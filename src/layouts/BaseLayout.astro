@@ -1,39 +1,293 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import CartDrawer from "../components/CartDrawer.svelte";
-import AnnouncementBar from "../components/AnnouncementBar.astro";
+import '../styles/global.css';
+import { site } from '../config/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CartDrawer from '../components/CartDrawer.svelte';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
 
-export interface Props {
+interface Props {
   title: string;
-  description?: string;
+  description: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  preloadImage?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
+  ogType?: string;
+  articleMeta?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+    section?: string;
+    tags?: string[];
+  };
 }
 
-const defaultDesc =
-  "A lightweight and minimalit Astro starter theme using Shopify with Svelte, Tailwind, and TypeScript.";
+const {
+  title,
+  description,
+  ogImage = site.ogImage,
+  canonicalUrl = Astro.url.href,
+  preloadImage,
+  schema,
+  noindex = false,
+  ogType = 'website',
+  articleMeta,
+} = Astro.props;
 
-const { title, description = defaultDesc } = Astro.props as Props;
+// Recursively strip any field whose value contains an unresolved __TODO__ placeholder.
+// Prevents client-data placeholders (phone, address, ABN, social URLs) from leaking
+// into emitted JSON-LD where Google would index them.
+function stripTodos(value: unknown): unknown {
+  if (typeof value === 'string') {
+    return value.includes('__TODO__') ? undefined : value;
+  }
+  if (Array.isArray(value)) {
+    const cleaned = value.map(stripTodos).filter((v) => v !== undefined);
+    return cleaned.length ? cleaned : undefined;
+  }
+  if (value && typeof value === 'object') {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value)) {
+      const cleaned = stripTodos(v);
+      if (cleaned !== undefined) out[k] = cleaned;
+    }
+    return Object.keys(out).length ? out : undefined;
+  }
+  return value;
+}
+
+// Sitewide OnlineStore schema
+const storeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'OnlineStore',
+  '@id': `${site.domain}/#store`,
+  name: site.name,
+  url: site.domain,
+  description: site.description,
+  telephone: site.contact.phone,
+  email: site.contact.email,
+  currenciesAccepted: site.schema.currenciesAccepted,
+  paymentAccepted: site.schema.paymentAccepted,
+  priceRange: site.schema.priceRange,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.contact.address,
+    addressLocality: site.contact.suburb,
+    addressRegion: site.contact.state,
+    postalCode: site.contact.postcode,
+    addressCountry: site.contact.country,
+  },
+  sameAs: Object.values(site.social).filter((v) => !v.includes('__TODO__')),
+};
+
+// WebSite schema with SearchAction (product search)
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${site.domain}/#website`,
+  url: site.domain,
+  name: site.name,
+  description: site.tagline,
+  inLanguage: 'en-AU',
+  publisher: { '@type': 'OnlineStore', '@id': `${site.domain}/#store` },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${site.domain}/products?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+// Auto-generate BreadcrumbList from URL path — no manual per-page work needed
+const pathSegments = new URL(canonicalUrl).pathname.replace(/\/$/, '').split('/').filter(Boolean);
+const breadcrumbSchema =
+  pathSegments.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: [
+          { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.domain}/` },
+          ...pathSegments.map((seg, i) => ({
+            '@type': 'ListItem',
+            position: i + 2,
+            name: seg
+              .split('-')
+              .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
+              .join(' '),
+            item: `${site.domain}/${pathSegments.slice(0, i + 1).join('/')}`,
+          })),
+        ],
+      }
+    : null;
+
+// Merge sitewide + page-specific schemas, strip all __TODO__ fields before emit
+const allSchemas = [
+  storeSchema,
+  websiteSchema,
+  breadcrumbSchema,
+  ...(Array.isArray(schema) ? schema : schema ? [schema] : []),
+]
+  .filter(Boolean)
+  .map(stripTodos)
+  .filter((s) => s !== undefined);
+
+const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogImage}`;
 ---
 
-<html lang="en">
+<!doctype html>
+<html lang="en-AU">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <meta name="theme-color" content={site.brandColor} />
     <meta name="generator" content={Astro.generator} />
+
     <title>{title}</title>
     <meta name="description" content={description} />
-    <style is:global>
-      @import "../styles/global.css";
-    </style>
+
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-AU" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <!-- DNS prefetch only — analytics are deferred until idle, so preconnect
+         would be flagged as unused by Lighthouse during measurement window -->
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
+    <link rel="dns-prefetch" href="https://www.google-analytics.com" />
+    <link rel="dns-prefetch" href="https://cdn.shopify.com" />
+    <link rel="dns-prefetch" href="https://baitboardsdirect.myshopify.com" />
+
+    {preloadImage && (
+      <>
+        {/* AVIF preload for ~95% of browsers (2026). CSS image-set() falls back to JPG. */}
+        <link
+          rel="preload"
+          href={preloadImage.replace(/\.(jpg|jpeg)$/i, '.avif')}
+          as="image"
+          type="image/avif"
+          fetchpriority="high"
+        />
+        <link rel="preload" href={preloadImage} as="image" fetchpriority="high" />
+      </>
+    )}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_AU" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={site.name} />
+
+    {articleMeta && (
+      <>
+        {articleMeta.publishedTime && <meta property="article:published_time" content={articleMeta.publishedTime} />}
+        {articleMeta.modifiedTime && <meta property="article:modified_time" content={articleMeta.modifiedTime} />}
+        {articleMeta.author && <meta property="article:author" content={articleMeta.author} />}
+        {articleMeta.section && <meta property="article:section" content={articleMeta.section} />}
+        {articleMeta.tags && articleMeta.tags.map((t) => <meta property="article:tag" content={t} />)}
+      </>
+    )}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+
+    <!-- Structured data — __TODO__ fields stripped at build time by stripTodos() -->
+    {allSchemas.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
   </head>
   <body>
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <AnnouncementBar />
     <CartDrawer client:idle />
     <Header />
-    <main>
+    <main id="main-content">
       <slot />
     </main>
     <Footer />
+
+    <!-- Scroll-reveal: elements with .reveal / .reveal-fade / .reveal-zoom / .reveal-stagger
+         transition in on viewport entry. Respects prefers-reduced-motion. -->
+    <script is:inline>
+      (function () {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var targets = document.querySelectorAll('.reveal, .reveal-fade, .reveal-zoom, .reveal-stagger');
+        if (!targets.length || !('IntersectionObserver' in window)) {
+          targets.forEach(function (el) { el.classList.add('is-visible'); });
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+        targets.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
+
+    <!-- Analytics: GA4 + Microsoft Clarity.
+         Both deferred until after page load + requestIdleCallback to keep LCP/TBT clean.
+         Scripts only inject if IDs are configured (not __TODO__). -->
+    <script
+      is:inline
+      define:vars={{
+        ga4Id: site.analytics.ga4,
+        clarityId: site.analytics.clarityId,
+      }}
+    >
+      (function () {
+        function loadAnalytics() {
+          if (window.__bbdAnalyticsLoaded) return;
+          window.__bbdAnalyticsLoaded = true;
+
+          if (ga4Id && !ga4Id.startsWith('__TODO__')) {
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            window.gtag = gtag;
+            gtag('js', new Date());
+            gtag('config', ga4Id);
+            var ga = document.createElement('script');
+            ga.async = true;
+            ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+            document.head.appendChild(ga);
+          }
+
+          if (clarityId && !clarityId.startsWith('__TODO__')) {
+            (function (c, l, a, r, i, t, y) {
+              c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+              t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+              y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+            })(window, document, 'clarity', 'script', clarityId);
+          }
+        }
+
+        function deferUntilIdle() {
+          'requestIdleCallback' in window
+            ? requestIdleCallback(loadAnalytics, { timeout: 3000 })
+            : setTimeout(loadAnalytics, 1500);
+        }
+
+        if (document.readyState === 'complete') {
+          deferUntilIdle();
+        } else {
+          window.addEventListener('load', deferUntilIdle, { once: true });
+        }
+      })();
+    </script>
   </body>
 </html>

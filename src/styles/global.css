@@ -1,43 +1,35 @@
 @import "tailwindcss";
 
 @theme {
+  /* BBD brand palette — extracted from live baitboardsdirect.com CSS (6 May 2026) */
+  --color-primary:     #272d45; /* dark navy — dominant text + nav */
+  --color-dark-hero:   #0d1727; /* header + dark hero sections */
+  --color-dark-alt:    #07272e; /* alternate dark section bg */
+  --color-accent:      #cdff9a; /* light green — badge / highlight / CTA */
+  --color-text-muted:  #676986; /* secondary body text */
+  --color-border:      #e5e5eb; /* dividers, inputs */
+  --color-bg-alt:      #f4f4f6; /* alternating section bg */
+  --color-sale:        #8e1f0b; /* sale price badge */
+
+  /* Typography */
+  --font-body:    'Archivo', sans-serif;
+  --font-heading: 'Montserrat', sans-serif;
+
   /* Animation */
   --animate-shake: shake 0.5s infinite;
 
   @keyframes shake {
-    0% {
-      transform: translate(1px, 1px) rotate(0deg);
-    }
-    10% {
-      transform: translate(-1px, -2px) rotate(-1deg);
-    }
-    20% {
-      transform: translate(-3px, 0px) rotate(1deg);
-    }
-    30% {
-      transform: translate(3px, 2px) rotate(0deg);
-    }
-    40% {
-      transform: translate(1px, -1px) rotate(1deg);
-    }
-    50% {
-      transform: translate(-1px, 2px) rotate(-1deg);
-    }
-    60% {
-      transform: translate(-3px, 1px) rotate(0deg);
-    }
-    70% {
-      transform: translate(3px, 1px) rotate(-1deg);
-    }
-    80% {
-      transform: translate(-1px, -1px) rotate(1deg);
-    }
-    90% {
-      transform: translate(1px, 2px) rotate(0deg);
-    }
-    100% {
-      transform: translate(1px, -2px) rotate(-1deg);
-    }
+    0%   { transform: translate(1px, 1px) rotate(0deg); }
+    10%  { transform: translate(-1px, -2px) rotate(-1deg); }
+    20%  { transform: translate(-3px, 0px) rotate(1deg); }
+    30%  { transform: translate(3px, 2px) rotate(0deg); }
+    40%  { transform: translate(1px, -1px) rotate(1deg); }
+    50%  { transform: translate(-1px, 2px) rotate(-1deg); }
+    60%  { transform: translate(-3px, 1px) rotate(0deg); }
+    70%  { transform: translate(3px, 1px) rotate(-1deg); }
+    80%  { transform: translate(-1px, -1px) rotate(1deg); }
+    90%  { transform: translate(1px, 2px) rotate(0deg); }
+    100% { transform: translate(1px, -2px) rotate(-1deg); }
   }
 }
 
@@ -49,14 +41,21 @@
 @layer base {
   html {
     @apply scroll-smooth;
+    font-family: var(--font-body);
   }
 
   body {
     @apply flex min-h-screen flex-col;
+    color: var(--color-primary);
   }
 
   main {
     @apply flex-1;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    color: var(--color-primary);
   }
 
   details > summary {
@@ -69,15 +68,60 @@
   *,
   :before,
   :after {
-    @apply border-gray-200;
+    border-color: var(--color-border);
+  }
+
+  /* Scroll-reveal animation classes */
+  .reveal,
+  .reveal-fade,
+  .reveal-zoom,
+  .reveal-stagger {
+    opacity: 0;
+    transform: translateY(16px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+  .reveal.is-visible,
+  .reveal-fade.is-visible,
+  .reveal-zoom.is-visible,
+  .reveal-stagger.is-visible {
+    opacity: 1;
+    transform: none;
+  }
+
+  /* Skip link (a11y) */
+  .skip-link {
+    position: absolute;
+    left: -9999px;
+    top: auto;
+  }
+  .skip-link:focus {
+    position: fixed;
+    left: 1rem;
+    top: 1rem;
+    z-index: 9999;
+    padding: 0.5rem 1rem;
+    background: var(--color-accent);
+    color: var(--color-primary);
+    font-weight: 600;
+    border-radius: 4px;
   }
 
   .button {
     @apply flex items-center justify-center rounded-lg;
-    @apply bg-gradient-to-br from-emerald-900 via-emerald-800 to-emerald-600;
+    background-color: var(--color-primary);
     @apply px-8 py-3 text-base font-medium text-white;
     @apply transition hover:opacity-80;
-    @apply focus:ring-2 focus:ring-black focus:ring-offset-1 focus:outline-none;
+    @apply focus:ring-2 focus:ring-offset-1 focus:outline-none;
+    @apply disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .button-accent {
+    @apply flex items-center justify-center rounded-lg;
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+    @apply px-8 py-3 text-base font-semibold;
+    @apply transition hover:opacity-90;
+    @apply focus:ring-2 focus:ring-offset-1 focus:outline-none;
     @apply disabled:cursor-not-allowed disabled:opacity-60;
   }
 }
