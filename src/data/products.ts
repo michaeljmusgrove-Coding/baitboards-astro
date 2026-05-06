@@ -211,7 +211,18 @@ export const products: Product[] = [
     image: `${CDN}/ScreenShot2023-06-16at2.37.08pm.png?v=1686890275`,
     description: 'Our SeaKing Rod Holder is designed for serious anglers, keeping your gear secure during intense fishing sessions. Game-rated and built to handle the tough demands of game fishing and high drag pressures. Made from 316 marine-grade stainless steel for superior strength and corrosion resistance in saltwater environments.',
     variantId: 'gid://shopify/ProductVariant/45424556310844',
-    collections: ['on-sale'],
+    collections: ['bait-boards', 'on-sale'],
+  },
+  {
+    handle: 'leaning-post-top-only-blk',
+    title: 'SeaKing Leaning Post Top Only - BLK (700mm x 280mm)',
+    price: 690,
+    compareAtPrice: null,
+    image: 'https://cdn.shopify.com/s/files/1/0779/7529/0172/files/ScreenShot2023-06-16at2.35.36pm.png?v=1686890173',
+    image2: 'https://cdn.shopify.com/s/files/1/0779/7529/0172/files/ScreenShot2023-06-16at2.35.45pm.png?v=1686890173',
+    description: 'Designed for the serious offshore fisherman, this black gelcoat leaning post top is heavy duty with an aluminium plate fibreglassed in for post mounting — providing the stability needed when battling large pelagic fish in challenging offshore conditions. Handmade with full composite materials of the highest quality. Dimensions: 700mm x 280mm. Prices include GST.',
+    variantId: 'gid://shopify/ProductVariant/49237089059132',
+    collections: ['bait-boards', 'bait-boards-with-legs'],
   },
 ];
 
