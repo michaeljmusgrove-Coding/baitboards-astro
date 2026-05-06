@@ -217,9 +217,11 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
   </head>
   <body>
     <a href="#main-content" class="skip-link">Skip to content</a>
-    <AnnouncementBar />
     <CartDrawer client:idle />
-    <Header />
+    <div class="sticky top-0 z-50">
+      <AnnouncementBar />
+      <Header />
+    </div>
     <main id="main-content">
       <slot />
     </main>

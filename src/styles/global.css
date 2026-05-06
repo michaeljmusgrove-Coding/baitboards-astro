@@ -58,6 +58,13 @@
     color: var(--color-primary);
   }
 
+  /* When headings live inside a text-white parent, let them inherit white rather
+     than getting overridden by the element-level rule above. */
+  .text-white h1, .text-white h2, .text-white h3,
+  .text-white h4, .text-white h5, .text-white h6 {
+    color: inherit;
+  }
+
   details > summary {
     list-style: none;
   }

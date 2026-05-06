@@ -25,7 +25,7 @@ export const products: Product[] = [
     image2: `${CDN}/ScreenShot2023-06-16at9.14.56am.png?v=1686871362`,
     description: 'The SeaKing SK-B01 is a classic fiberglass bait board designed for durability and functionality on the water. Crafted with premium composite materials, it features a UV resistant PE plastic cutting board, a built-in sink with drain for convenient storage, and robust 316 marine grade stainless steel hardware. Ideal for anglers seeking a reliable and practical bait board solution.',
     variantId: 'gid://shopify/ProductVariant/49207450272060',
-    collections: ['bait-boards'],
+    collections: ['bait-boards', 'on-sale'],
   },
   {
     handle: 'bait-board-b02',
@@ -36,7 +36,7 @@ export const products: Product[] = [
     image2: `${CDN}/ScreenShot2023-06-16at11.54.54am.png?v=1725592878`,
     description: 'The SeaKing SK-B02 is identical to our traditional B01 and B03 models but enhanced with integrated moulded cup holders for added convenience. Experience the same quality craftsmanship and functionality of our classic models, now with the luxury of built-in cup holders, perfect for enjoying your time on the water with added comfort and practicality.',
     variantId: 'gid://shopify/ProductVariant/49209924157756',
-    collections: ['bait-boards'],
+    collections: ['bait-boards', 'on-sale'],
   },
   {
     handle: 'bait-board-b03',
@@ -47,7 +47,7 @@ export const products: Product[] = [
     image2: `${CDN}/ScreenShot2023-06-16at11.58.10am.png?v=1686880755`,
     description: 'Crafted for anglers who appreciate tradition and quality, the SeaKing SK-B03 fiberglass bait board features a UV resistant PE plastic cutting board, a convenient sink with drain for storage, and robust 316 marine grade stainless steel hardware. Meticulously handmade using top-grade composite materials for durability and reliability on the water.',
     variantId: 'gid://shopify/ProductVariant/49211385479484',
-    collections: ['bait-boards'],
+    collections: ['bait-boards', 'on-sale'],
   },
   {
     handle: 'bait-board-b04',
@@ -69,7 +69,7 @@ export const products: Product[] = [
     image2: `${CDN}/bait-board-h10-5.png?v=1725592075`,
     description: 'The SeaKing SK-H10 is a premium fiberglass bait board, handcrafted from full composite materials. Featuring a UV-resistant PE plastic cutting board, a large integrated sink and drain, with optional rod holders and cup holders for added versatility. A spacious rear knife tray keeps tools within easy reach.',
     variantId: 'gid://shopify/ProductVariant/49211657355580',
-    collections: ['bait-boards'],
+    collections: ['bait-boards', 'on-sale'],
   },
   {
     handle: 'bait-board-sk-h10b',
@@ -80,7 +80,7 @@ export const products: Product[] = [
     image2: `${CDN}/ScreenShot2023-06-16at2.16.23pm.png?v=1686889032`,
     description: 'The SeaKing SK-H10B is the black gelcoat variant of our premium H10 lineup. Crafted with high-quality composite materials, featuring a UV-resistant PE plastic surface. Includes a generously sized sink with drain fitting and hose. The rear boasts a spacious knife tray, maximising cutting space while minimising onboard footprint.',
     variantId: 'gid://shopify/ProductVariant/49211688223036',
-    collections: ['bait-boards'],
+    collections: ['bait-boards', 'on-sale'],
   },
   {
     handle: 'bait-board-hh-14',
@@ -91,7 +91,7 @@ export const products: Product[] = [
     image2: `${CDN}/ScreenShot2023-06-16at2.23.32pm.png?v=1686889495`,
     description: 'The SeaKing HH-14 is a compact version of our SeaKing H-10, offering the luxury of built-in cup holders on each side. This model also features a knife compartment and a spacious sink compartment. Designed as a high-end board suitable for both large and small vessels, constructed from premium composite materials with a UV-resistant PE plastic cutting board.',
     variantId: 'gid://shopify/ProductVariant/50023517847868',
-    collections: ['bait-boards'],
+    collections: ['bait-boards', 'on-sale'],
   },
   {
     handle: 'bait-board-hj-15',
@@ -102,7 +102,7 @@ export const products: Product[] = [
     image2: `${CDN}/ScreenShot2023-06-16at2.29.42pm.png?v=1725597456`,
     description: 'The SeaKing HJ-15 builds on the SK-J07 with the added luxury of integrated cup holders, a large sink, and a dedicated knife compartment. Made of full composite material of the highest quality with a UV resistant PE plastic cutting board — everything you need for efficient bait prep on the water.',
     variantId: 'gid://shopify/ProductVariant/49211481850172',
-    collections: ['bait-boards'],
+    collections: ['bait-boards', 'on-sale'],
   },
   {
     handle: 'bait-board-jj-12',
@@ -113,7 +113,7 @@ export const products: Product[] = [
     image2: `${CDN}/ScreenShot2023-06-16at2.19.27pm.png?v=1725596385`,
     description: 'The SeaKing JJ-12 bait board is a compact and capable model featuring an integrated cup holder, knife tray, and large sink. Handmade with full composite material of the highest quality with a UV resistant PE plastic cutting board — a great option for smaller vessels or as a secondary board.',
     variantId: 'gid://shopify/ProductVariant/49211549778236',
-    collections: ['bait-boards'],
+    collections: ['bait-boards', 'on-sale'],
   },
   {
     handle: 'bait-board-sk-e09',
@@ -124,7 +124,7 @@ export const products: Product[] = [
     image2: `${CDN}/ScreenShot2023-06-16at12.50.34pm.png?v=1725599272`,
     description: 'The SeaKing SK-E09 stands out as a premium option in the SeaKing range, characterised by its ergonomic design. It includes a spacious knife tray positioned at the front for quick and easy access, along with a deep storage sink featuring a drain. A distinctive raised lip around the sides and back ensures secure retention of items even in rough offshore conditions.',
     variantId: 'gid://shopify/ProductVariant/49211567472956',
-    collections: ['bait-boards'],
+    collections: ['bait-boards', 'on-sale'],
   },
   {
     handle: 'bait-board-sk-e09-blk',
@@ -135,7 +135,7 @@ export const products: Product[] = [
     image2: `${CDN}/ScreenShot2023-06-16at12.57.08pm.png?v=1686884259`,
     description: 'The SeaKing SK-E09 (Black) is now available in a sleek black gel coat finish. Crafted with an emphasis on ergonomic design, this premium model boasts a spacious knife tray at the front for quick access and a deep storage sink complete with a drain. A raised lip around the sides and back ensures secure retention of items even in rough conditions.',
     variantId: 'gid://shopify/ProductVariant/49211629044028',
-    collections: ['bait-boards'],
+    collections: ['bait-boards', 'on-sale'],
   },
   {
     handle: 'bait-board-sk-j07',
@@ -146,7 +146,7 @@ export const products: Product[] = [
     image2: `${CDN}/bait-board-j07-5.png?v=1725592075`,
     description: 'The SeaKing SK-J07 boasts a sophisticated and durable design, featuring a sleek appearance complemented by a spacious knife tray and storage sink. Available in white gelcoat finish, meticulously handcrafted using premium composite materials including a UV resistant PE plastic cutting board for lasting performance on the water.',
     variantId: 'gid://shopify/ProductVariant/49211827618108',
-    collections: ['bait-boards'],
+    collections: ['bait-boards', 'on-sale'],
   },
   {
     handle: 'bait-board-sk-k08-blk',
@@ -168,7 +168,7 @@ export const products: Product[] = [
     image2: `${CDN}/ScreenShot2023-06-16at12.09.00pm.png?v=1686881396`,
     description: 'The SeaKing SKL-L06 is a heavy-duty bait board designed for serious anglers, featuring integrated cup holders, a knife tray, and a generously sized storage sink that spans nearly the entire length of the board. With the widest variety of mounting points available, these boards accommodate vessels of all sizes. Handcrafted using premium composite materials with a UV resistant PE plastic cutting board.',
     variantId: 'gid://shopify/ProductVariant/45423515140412',
-    collections: ['bait-boards', 'bait-boards-with-legs'],
+    collections: ['bait-boards', 'bait-boards-with-legs', 'on-sale'],
   },
   {
     handle: 'bait-board-skl-s05',
@@ -179,7 +179,7 @@ export const products: Product[] = [
     image2: `${CDN}/ScreenShot2023-06-16at12.02.59pm.png?v=1686881055`,
     description: 'The SeaKing SKL-S05 is a robust bait board featuring integrated cup holders, a knife tray, and a spacious storage sink that extends nearly the entire length of the board. Designed with the largest variety of mounting points to accommodate vessels of any size. Handcrafted from top-quality composite materials with a UV resistant PE plastic cutting board.',
     variantId: 'gid://shopify/ProductVariant/45423489974588',
-    collections: ['bait-boards', 'bait-boards-with-legs'],
+    collections: ['bait-boards', 'bait-boards-with-legs', 'on-sale'],
   },
   {
     handle: 'bait-board-sq-13',
