@@ -1,0 +1,75 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "FAQs | Bait Boards Direct";
+const description = "Frequently asked questions about Bait Boards Direct — shipping, installation, product sizing, materials, and warranty.";
+
+const faqs = [
+  {
+    q: "What are your bait boards made from?",
+    a: "All SeaKing bait boards are handcrafted from full composite fiberglass materials. They feature a UV-resistant PE plastic cutting board surface, integrated sink and drain, and optional rod and cup holders. Built to handle offshore conditions.",
+  },
+  {
+    q: "Do you offer free shipping?",
+    a: "Yes — we offer free shipping on all orders across Australia. Delivery is via road freight for larger boards and express post for accessories.",
+  },
+  {
+    q: "How long does delivery take?",
+    a: "Most orders are dispatched within 1–3 business days. Delivery to metro areas typically takes 3–7 business days. Regional and remote areas may take longer. You'll receive a tracking number once your order is dispatched.",
+  },
+  {
+    q: "Can I return a product if it doesn't suit my vessel?",
+    a: "Yes. Please review our Returns & Refunds Policy for full details. Unused products in original packaging can be returned within 30 days of delivery.",
+  },
+  {
+    q: "How do I choose the right bait board size?",
+    a: "Board dimensions are listed in the product title (e.g. 700mm x 420mm). Measure your gunnel or leaning post mounting area first. If you're unsure, contact us — we're happy to help you find the right fit.",
+  },
+  {
+    q: "Do the bait boards come with mounting hardware?",
+    a: "Most boards include a standard mounting kit. Stainless steel 316-grade mounting legs and bases are available separately as an optional upgrade.",
+  },
+  {
+    q: "Are the boards suitable for saltwater use?",
+    a: "Absolutely. All SeaKing boards are designed for marine environments. The fiberglass construction is fully saltwater resistant, and stainless steel fittings are 316-grade marine grade.",
+  },
+];
+
+const schema = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: faqs.map(({ q, a }) => ({
+    "@type": "Question",
+    name: q,
+    acceptedAnswer: { "@type": "Answer", text: a },
+  })),
+};
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+  <section class="bg-bg-alt py-16 sm:py-20">
+    <div class="container max-w-3xl">
+      <h1 class="font-heading mb-10 text-3xl font-bold text-primary sm:text-4xl">Frequently Asked Questions</h1>
+
+      <div class="space-y-3">
+        {faqs.map(({ q, a }, i) => (
+          <details class="group rounded-xl border border-border bg-white" open={i === 0}>
+            <summary class="flex cursor-pointer items-center justify-between px-5 py-4 font-heading text-sm font-semibold text-primary">
+              {q}
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 rotate-0 transition-transform group-open:rotate-180 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </summary>
+            <div class="border-t border-border px-5 py-4 text-sm leading-relaxed text-text-muted">
+              {a}
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <p class="mt-10 text-sm text-text-muted">
+        Can't find your answer? <a href="/contact" class="font-semibold text-primary underline underline-offset-2 hover:text-accent transition-colors">Get in touch</a> and we'll help you out.
+      </p>
+    </div>
+  </section>
+</BaseLayout>

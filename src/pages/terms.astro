@@ -1,0 +1,45 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+
+const title = "Terms of Service | Bait Boards Direct";
+const description = "Terms of service for Bait Boards Direct. By placing an order you agree to these terms.";
+---
+
+<BaseLayout title={title} description={description}>
+  <section class="bg-bg-alt py-16 sm:py-20">
+    <div class="container max-w-3xl">
+      <h1 class="font-heading mb-8 text-3xl font-bold text-primary sm:text-4xl">Terms of Service</h1>
+      <div class="prose max-w-none text-text-muted space-y-6 text-sm leading-relaxed">
+
+        <p>By accessing or placing an order through {site.domain}, you agree to be bound by these Terms of Service. Please read them carefully.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Products</h2>
+        <p>We reserve the right to discontinue any product at any time. Prices are subject to change without notice. Product images are for illustrative purposes; slight colour variations may occur.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Orders</h2>
+        <p>We reserve the right to refuse or cancel any order at our discretion, including orders that appear to be placed by dealers or resellers. If your order is cancelled after payment, a full refund will be issued.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Payment</h2>
+        <p>All prices are listed in Australian Dollars (AUD) and include GST. Payment is processed securely through Shopify Payments. We accept major credit cards, PayPal, and Afterpay.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Shipping</h2>
+        <p>See our <a href="/shipping" class="text-primary underline underline-offset-2 hover:text-accent transition-colors">Shipping Policy</a> for full details. Title and risk of loss pass to you upon delivery.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Returns</h2>
+        <p>See our <a href="/returns" class="text-primary underline underline-offset-2 hover:text-accent transition-colors">Returns & Refunds Policy</a> for full details.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Limitation of Liability</h2>
+        <p>To the maximum extent permitted by law, {site.name} shall not be liable for any indirect, incidental, or consequential damages arising from your use of our products or website. Our total liability shall not exceed the purchase price of the product in question.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Governing Law</h2>
+        <p>These terms are governed by the laws of Victoria, Australia. Any disputes will be subject to the exclusive jurisdiction of Victorian courts.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Changes to Terms</h2>
+        <p>We may update these terms from time to time. The date of the last update is shown below. Continued use of the site constitutes acceptance of the updated terms.</p>
+
+        <p class="text-xs text-text-muted/70 pt-4 border-t border-border">Last updated: May 2026</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
