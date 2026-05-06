@@ -162,6 +162,10 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
     <link rel="dns-prefetch" href="https://cdn.shopify.com" />
     <link rel="dns-prefetch" href="https://baitboardsdirect.myshopify.com" />
 
+    <!-- Self-hosted fonts (no Google Fonts external request) -->
+    <link rel="preload" href="/fonts/fonts.css" as="style" />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
+
     {preloadImage && (
       <>
         {/* AVIF preload for ~95% of browsers (2026). CSS image-set() falls back to JPG. */}

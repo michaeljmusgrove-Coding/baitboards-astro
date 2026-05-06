@@ -1,9 +1,9 @@
 import { z } from "zod";
 
 export const configSchema = z.object({
-  shopifyShop: z.string(),
-  publicShopifyAccessToken: z.string(),
-  privateShopifyAccessToken: z.string(),
+  shopifyShop: z.string().default(""),
+  publicShopifyAccessToken: z.string().default(""),
+  privateShopifyAccessToken: z.string().default(""),
   apiVersion: z.string(),
 });
 
