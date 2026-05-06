@@ -1,129 +1,184 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../config/site';
+import { products, getByCollection, formatPrice } from '../data/products';
 
 const title = `${site.name} — ${site.tagline}`;
-const description = site.description;
+const description = "Your one-stop shop for premium bait boards designed for fishing enthusiasts who demand the best. Whether you're prepping bait, filleting your catch, or just need a durable, functional surface on your boat, our bait boards are built to enhance your fishing experience.";
+
+const featuredProducts = getByCollection('bait-boards');
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} preloadImage="/images/hero-marina.jpg">
 
-  <!-- Hero -->
-  <section class="bg-dark-hero text-white">
-    <div class="container py-20 sm:py-28">
-      <div class="max-w-2xl">
-        <p class="font-heading mb-3 text-sm font-semibold uppercase tracking-widest text-accent">
-          Australian Made · Composite Fiberglass
-        </p>
-        <h1 class="font-heading mb-6 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
-          Premium Bait Boards<br class="hidden sm:block" /> for Serious Anglers
-        </h1>
-        <p class="mb-8 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
-          SeaKing bait boards and fillet tables — handcrafted from composite fiberglass with marine-grade
-          stainless fittings. Built for offshore. Free delivery across Australia.
-        </p>
-        <div class="flex flex-wrap gap-4">
-          <a href="/collections/bait-boards" class="button-accent">Shop Bait Boards</a>
-          <a href="/about" class="button">About Us</a>
+  <!-- Hero Slideshow -->
+  <section class="relative overflow-hidden bg-dark-hero" style="height: clamp(480px, 70vh, 780px);">
+
+    <!-- Slide 1 (default visible) -->
+    <div id="slide-1" class="hero-slide absolute inset-0 transition-opacity duration-700">
+      <img
+        src="/images/hero-marina.jpg"
+        alt="Bait Boards Direct"
+        class="h-full w-full object-cover object-center"
+        width="1500"
+        height="1000"
+        fetchpriority="high"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="container text-center text-white">
+          <h1 class="font-heading mb-6 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+            You're here <strong>Because Every Boat Needs One!</strong>
+          </h1>
+          <a href="/collections/bait-boards" class="button-accent inline-block">Shop now</a>
         </div>
       </div>
     </div>
+
+    <!-- Slide 2 -->
+    <div id="slide-2" class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700" aria-hidden="true">
+      <picture>
+        <source media="(max-width: 767px)" srcset="/images/hero-mobile.jpg" />
+        <img
+          src="/images/hero-2.jpg"
+          alt="Bait Boards Direct — Built Tough"
+          class="h-full w-full object-cover object-center"
+          width="1500"
+          height="1000"
+          loading="lazy"
+        />
+      </picture>
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="container text-center text-white">
+          <h2 class="font-heading mb-6 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+            Built Tough, Designed for You
+          </h2>
+          <a href="/collections/bait-boards" class="button-accent inline-block">Shop now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide indicators -->
+    <div class="absolute bottom-5 left-0 right-0 flex justify-center gap-2" aria-label="Slideshow navigation">
+      <button id="dot-1" class="hero-dot h-2 w-6 rounded-full bg-white transition-all" aria-label="Slide 1"></button>
+      <button id="dot-2" class="hero-dot h-2 w-6 rounded-full bg-white/40 transition-all" aria-label="Slide 2"></button>
+    </div>
   </section>
 
+  <!-- Hero slideshow JS -->
+  <script is:inline>
+    (function () {
+      var current = 1;
+      var total = 2;
+      var interval;
+      function show(n) {
+        for (var i = 1; i <= total; i++) {
+          var slide = document.getElementById('slide-' + i);
+          var dot = document.getElementById('dot-' + i);
+          if (slide) { slide.style.opacity = i === n ? '1' : '0'; slide.setAttribute('aria-hidden', i === n ? 'false' : 'true'); }
+          if (dot) { dot.style.backgroundColor = i === n ? 'white' : 'rgba(255,255,255,0.4)'; }
+        }
+        current = n;
+      }
+      function next() { show(current === total ? 1 : current + 1); }
+      interval = setInterval(next, 6000);
+      document.getElementById('dot-1').addEventListener('click', function () { clearInterval(interval); show(1); interval = setInterval(next, 6000); });
+      document.getElementById('dot-2').addEventListener('click', function () { clearInterval(interval); show(2); interval = setInterval(next, 6000); });
+    })();
+  </script>
+
   <!-- Trust bar -->
-  <section class="border-y border-border bg-white">
-    <div class="container py-5">
-      <ul class="flex flex-wrap justify-center gap-6 text-sm font-semibold text-primary sm:gap-10">
+  <section class="border-b border-border bg-white">
+    <div class="container py-4">
+      <ul class="flex flex-wrap justify-center gap-5 text-sm font-semibold text-primary sm:gap-10">
         <li class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-          Free Shipping Nationwide
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+          Free Shipping Australia Wide
         </li>
         <li class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-          Composite Fiberglass Build
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+          Full Composite Fiberglass
         </li>
         <li class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-          Marine-Grade Stainless 316
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+          316 Marine-Grade Stainless
         </li>
         <li class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
           Afterpay Available
         </li>
       </ul>
     </div>
   </section>
 
-  <!-- Shop collections -->
-  <section class="bg-bg-alt py-16 sm:py-20">
+  <!-- Featured Products: Fiberglass Bait Boards -->
+  <section class="bg-white py-14 sm:py-20">
     <div class="container">
       <h2 class="font-heading mb-10 text-center text-2xl font-bold text-primary sm:text-3xl">
-        Shop by Category
+        Fiberglass Bait Boards
       </h2>
-      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        <a href="/collections/bait-boards" class="group rounded-2xl border border-border bg-white p-8 shadow-sm transition hover:shadow-md">
-          <p class="font-heading mb-2 text-lg font-bold text-primary group-hover:text-accent transition-colors">Bait Boards</p>
-          <p class="text-sm leading-relaxed text-text-muted">Full composite fiberglass bait boards with integrated sink, drain, and rod holders.</p>
-          <p class="mt-4 text-sm font-semibold text-primary group-hover:text-accent transition-colors">Browse range →</p>
-        </a>
-        <a href="/collections/bait-boards-with-legs" class="group rounded-2xl border border-border bg-white p-8 shadow-sm transition hover:shadow-md">
-          <p class="font-heading mb-2 text-lg font-bold text-primary group-hover:text-accent transition-colors">Boards with Legs</p>
-          <p class="text-sm leading-relaxed text-text-muted">Bait boards with stainless 316 adjustable legs for gunnel or leaning post mounting.</p>
-          <p class="mt-4 text-sm font-semibold text-primary group-hover:text-accent transition-colors">Browse range →</p>
-        </a>
-        <a href="/collections/on-sale" class="group rounded-2xl border border-border bg-white p-8 shadow-sm transition hover:shadow-md">
-          <p class="font-heading mb-2 text-lg font-bold text-sale group-hover:underline transition-colors">On Sale</p>
-          <p class="text-sm leading-relaxed text-text-muted">Discounted boards and accessories — limited stock while they last.</p>
-          <p class="mt-4 text-sm font-semibold text-sale">View sale items →</p>
-        </a>
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+        {featuredProducts.map((product) => {
+          const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
+          return (
+            <a
+              href={`/products/${product.handle}`}
+              class="group block rounded-xl border border-border bg-white overflow-hidden transition hover:shadow-md"
+            >
+              <div class="relative aspect-square overflow-hidden bg-bg-alt">
+                {onSale && (
+                  <span class="absolute top-2 left-2 z-10 rounded bg-sale px-2 py-0.5 text-xs font-bold text-white">
+                    SALE
+                  </span>
+                )}
+                <img
+                  src={product.image}
+                  alt={product.title}
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                />
+              </div>
+              <div class="p-3 sm:p-4">
+                <h3 class="font-heading text-xs font-semibold leading-snug text-primary line-clamp-2 sm:text-sm">
+                  {product.title}
+                </h3>
+                <div class="mt-2 flex items-center gap-2 flex-wrap">
+                  <span class={`text-sm font-bold ${onSale ? 'text-sale' : 'text-primary'}`}>
+                    {formatPrice(product.price)}
+                  </span>
+                  {onSale && product.compareAtPrice && (
+                    <span class="text-xs text-text-muted line-through">
+                      {formatPrice(product.compareAtPrice)}
+                    </span>
+                  )}
+                </div>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+      <div class="mt-10 text-center">
+        <a href="/collections/bait-boards" class="button-accent">View All Bait Boards</a>
       </div>
     </div>
   </section>
 
-  <!-- Why SeaKing -->
-  <section class="py-16 sm:py-20">
-    <div class="container max-w-4xl">
-      <h2 class="font-heading mb-10 text-center text-2xl font-bold text-primary sm:text-3xl">
-        Built for Offshore. Designed to Last.
-      </h2>
-      <div class="grid gap-8 sm:grid-cols-2">
-        <div>
-          <h3 class="font-heading mb-2 text-base font-bold text-primary">Full Composite Fiberglass</h3>
-          <p class="text-sm leading-relaxed text-text-muted">
-            Every SeaKing board is handcrafted from full composite fiberglass — not marine ply, not aluminium.
-            Impervious to rot, corrosion, and UV degradation.
-          </p>
-        </div>
-        <div>
-          <h3 class="font-heading mb-2 text-base font-bold text-primary">PE Plastic Cutting Surface</h3>
-          <p class="text-sm leading-relaxed text-text-muted">
-            UV-resistant polyethylene cutting board surface. Food-safe, easy to clean, won't stain or absorb odours.
-          </p>
-        </div>
-        <div>
-          <h3 class="font-heading mb-2 text-base font-bold text-primary">Integrated Sink & Drain</h3>
-          <p class="text-sm leading-relaxed text-text-muted">
-            Built-in stainless sink and drain on all full-size boards. Connect a standard hose fitting and you're done.
-          </p>
-        </div>
-        <div>
-          <h3 class="font-heading mb-2 text-base font-bold text-primary">Direct from Manufacturer</h3>
-          <p class="text-sm leading-relaxed text-text-muted">
-            We manufacture and sell direct, with no markup from distributors. Premium quality at a fair price.
-          </p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- FAQ teaser -->
-  <section class="bg-bg-alt py-16 sm:py-20">
-    <div class="container max-w-2xl text-center">
-      <h2 class="font-heading mb-4 text-2xl font-bold text-primary">Have questions?</h2>
-      <p class="mb-6 text-sm leading-relaxed text-text-muted">
-        Check our FAQ for answers on sizing, installation, shipping, and more.
+  <!-- About / Brand strip -->
+  <section class="bg-bg-alt py-14 sm:py-20">
+    <div class="container max-w-4xl text-center">
+      <img src="/images/shark-logo.png" alt="" class="mx-auto mb-6 h-16 w-auto" width="64" height="64" loading="lazy" aria-hidden="true" />
+      <h2 class="font-heading mb-5 text-2xl font-bold text-primary sm:text-3xl">Your one-stop shop for premium bait boards</h2>
+      <p class="mx-auto max-w-2xl text-sm leading-relaxed text-text-muted sm:text-base">
+        Designed for fishing enthusiasts who demand the best. Whether you're prepping bait, filleting your catch, or just need a durable, functional surface on your boat, our bait boards are built to enhance your fishing experience.
       </p>
-      <a href="/faqs" class="button">View FAQs</a>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a href="/collections/bait-boards" class="button-accent">Shop now</a>
+        <a href="/about" class="button">About us</a>
+      </div>
     </div>
   </section>
 

@@ -153,7 +153,8 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang="en-AU" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="google-site-verification" content={site.seo.googleVerification} />
 
     <!-- DNS prefetch only — analytics are deferred until idle, so preconnect
          would be flagged as unused by Lighthouse during measurement window -->
@@ -244,13 +245,12 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
       })();
     </script>
 
-    <!-- Analytics: GA4 + Microsoft Clarity.
-         Both deferred until after page load + requestIdleCallback to keep LCP/TBT clean.
-         Scripts only inject if IDs are configured (not __TODO__). -->
+    <!-- Analytics: GTM + Microsoft Clarity.
+         Both deferred until after page load + requestIdleCallback to keep LCP/TBT clean. -->
     <script
       is:inline
       define:vars={{
-        ga4Id: site.analytics.ga4,
+        gtmId: site.analytics.gtm,
         clarityId: site.analytics.clarityId,
       }}
     >
@@ -259,16 +259,13 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
           if (window.__bbdAnalyticsLoaded) return;
           window.__bbdAnalyticsLoaded = true;
 
-          if (ga4Id && !ga4Id.startsWith('__TODO__')) {
+          if (gtmId && !gtmId.startsWith('__TODO__')) {
             window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            window.gtag = gtag;
-            gtag('js', new Date());
-            gtag('config', ga4Id);
-            var ga = document.createElement('script');
-            ga.async = true;
-            ga.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
-            document.head.appendChild(ga);
+            window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            var gtm = document.createElement('script');
+            gtm.async = true;
+            gtm.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtmId;
+            document.head.appendChild(gtm);
           }
 
           if (clarityId && !clarityId.startsWith('__TODO__')) {

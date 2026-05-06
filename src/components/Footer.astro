@@ -28,13 +28,11 @@ const hasInstagram = !site.social.instagram.includes('__TODO__');
 
       <!-- Brand -->
       <div>
-        <a href="/" class="inline-block mb-4">
-          <span class="font-heading text-xl font-bold text-white">
-            BAIT BOARDS <span class="text-accent">DIRECT</span>
-          </span>
+        <a href="/" class="inline-block mb-5">
+          <img src="/images/logo.png" alt="Bait Boards Direct" width="180" height="47" class="h-9 w-auto brightness-0 invert" loading="lazy" />
         </a>
         <p class="text-sm leading-relaxed text-white/55 max-w-xs">
-          Premium fiberglass bait boards for serious Australian anglers. Built tough, priced fair — sourced direct from the manufacturer.
+          At Bait Boards Direct, we're all about top-quality bait boards that make your fishing trips easier and more fun. Built tough and ready for action!
         </p>
 
         {(hasFacebook || hasInstagram) && (
@@ -71,9 +69,9 @@ const hasInstagram = !site.social.instagram.includes('__TODO__');
         </ul>
       </div>
 
-      <!-- Legal -->
+      <!-- Legal / More info -->
       <div>
-        <h3 class="font-heading mb-4 text-xs font-semibold uppercase tracking-widest text-white">Legal</h3>
+        <h3 class="font-heading mb-4 text-xs font-semibold uppercase tracking-widest text-white">More Info</h3>
         <ul class="space-y-2.5">
           {legalLinks.map(({ href, label }) => (
             <li>
@@ -82,6 +80,9 @@ const hasInstagram = !site.social.instagram.includes('__TODO__');
               </a>
             </li>
           ))}
+          <li>
+            <a href="/contact" class="text-sm text-white/55 transition-colors hover:text-accent">Contact Us</a>
+          </li>
         </ul>
       </div>
     </div>
@@ -92,7 +93,7 @@ const hasInstagram = !site.social.instagram.includes('__TODO__');
         &copy; {year} {site.name}. All rights reserved.
       </p>
       <p class="text-xs text-white/35">
-        South East Melbourne, Australia
+        Website and Marketing by <a href="https://fadigital.com.au" target="_blank" rel="noopener noreferrer" class="hover:text-white/60 transition-colors">FA Digital</a>
       </p>
     </div>
   </div>

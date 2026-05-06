@@ -1,6 +1,14 @@
 ---
-// Text logo placeholder — replace with actual SVG/image asset when supplied by client
+interface Props {
+  class?: string;
+}
+const { class: className = '' } = Astro.props;
 ---
-<span class="font-heading text-lg font-bold tracking-wide text-white sm:text-xl">
-  BAIT BOARDS <span class="text-accent">DIRECT</span>
-</span>
+<img
+  src="/images/logo.png"
+  alt="Bait Boards Direct"
+  width="200"
+  height="53"
+  class={`h-10 w-auto object-contain ${className}`}
+  loading="eager"
+/>
