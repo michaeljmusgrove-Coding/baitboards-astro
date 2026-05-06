@@ -56,18 +56,19 @@ const productSchema = {
     <div class="container">
       <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
 
-        <!-- Images -->
-        <div class="space-y-4">
+        <!-- Image gallery -->
+        <div>
           <div class="relative overflow-hidden rounded-2xl bg-bg-alt" style="aspect-ratio: 1 / 1;">
-            {onSale && (
-              <span class="absolute top-3 left-3 z-10 rounded bg-sale px-2.5 py-1 text-xs font-bold text-white">
-                SALE
+            {onSale && product.compareAtPrice && (
+              <span class="absolute top-3 left-3 z-10 rounded bg-sale px-2.5 py-1 text-xs font-bold text-white leading-tight">
+                Save {formatPrice(product.compareAtPrice - product.price)}
               </span>
             )}
             <img
+              id="gallery-main"
               src={product.image}
               alt={product.title}
-              class="h-full w-full object-cover"
+              class="h-full w-full object-cover transition-opacity duration-200"
               width="600"
               height="600"
               fetchpriority="high"
@@ -75,18 +76,41 @@ const productSchema = {
             />
           </div>
           {product.image2 && (
-            <div class="overflow-hidden rounded-2xl bg-bg-alt" style="aspect-ratio: 1 / 1;">
-              <img
-                src={product.image2}
-                alt={`${product.title} — alternate view`}
-                class="h-full w-full object-cover"
-                width="600"
-                height="600"
-                loading="lazy"
-              />
+            <div class="mt-3 flex gap-2">
+              <button
+                class="gallery-thumb h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 border-accent bg-bg-alt transition-colors"
+                data-src={product.image}
+                aria-label="View image 1"
+              >
+                <img src={product.image} alt="" class="h-full w-full object-cover" width="64" height="64" loading="eager" />
+              </button>
+              <button
+                class="gallery-thumb h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 border-border bg-bg-alt transition-colors hover:border-accent"
+                data-src={product.image2}
+                aria-label="View image 2"
+              >
+                <img src={product.image2} alt="" class="h-full w-full object-cover" width="64" height="64" loading="lazy" />
+              </button>
             </div>
           )}
         </div>
+        <script is:inline>
+          (function () {
+            var main = document.getElementById('gallery-main');
+            if (!main) return;
+            document.querySelectorAll('.gallery-thumb').forEach(function (btn) {
+              btn.addEventListener('click', function () {
+                main.src = btn.dataset.src;
+                document.querySelectorAll('.gallery-thumb').forEach(function (b) {
+                  b.classList.remove('border-accent');
+                  b.classList.add('border-border');
+                });
+                btn.classList.remove('border-border');
+                btn.classList.add('border-accent');
+              });
+            });
+          })();
+        </script>
 
         <!-- Info -->
         <div class="flex flex-col">
@@ -103,8 +127,8 @@ const productSchema = {
                 <span class="text-base text-text-muted line-through">
                   {formatPrice(product.compareAtPrice)}
                 </span>
-                <span class="rounded bg-sale px-2 py-0.5 text-xs font-bold text-white">
-                  SALE
+                <span class="rounded bg-sale px-2 py-0.5 text-xs font-bold text-white leading-tight">
+                  Save {formatPrice(product.compareAtPrice - product.price)}
                 </span>
               </>
             )}

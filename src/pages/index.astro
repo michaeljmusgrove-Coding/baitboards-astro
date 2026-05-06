@@ -119,18 +119,18 @@ const featuredProducts = getByCollection('bait-boards');
       <h2 class="font-heading mb-10 text-center text-2xl font-bold text-primary sm:text-3xl">
         Fiberglass Bait Boards
       </h2>
-      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-4">
+      <div class="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {featuredProducts.map((product) => {
           const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
           return (
             <a
               href={`/products/${product.handle}`}
-              class="group block rounded-xl border border-border bg-white overflow-hidden transition hover:shadow-md"
+              class="group block rounded-xl border border-border bg-white overflow-hidden transition hover:shadow-md shrink-0 w-[47%] snap-start sm:w-auto"
             >
               <div class="relative aspect-square overflow-hidden bg-bg-alt">
-                {onSale && (
-                  <span class="absolute top-2 left-2 z-10 rounded bg-sale px-2 py-0.5 text-xs font-bold text-white">
-                    SALE
+                {onSale && product.compareAtPrice && (
+                  <span class="absolute top-2 left-2 z-10 rounded bg-sale px-2 py-0.5 text-xs font-bold text-white leading-tight">
+                    Save {formatPrice(product.compareAtPrice - product.price)}
                   </span>
                 )}
                 <img
@@ -164,6 +164,17 @@ const featuredProducts = getByCollection('bait-boards');
       <div class="mt-10 text-center">
         <a href="/collections/bait-boards" class="button-accent">View All Bait Boards</a>
       </div>
+    </div>
+  </section>
+
+  <!-- Contact strip -->
+  <section class="bg-dark-hero py-14 text-white">
+    <div class="container max-w-3xl text-center">
+      <h2 class="font-heading mb-4 text-2xl font-bold sm:text-3xl">Have a question?</h2>
+      <p class="mb-8 text-sm leading-relaxed text-white/70">
+        Need sizing advice, want to discuss bulk pricing, or have a question about installation? We're here to help — get in touch and we'll get back to you fast.
+      </p>
+      <a href="/contact" class="button-accent mx-auto w-fit">Contact Us</a>
     </div>
   </section>
 

@@ -35,9 +35,9 @@ const products = getByCollection('on-sale');
               class="group block rounded-xl border border-border bg-white overflow-hidden transition hover:shadow-md"
             >
               <div class="relative aspect-square overflow-hidden bg-bg-alt">
-                {onSale && (
-                  <span class="absolute top-2 left-2 z-10 rounded bg-sale px-2 py-0.5 text-xs font-bold text-white">
-                    SALE
+                {onSale && product.compareAtPrice && (
+                  <span class="absolute top-2 left-2 z-10 rounded bg-sale px-2 py-0.5 text-xs font-bold text-white leading-tight">
+                    Save {formatPrice(product.compareAtPrice - product.price)}
                   </span>
                 )}
                 <img
