@@ -1,12 +1,11 @@
 @import "tailwindcss";
 
 @theme {
-  /* BBD brand palette — redesigned to match live baitboardsdirect.com */
+  /* BBD brand palette */
   --color-primary:     #07272e;
   --color-dark-hero:   #07272e;
   --color-dark-alt:    #07272e;
   --color-accent:      #008c9e;
-  --color-accent-hover: #07272e;
   --color-text-muted:  #666666;
   --color-border:      #e6e6e6;
   --color-bg-alt:      #f7f7f7;
@@ -47,7 +46,6 @@
 
   body {
     @apply flex min-h-screen flex-col;
-    font-family: "Archivo", sans-serif;
     color: #000000;
     background-color: #ffffff;
   }
@@ -68,38 +66,30 @@
     letter-spacing: -0.02em;
   }
 
-  /* When headings live inside a text-white parent, let them inherit white */
+  h3 {
+    font-style: normal;
+    text-transform: none;
+  }
+
+  /* When headings live inside a text-white parent, inherit white */
   .text-white h1, .text-white h2, .text-white h3,
   .text-white h4, .text-white h5, .text-white h6 {
     color: inherit;
   }
 
-  details > summary {
-    list-style: none;
-  }
-  details > summary::-webkit-details-marker {
-    display: none;
-  }
+  details > summary { list-style: none; }
+  details > summary::-webkit-details-marker { display: none; }
 
-  *,
-  :before,
-  :after {
-    border-color: var(--color-border);
-  }
+  *, :before, :after { border-color: var(--color-border); }
 
-  /* Scroll-reveal animation classes */
-  .reveal,
-  .reveal-fade,
-  .reveal-zoom,
-  .reveal-stagger {
+  /* Scroll-reveal */
+  .reveal, .reveal-fade, .reveal-zoom, .reveal-stagger {
     opacity: 0;
     transform: translateY(16px);
     transition: opacity 0.4s ease, transform 0.4s ease;
   }
-  .reveal.is-visible,
-  .reveal-fade.is-visible,
-  .reveal-zoom.is-visible,
-  .reveal-stagger.is-visible {
+  .reveal.is-visible, .reveal-fade.is-visible,
+  .reveal-zoom.is-visible, .reveal-stagger.is-visible {
     opacity: 1;
     transform: none;
   }
@@ -121,274 +111,54 @@
     font-weight: 600;
     border-radius: 4px;
   }
-
-  /* Primary / accent button — teal pill */
-  .btn-primary,
-  .button-accent,
-  a.btn-primary,
-  button.btn-primary {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 32px;
-    background-color: #008c9e;
-    color: #ffffff !important;
-    font-family: "Archivo", sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    border-radius: 24px;
-    border: none;
-    text-decoration: none !important;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    white-space: nowrap;
-  }
-  .btn-primary:hover,
-  .button-accent:hover {
-    background-color: #07272e;
-    color: #ffffff !important;
-  }
-
-  /* Outline button */
-  .btn-outline {
-    display: inline-block;
-    padding: 12px 32px;
-    border: 2px solid #07272e;
-    color: #07272e;
-    font-family: "Archivo", sans-serif;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-size: 13px;
-    text-decoration: none;
-    border-radius: 24px;
-    transition: background-color 0.2s, color 0.2s;
-  }
-  .btn-outline:hover { background: #07272e; color: #ffffff; }
-
-  /* Dark button (previously .button) */
-  .button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    padding: 12px 32px;
-    background-color: #07272e;
-    color: #ffffff;
-    font-family: "Archivo", sans-serif;
-    font-size: 15px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    border-radius: 24px;
-    border: none;
-    text-decoration: none;
-    cursor: pointer;
-    transition: opacity 0.2s ease;
-    white-space: nowrap;
-  }
-  .button:hover { opacity: 0.8; }
-
-  /* Sale badge — square, dark */
-  .badge-sale {
-    display: inline-block;
-    background-color: #07272e;
-    color: #ffffff;
-    font-size: 11px;
-    font-weight: 700;
-    padding: 3px 8px;
-    border-radius: 0;
-    text-transform: uppercase;
-    letter-spacing: 0.04em;
-  }
-
-  /* Add to cart button on product cards */
-  .btn-add-to-cart {
-    width: 100%;
-    padding: 10px 16px;
-    margin-top: 10px;
-    background-color: #008c9e;
-    color: #ffffff;
-    font-family: "Archivo", sans-serif;
-    font-size: 13px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    border: none;
-    border-radius: 24px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-    display: block;
-  }
-  .btn-add-to-cart:hover:not([disabled]) { background-color: #07272e; }
-  .btn-add-to-cart[disabled] {
-    background-color: #a5a4ab;
-    cursor: not-allowed;
-  }
-
-  /* Hero heading */
-  .hero-slide__heading {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
-    text-transform: uppercase;
-    font-style: italic;
-    font-size: clamp(2rem, 5vw, 4rem);
-    color: #ffffff;
-    text-shadow: 0 2px 12px rgba(0,0,0,0.5);
-    line-height: 1.2;
-  }
-  .hero-slide__heading strong { display: block; }
-
-  /* Trust bar */
-  .trust-bar {
-    background: #ffffff;
-    border-top: 1px solid #e6e6e6;
-    border-bottom: 1px solid #e6e6e6;
-    padding: 12px 24px;
-    overflow-x: auto;
-  }
-  .trust-bar__list {
-    display: flex;
-    gap: 32px;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    justify-content: center;
-    align-items: center;
-    min-width: max-content;
-  }
-  .trust-bar__item {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: #07272e;
-    white-space: nowrap;
-    font-weight: 600;
-  }
-
-  /* Welcome section */
-  .section-welcome { padding: 64px 24px; background: #ffffff; }
-  .section-welcome__inner {
-    max-width: 1200px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 64px; align-items: center;
-  }
-  .section-welcome__image img { width: 100%; }
-  .section-welcome__text h2 { margin-bottom: 16px; }
-  .section-welcome__text > p { color: #444; line-height: 1.7; margin-bottom: 24px; }
-  .welcome-badges { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
-  .welcome-badges span {
-    background: #f7f7f7; border: 1px solid #e6e6e6;
-    padding: 6px 12px; font-size: 11px;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: #07272e; font-weight: 600;
-  }
-
-  /* Black Range section */
-  .section-black-range { padding: 64px 24px; background: #ffffff; }
-  .section-black-range__inner { max-width: 1200px; margin: 0 auto; }
-  .section-black-range h2 { margin-bottom: 40px; }
-  .black-range-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 40px; }
-  .black-range-card a img { width: 100%; border-radius: 4px; margin-bottom: 12px; display: block; }
-  .black-range-card__type {
-    font-size: 11px; text-transform: uppercase;
-    letter-spacing: 0.1em; color: #999; margin-bottom: 6px;
-  }
-  .black-range-card h3 { font-size: 15px; font-weight: 700; margin-bottom: 8px; font-style: normal; text-transform: none; }
-  .black-range-card h3 a { color: #07272e; text-decoration: none; }
-  .black-range-card__price { margin-bottom: 12px; font-size: 14px; display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
-  .black-range-card__price strong { color: #07272e; }
-  .black-range-card__price s { color: #999; }
-  .black-range-card__desc { font-size: 13px; color: #666; line-height: 1.65; margin-bottom: 16px; }
-
-  /* Why Choose section */
-  .section-why-choose { padding: 64px 24px; background: #f7f7f7; }
-  .section-why-choose__inner {
-    max-width: 1200px; margin: 0 auto;
-    display: grid; grid-template-columns: 1fr 1fr;
-    gap: 64px; align-items: start;
-  }
-  .why-choose__image img { width: 100%; border-radius: 4px; }
-  .why-choose__content h2 { margin-bottom: 16px; }
-  .why-choose__content > p { color: #444; line-height: 1.7; margin-bottom: 24px; }
-  .why-features { list-style: none; padding: 0; margin-top: 32px; }
-  .why-features li {
-    display: flex; flex-direction: column;
-    padding: 16px 0; border-bottom: 1px solid #e6e6e6;
-  }
-  .why-features li strong { color: #07272e; font-size: 14px; margin-bottom: 4px; font-style: normal; }
-  .why-features li span { color: #666; font-size: 13px; line-height: 1.6; }
-
-  /* Contact section */
-  .section-contact { padding: 64px 24px; background: #f7f7f7; }
-  .section-contact__inner { max-width: 640px; margin: 0 auto; }
-  .section-contact h2 { margin-bottom: 32px; }
-  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .form-field {
-    display: flex; flex-direction: column;
-    font-size: 13px; font-weight: 600;
-    color: #07272e; gap: 6px; margin-bottom: 16px;
-  }
-  .form-field input,
-  .form-field textarea {
-    padding: 10px 14px;
-    border: 1px solid #e6e6e6;
-    border-radius: 4px;
-    font-family: "Archivo", sans-serif;
-    font-size: 14px;
-    background: #ffffff;
-    color: #07272e;
-    outline: none;
-    transition: border-color 0.15s;
-    width: 100%;
-    box-sizing: border-box;
-  }
-  .form-field input:focus,
-  .form-field textarea:focus { border-color: #008c9e; }
-  .required { color: #cc0000; }
-
-  /* Footer overrides */
-  footer, .site-footer {
-    background-color: #f7f7f7 !important;
-    color: #000000 !important;
-    border-top: 1px solid #e6e6e6;
-  }
-  footer a { color: #07272e !important; text-decoration: none; }
-  footer a:hover { text-decoration: underline; }
-  footer h3, footer h4 {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 700; font-size: 13px;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: #07272e; margin-bottom: 12px;
-    font-style: normal;
-  }
-  footer p, footer li, footer span { color: #444; }
-  .footer-newsletter p { font-size: 13px; color: #666; margin-bottom: 12px; }
-  .newsletter-form { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
-  .newsletter-form input {
-    flex: 1; min-width: 180px; padding: 10px 16px;
-    border: 1px solid #e6e6e6; border-radius: 24px;
-    font-size: 14px; font-family: "Archivo", sans-serif;
-    background: #ffffff; color: #07272e; outline: none;
-  }
-  .footer-payments { margin-top: 24px; padding-top: 24px; border-top: 1px solid #e6e6e6; }
-  .footer-payments__icons { display: flex; flex-wrap: wrap; gap: 8px; }
-  .payment-badge {
-    display: inline-block; padding: 4px 8px;
-    border: 1px solid #ddd; border-radius: 4px;
-    font-size: 10px; font-weight: 600; color: #444; background: #fff;
-  }
-
-  /* Responsive */
-  @media (max-width: 768px) {
-    .section-welcome__inner,
-    .section-why-choose__inner,
-    .black-range-grid { grid-template-columns: 1fr; gap: 32px; }
-    .form-row { grid-template-columns: 1fr; }
-    .trust-bar__list { justify-content: flex-start; }
-  }
 }
+
+/*
+  button-accent and button are OUTSIDE @layer base.
+  Unlayered CSS wins over @layer utilities in the CSS cascade,
+  so these definitions will not be overridden by Tailwind utility classes.
+*/
+.button-accent {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  background-color: #008c9e;
+  color: #ffffff !important;
+  font-family: "Archivo", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 9999px;
+  border: none;
+  text-decoration: none !important;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  white-space: nowrap;
+}
+.button-accent:hover {
+  background-color: #07272e;
+  color: #ffffff !important;
+}
+
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px 32px;
+  background-color: #07272e;
+  color: #ffffff;
+  font-family: "Archivo", sans-serif;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  border-radius: 9999px;
+  border: none;
+  text-decoration: none;
+  cursor: pointer;
+  transition: opacity 0.2s ease;
+  white-space: nowrap;
+}
+.button:hover { opacity: 0.8; }
