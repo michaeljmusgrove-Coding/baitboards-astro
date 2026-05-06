@@ -9,22 +9,25 @@ const description = "Your one-stop shop for premium bait boards designed for fis
 const featuredProducts = getByCollection('bait-boards');
 ---
 
-<BaseLayout title={title} description={description} preloadImage="/images/hero-marina.webp">
+<BaseLayout title={title} description={description} preloadImage="/images/hero-marina.webp" preloadImageMobile="/images/hero-marina-mobile.webp">
 
   <!-- Hero Slideshow -->
   <section class="relative overflow-hidden bg-dark-hero" style="height: clamp(480px, 70vh, 780px);">
 
     <!-- Slide 1 (default visible) -->
     <div id="slide-1" class="hero-slide absolute inset-0 transition-opacity duration-700">
-      <img
-        src="/images/hero-marina.webp"
-        alt="Bait Boards Direct"
-        class="h-full w-full object-cover object-center"
-        width="1400"
-        height="2099"
-        fetchpriority="high"
-        loading="eager"
-      />
+      <picture>
+        <source media="(max-width: 767px)" srcset="/images/hero-marina-mobile.webp" type="image/webp" width="750" height="1124" />
+        <img
+          src="/images/hero-marina.webp"
+          alt="Bait Boards Direct"
+          class="h-full w-full object-cover object-center"
+          width="1400"
+          height="2099"
+          fetchpriority="high"
+          loading="eager"
+        />
+      </picture>
       <div class="absolute inset-0 bg-black/40"></div>
       <div class="absolute inset-0 flex items-center justify-center">
         <div class="container text-center text-white">

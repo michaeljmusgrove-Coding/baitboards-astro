@@ -12,6 +12,7 @@ interface Props {
   ogImage?: string;
   canonicalUrl?: string;
   preloadImage?: string;
+  preloadImageMobile?: string;
   schema?: Record<string, unknown> | Record<string, unknown>[];
   noindex?: boolean;
   ogType?: string;
@@ -77,7 +78,7 @@ const storeSchema = {
   name: site.name,
   url: site.domain,
   description: site.description,
-  logo: { '@type': 'ImageObject', url: `${site.domain}/images/logo.png` },
+  logo: { '@type': 'ImageObject', url: `${site.domain}/images/logo.webp` },
   image: [`${site.domain}/images/hero-marina.jpg`],
   areaServed: 'AU',
   telephone: site.contact.phone.startsWith('0') ? `+61${site.contact.phone.slice(1).replace(/\s/g, '')}` : site.contact.phone,
@@ -196,8 +197,12 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
     <link rel="preload" href="/fonts/archivo/archivo-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="/fonts/montserrat/montserrat-700.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 
-    {preloadImage && (
+    {preloadImage && !preloadImageMobile && (
       <link rel="preload" href={preloadImage} as="image" type={preloadImage.endsWith('.webp') ? 'image/webp' : undefined} fetchpriority="high" />
+    )}
+    {preloadImage && preloadImageMobile && (
+      <link rel="preload" href={preloadImageMobile} as="image" type="image/webp" media="(max-width: 767px)" fetchpriority="high" />
+      <link rel="preload" href={preloadImage} as="image" type="image/webp" media="(min-width: 768px)" fetchpriority="high" />
     )}
 
     <!-- Open Graph -->
