@@ -37,7 +37,7 @@ export const site = {
   },
 
   schema: {
-    type: "OnlineStore",
+    type: "SportingGoodsStore",
     currenciesAccepted: "AUD",
     paymentAccepted: "Credit Card, PayPal, Afterpay",
     priceRange: "$$",

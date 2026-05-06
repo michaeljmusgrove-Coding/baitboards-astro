@@ -28,13 +28,17 @@ const {
   title,
   description,
   ogImage = site.ogImage,
-  canonicalUrl = Astro.url.href,
+  canonicalUrl: canonicalUrlProp,
   preloadImage,
   schema,
   noindex = false,
   ogType = 'website',
   articleMeta,
 } = Astro.props;
+
+// build.format: 'file' causes Astro.url.href to include .html on non-homepage pages.
+// Strip it so canonicals, hreflang, OG, and BreadcrumbList items are all clean URLs.
+const canonicalUrl = (canonicalUrlProp ?? Astro.url.href).replace(/\.html$/, '');
 
 // Recursively strip any field whose value contains an unresolved __TODO__ placeholder.
 // Prevents client-data placeholders (phone, address, ABN, social URLs) from leaking
@@ -58,10 +62,11 @@ function stripTodos(value: unknown): unknown {
   return value;
 }
 
-// Sitewide OnlineStore schema
+// Sitewide store schema — SportingGoodsStore is the correct Schema.org type
+// (OnlineStore is not a valid Schema.org class)
 const storeSchema = {
   '@context': 'https://schema.org',
-  '@type': 'OnlineStore',
+  '@type': 'SportingGoodsStore',
   '@id': `${site.domain}/#store`,
   name: site.name,
   url: site.domain,
@@ -91,7 +96,7 @@ const websiteSchema = {
   name: site.name,
   description: site.tagline,
   inLanguage: 'en-AU',
-  publisher: { '@type': 'OnlineStore', '@id': `${site.domain}/#store` },
+  publisher: { '@type': 'SportingGoodsStore', '@id': `${site.domain}/#store` },
   potentialAction: {
     '@type': 'SearchAction',
     target: {
@@ -170,17 +175,7 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
     <link rel="preload" href="/fonts/montserrat/montserrat-700.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 
     {preloadImage && (
-      <>
-        {/* AVIF preload for ~95% of browsers (2026). CSS image-set() falls back to JPG. */}
-        <link
-          rel="preload"
-          href={preloadImage.replace(/\.(jpg|jpeg)$/i, '.avif')}
-          as="image"
-          type="image/avif"
-          fetchpriority="high"
-        />
-        <link rel="preload" href={preloadImage} as="image" fetchpriority="high" />
-      </>
+      <link rel="preload" href={preloadImage} as="image" fetchpriority="high" />
     )}
 
     <!-- Open Graph -->
