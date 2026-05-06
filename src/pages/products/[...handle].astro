@@ -17,10 +17,14 @@ const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
 const title = `${product.title} | Bait Boards Direct`;
 const description = product.description;
 
+const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
 const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
+  "@id": `https://www.baitboardsdirect.com/products/${product.handle}`,
   name: product.title,
+  sku: product.handle,
   image: [product.image, ...(product.image2 ? [product.image2] : [])],
   description: product.description,
   brand: { "@type": "Brand", name: "SeaKing" },
@@ -29,9 +33,28 @@ const productSchema = {
     url: `https://www.baitboardsdirect.com/products/${product.handle}`,
     priceCurrency: "AUD",
     price: product.price,
+    priceValidUntil,
     availability: "https://schema.org/InStock",
     itemCondition: "https://schema.org/NewCondition",
-    seller: { "@type": "Organization", name: "Bait Boards Direct" },
+    seller: { "@type": "SportingGoodsStore", "@id": "https://www.baitboardsdirect.com/#store" },
+    shippingDetails: {
+      "@type": "OfferShippingDetails",
+      shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "AUD" },
+      shippingDestination: { "@type": "DefinedRegion", addressCountry: "AU" },
+      deliveryTime: {
+        "@type": "ShippingDeliveryTime",
+        handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "DAY" },
+        transitTime: { "@type": "QuantitativeValue", minValue: 3, maxValue: 7, unitCode: "DAY" },
+      },
+    },
+    hasMerchantReturnPolicy: {
+      "@type": "MerchantReturnPolicy",
+      applicableCountry: "AU",
+      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 30,
+      returnMethod: "https://schema.org/ReturnByMail",
+      returnFees: "https://schema.org/OriginalShippingFees",
+    },
   },
 };
 ---
@@ -82,14 +105,14 @@ const productSchema = {
                 data-src={product.image}
                 aria-label="View image 1"
               >
-                <img src={product.image} alt="" class="h-full w-full object-cover" width="64" height="64" loading="eager" />
+                <img src={product.image} alt={`${product.title} — image 1`} class="h-full w-full object-cover" width="64" height="64" loading="eager" />
               </button>
               <button
                 class="gallery-thumb h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 border-border bg-bg-alt transition-colors hover:border-accent"
                 data-src={product.image2}
                 aria-label="View image 2"
               >
-                <img src={product.image2} alt="" class="h-full w-full object-cover" width="64" height="64" loading="lazy" />
+                <img src={product.image2} alt={`${product.title} — image 2`} class="h-full w-full object-cover" width="64" height="64" loading="lazy" />
               </button>
             </div>
           )}

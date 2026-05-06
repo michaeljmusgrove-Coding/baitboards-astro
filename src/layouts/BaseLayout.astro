@@ -80,7 +80,7 @@ const storeSchema = {
   logo: { '@type': 'ImageObject', url: `${site.domain}/images/logo.png` },
   image: [`${site.domain}/images/hero-marina.jpg`],
   areaServed: 'AU',
-  telephone: site.contact.phone,
+  telephone: site.contact.phone.startsWith('0') ? `+61${site.contact.phone.slice(1).replace(/\s/g, '')}` : site.contact.phone,
   email: site.contact.email,
   currenciesAccepted: site.schema.currenciesAccepted,
   paymentAccepted: site.schema.paymentAccepted,
@@ -116,27 +116,47 @@ const websiteSchema = {
   },
 };
 
-// Auto-generate BreadcrumbList from URL path — no manual per-page work needed
+// Display labels for known slugs (overrides auto-capitalisation)
+const SEGMENT_LABELS: Record<string, string> = {
+  faqs: 'FAQs',
+  about: 'About Us',
+  contact: 'Contact',
+  returns: 'Returns Policy',
+  shipping: 'Shipping Policy',
+  'privacy-policy': 'Privacy Policy',
+  terms: 'Terms of Service',
+  'on-sale': 'On Sale',
+  'bait-boards': 'Bait Boards',
+  'bait-boards-with-legs': 'Bait Boards With Legs',
+};
+
+// Container segments that have no page of their own — null = skip, object = replace with valid crumb
+const SEGMENT_OVERRIDES: Record<string, { name: string; url: string } | null> = {
+  collections: null, // skip — child segment IS the collection page
+  products: { name: 'Bait Boards', url: `${site.domain}/collections/bait-boards` },
+};
+
 const pathSegments = new URL(canonicalUrl).pathname.replace(/\/$/, '').split('/').filter(Boolean);
-const breadcrumbSchema =
-  pathSegments.length > 0
-    ? {
-        '@context': 'https://schema.org',
-        '@type': 'BreadcrumbList',
-        itemListElement: [
-          { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.domain}/` },
-          ...pathSegments.map((seg, i) => ({
-            '@type': 'ListItem',
-            position: i + 2,
-            name: seg
-              .split('-')
-              .map((w: string) => w.charAt(0).toUpperCase() + w.slice(1))
-              .join(' '),
-            item: `${site.domain}/${pathSegments.slice(0, i + 1).join('/')}`,
-          })),
-        ],
-      }
-    : null;
+
+const breadcrumbItems: { '@type': string; position: number; name: string; item: string }[] = [
+  { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.domain}/` },
+];
+let crumbPos = 2;
+for (let i = 0; i < pathSegments.length; i++) {
+  const seg = pathSegments[i];
+  const isLast = i === pathSegments.length - 1;
+  if (!isLast && seg in SEGMENT_OVERRIDES) {
+    const override = SEGMENT_OVERRIDES[seg];
+    if (override) breadcrumbItems.push({ '@type': 'ListItem', position: crumbPos++, name: override.name, item: override.url });
+    continue;
+  }
+  const name = SEGMENT_LABELS[seg] ?? seg.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  breadcrumbItems.push({ '@type': 'ListItem', position: crumbPos++, name, item: `${site.domain}/${pathSegments.slice(0, i + 1).join('/')}` });
+}
+
+const breadcrumbSchema = pathSegments.length > 0
+  ? { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: breadcrumbItems }
+  : null;
 
 // Merge sitewide + page-specific schemas, strip all __TODO__ fields before emit
 const allSchemas = [
