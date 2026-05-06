@@ -1,0 +1,12 @@
+name = "baitboards"
+account_id = "461230c094898d0e79b1cafa18b80189"
+compatibility_date = "2026-05-06"
+compatibility_flags = ["nodejs_compat"]
+main = "worker.js"
+workers_dev = true
+preview_urls = false
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"

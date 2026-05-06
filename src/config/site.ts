@@ -1,0 +1,40 @@
+export const site = {
+  name: "Bait Boards Direct",
+  shortName: "BBD",
+  tagline: "Premium Bait Boards for Serious Anglers",
+  description:
+    "Bait Boards Direct supplies high-quality bait boards, rod holders, and fishing accessories for Australian recreational and professional anglers.",
+  domain: "https://www.baitboardsdirect.com",
+  shopifyDomain: "baitboardsdirect.myshopify.com",
+
+  contact: {
+    phone: "__TODO__",
+    email: "__TODO__",
+    address: "__TODO__",
+    suburb: "__TODO__",
+    state: "__TODO__",
+    postcode: "__TODO__",
+    country: "AU",
+  },
+
+  social: {
+    instagram: "__TODO__",
+    facebook: "__TODO__",
+    youtube: "__TODO__",
+  },
+
+  analytics: {
+    ga4: "__TODO__",
+    clarityId: "__TODO__",
+    okendoStoreId: "__TODO__",
+  },
+
+  schema: {
+    type: "OnlineStore",
+    currenciesAccepted: "AUD",
+    paymentAccepted: "Credit Card, PayPal, Afterpay",
+    priceRange: "$$",
+  },
+} as const;
+
+export type Site = typeof site;

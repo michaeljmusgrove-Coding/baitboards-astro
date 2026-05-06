@@ -1,0 +1,23 @@
+# Bait Boards Direct — Full Reference
+
+> Summary version: [llms.txt](https://www.baitboardsdirect.com/llms.txt)
+> Last updated: 2026-05-06
+> License: RSL-1.0
+
+## About
+
+Bait Boards Direct supplies high-quality bait boards, rod holders, and fishing accessories for Australian recreational and professional anglers. All products are designed for durability in marine environments.
+
+__TODO__ — expand with full business description, credentials, and product range post-launch
+
+## Products
+
+__TODO__ — full product catalogue with descriptions post-launch
+
+## FAQ
+
+__TODO__ — common customer questions post-launch
+
+## Shipping & Returns
+
+__TODO__ — shipping policy details post-launch
