@@ -1,0 +1,26 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Message Sent | Bait Boards Direct"
+  description="Thanks for your message. We'll be in touch within 1 business day."
+  noindex={true}
+>
+  <section class="bg-bg-alt flex flex-1 items-center py-24">
+    <div class="container text-center max-w-lg">
+      <!-- checkmark icon -->
+      <div class="mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-full bg-accent">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+        </svg>
+      </div>
+      <h1 class="font-heading text-2xl font-bold text-primary sm:text-3xl">Message sent!</h1>
+      <p class="mt-4 text-text-muted">Thanks for reaching out. We'll get back to you within 1 business day.</p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a href="/" class="button">Go home</a>
+        <a href="/collections/bait-boards" class="button-accent">Browse bait boards</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

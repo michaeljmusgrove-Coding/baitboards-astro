@@ -8,16 +8,13 @@
 
 Bait Boards Direct supplies high-quality bait boards, rod holders, and fishing accessories for Australian recreational and professional anglers. All products are designed for durability in marine environments.
 
-__TODO__ — expand with full business description, credentials, and product range post-launch
+## Pages
 
-## Products
-
-__TODO__ — full product catalogue with descriptions post-launch
-
-## FAQ
-
-__TODO__ — common customer questions post-launch
-
-## Shipping & Returns
-
-__TODO__ — shipping policy details post-launch
+- [Home](https://www.baitboardsdirect.com/)
+- [All Products](https://www.baitboardsdirect.com/products)
+- [Bait Boards](https://www.baitboardsdirect.com/collections/bait-boards)
+- [On Sale](https://www.baitboardsdirect.com/collections/on-sale)
+- [FAQs](https://www.baitboardsdirect.com/faqs)
+- [Shipping Policy](https://www.baitboardsdirect.com/shipping)
+- [Returns Policy](https://www.baitboardsdirect.com/returns)
+- [Contact](https://www.baitboardsdirect.com/contact)
