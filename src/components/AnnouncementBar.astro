@@ -1,9 +1,14 @@
 ---
+import { site } from '../config/site';
+
+const hasPhone = !site.contact.phone.includes('__TODO__');
+const hasEmail = !site.contact.email.includes('__TODO__');
+
 const items = [
   "Free Shipping Australia Wide",
   "Got a Question?",
-  "Call Us: 0474 332 034",
-  "Email: info@baitboardsdirect.com.au",
+  ...(hasPhone ? [`Call Us: ${site.contact.phone}`] : []),
+  ...(hasEmail ? [`Email: ${site.contact.email}`] : []),
 ];
 ---
 

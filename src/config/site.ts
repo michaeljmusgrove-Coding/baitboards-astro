@@ -10,11 +10,11 @@ export const site = {
   brandColor: "#272d45",
 
   contact: {
-    phone: "__TODO__",
-    email: "__TODO__",
+    phone: "0474 332 034",
+    email: "info@baitboardsdirect.com.au",
     address: "__TODO__",
-    suburb: "__TODO__",
-    state: "__TODO__",
+    suburb: "South East Melbourne",
+    state: "VIC",
     postcode: "__TODO__",
     country: "AU",
   },
