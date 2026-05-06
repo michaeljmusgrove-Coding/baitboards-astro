@@ -9,7 +9,7 @@ const description = "Your one-stop shop for premium bait boards designed for fis
 const featuredProducts = getByCollection('bait-boards');
 ---
 
-<BaseLayout title={title} description={description} preloadImage="/images/hero-marina.jpg">
+<BaseLayout title={title} description={description} preloadImage="/images/hero-marina.webp">
 
   <!-- Hero Slideshow -->
   <section class="relative overflow-hidden bg-dark-hero" style="height: clamp(480px, 70vh, 780px);">
@@ -17,11 +17,11 @@ const featuredProducts = getByCollection('bait-boards');
     <!-- Slide 1 (default visible) -->
     <div id="slide-1" class="hero-slide absolute inset-0 transition-opacity duration-700">
       <img
-        src="/images/hero-marina.jpg"
+        src="/images/hero-marina.webp"
         alt="Bait Boards Direct"
         class="h-full w-full object-cover object-center"
-        width="1500"
-        height="1000"
+        width="1400"
+        height="2099"
         fetchpriority="high"
         loading="eager"
       />
@@ -42,13 +42,13 @@ const featuredProducts = getByCollection('bait-boards');
     <!-- Slide 2 -->
     <div id="slide-2" class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700" aria-hidden="true">
       <picture>
-        <source media="(max-width: 767px)" srcset="/images/hero-mobile.jpg" />
+        <source media="(max-width: 767px)" srcset="/images/hero-mobile.webp" type="image/webp" />
         <img
-          src="/images/hero-2.jpg"
+          src="/images/hero-2.webp"
           alt="Bait Boards Direct — Built Tough"
           class="h-full w-full object-cover object-center"
-          width="1500"
-          height="1000"
+          width="1600"
+          height="750"
           loading="lazy"
         />
       </picture>
@@ -184,7 +184,7 @@ const featuredProducts = getByCollection('bait-boards');
   <!-- About / Brand strip -->
   <section class="bg-bg-alt py-14 sm:py-20">
     <div class="container max-w-4xl text-center">
-      <img src="/images/shark-logo.png" alt="" class="mx-auto mb-6 h-16 w-auto" width="64" height="64" loading="lazy" aria-hidden="true" />
+      <img src="/images/shark-logo.webp" alt="" class="mx-auto mb-6 h-16 w-auto" width="64" height="64" loading="lazy" aria-hidden="true" />
       <h2 class="font-heading mb-5 text-2xl font-bold text-primary sm:text-3xl">Your one-stop shop for premium bait boards</h2>
       <p class="mx-auto max-w-2xl text-sm leading-relaxed text-text-muted sm:text-base">
         Designed for fishing enthusiasts who demand the best. Whether you're prepping bait, filleting your catch, or just need a durable, functional surface on your boat, our bait boards are built to enhance your fishing experience.

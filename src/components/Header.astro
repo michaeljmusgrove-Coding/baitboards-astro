@@ -18,7 +18,7 @@ const path = Astro.url.pathname;
 
     <!-- Logo -->
     <a href="/" aria-label={site.name} class="flex-shrink-0">
-      <img src="/images/logo.png" alt="Bait Boards Direct" width="180" height="47" class="h-9 w-auto object-contain brightness-0 invert" loading="eager" />
+      <img src="/images/logo.webp" alt="Bait Boards Direct" width="180" height="47" class="h-9 w-auto object-contain brightness-0 invert" loading="eager" />
     </a>
 
     <!-- Desktop nav -->
@@ -58,7 +58,7 @@ const path = Astro.url.pathname;
 </header>
 
 <!-- Mobile drawer (outside header so it overlays whole page) -->
-<div id="mobile-menu" class="fixed inset-0 z-50 hidden" aria-hidden="true" role="dialog" aria-modal="true" aria-label="Navigation menu">
+<div id="mobile-menu" class="fixed inset-0 z-50 hidden" inert role="dialog" aria-modal="true" aria-label="Navigation menu">
   <div id="mobile-backdrop" class="absolute inset-0 bg-black/60"></div>
   <div class="absolute right-0 top-0 h-full w-72 max-w-[85vw] bg-dark-hero shadow-2xl flex flex-col">
     <div class="flex items-center justify-between border-b border-white/10 px-6 py-5">
@@ -93,13 +93,13 @@ const path = Astro.url.pathname;
 
     function open() {
       menu.classList.remove('hidden');
-      menu.setAttribute('aria-hidden', 'false');
+      menu.removeAttribute('inert');
       btn.setAttribute('aria-expanded', 'true');
       document.body.style.overflow = 'hidden';
     }
     function shut() {
       menu.classList.add('hidden');
-      menu.setAttribute('aria-hidden', 'true');
+      menu.setAttribute('inert', '');
       btn.setAttribute('aria-expanded', 'false');
       document.body.style.overflow = '';
     }

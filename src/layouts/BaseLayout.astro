@@ -183,7 +183,7 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
     <link rel="preload" href="/fonts/montserrat/montserrat-700.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 
     {preloadImage && (
-      <link rel="preload" href={preloadImage} as="image" fetchpriority="high" />
+      <link rel="preload" href={preloadImage} as="image" type={preloadImage.endsWith('.webp') ? 'image/webp' : undefined} fetchpriority="high" />
     )}
 
     <!-- Open Graph -->
