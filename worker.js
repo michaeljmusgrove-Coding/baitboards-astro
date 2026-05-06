@@ -39,10 +39,12 @@ export default {
 
     // Workers ignores _headers files — inject noindex for workers.dev staging
     // so Google doesn't index the preview environment against production canonicals.
+    // Use mutable Response pattern: new Response(body, response) copies status+headers
+    // and creates a mutable headers object that .set() works on reliably.
     if (url.hostname.endsWith('.workers.dev')) {
-      const headers = new Headers(response.headers);
-      headers.set('X-Robots-Tag', 'noindex, nofollow');
-      return new Response(response.body, { status: response.status, headers });
+      const mutable = new Response(response.body, response);
+      mutable.headers.set('X-Robots-Tag', 'noindex, nofollow');
+      return mutable;
     }
 
     return response;

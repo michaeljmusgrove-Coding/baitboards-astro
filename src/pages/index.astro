@@ -40,7 +40,7 @@ const featuredProducts = getByCollection('bait-boards');
     </div>
 
     <!-- Slide 2 -->
-    <div id="slide-2" class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700" aria-hidden="true">
+    <div id="slide-2" class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700" inert>
       <picture>
         <source media="(max-width: 767px)" srcset="/images/hero-mobile.webp" type="image/webp" />
         <img
@@ -80,7 +80,7 @@ const featuredProducts = getByCollection('bait-boards');
         for (var i = 1; i <= total; i++) {
           var slide = document.getElementById('slide-' + i);
           var dot = document.getElementById('dot-' + i);
-          if (slide) { slide.style.opacity = i === n ? '1' : '0'; slide.setAttribute('aria-hidden', i === n ? 'false' : 'true'); }
+          if (slide) { slide.style.opacity = i === n ? '1' : '0'; i === n ? slide.removeAttribute('inert') : slide.setAttribute('inert', ''); }
           if (dot) { dot.style.backgroundColor = i === n ? 'white' : 'rgba(255,255,255,0.4)'; }
         }
         current = n;
