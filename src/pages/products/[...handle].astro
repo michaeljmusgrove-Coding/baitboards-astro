@@ -1,14 +1,166 @@
 ---
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import NotFoundLayout from "../../layouts/NotFoundLayout.astro";
+import AddToCartForm from "../../components/AddToCartForm.svelte";
+import { products, formatPrice } from "../../data/products";
 
-// Stub until Week 1: returns empty — full SSG implementation requires Shopify token.
-// Worker's not_found_handling will serve 404.html for any /products/* miss.
 export function getStaticPaths() {
-  return [];
+  return products.map((p) => ({
+    params: { handle: p.handle },
+    props: { product: p },
+  }));
 }
 
-const { handle } = Astro.params;
+const { product } = Astro.props;
+const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
+
+const title = `${product.title} | Bait Boards Direct`;
+const description = product.description;
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  name: product.title,
+  image: [product.image, ...(product.image2 ? [product.image2] : [])],
+  description: product.description,
+  brand: { "@type": "Brand", name: "SeaKing" },
+  offers: {
+    "@type": "Offer",
+    url: `https://www.baitboardsdirect.com/products/${product.handle}`,
+    priceCurrency: "AUD",
+    price: product.price,
+    availability: "https://schema.org/InStock",
+    itemCondition: "https://schema.org/NewCondition",
+    seller: { "@type": "Organization", name: "Bait Boards Direct" },
+  },
+};
 ---
 
-<NotFoundLayout />
+<BaseLayout title={title} description={description} schema={productSchema} preloadImage={product.image}>
+
+  <!-- Breadcrumb -->
+  <div class="border-b border-border bg-bg-alt">
+    <div class="container py-3">
+      <p class="text-xs text-text-muted">
+        <a href="/" class="hover:text-accent transition-colors">Home</a>
+        &rsaquo;
+        <a href="/collections/bait-boards" class="hover:text-accent transition-colors">Bait Boards</a>
+        &rsaquo;
+        <span class="text-primary">{product.title}</span>
+      </p>
+    </div>
+  </div>
+
+  <!-- Product detail -->
+  <section class="bg-white py-12 sm:py-16">
+    <div class="container">
+      <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
+
+        <!-- Images -->
+        <div class="space-y-4">
+          <div class="relative overflow-hidden rounded-2xl bg-bg-alt" style="aspect-ratio: 1 / 1;">
+            {onSale && (
+              <span class="absolute top-3 left-3 z-10 rounded bg-sale px-2.5 py-1 text-xs font-bold text-white">
+                SALE
+              </span>
+            )}
+            <img
+              src={product.image}
+              alt={product.title}
+              class="h-full w-full object-cover"
+              width="600"
+              height="600"
+              fetchpriority="high"
+              loading="eager"
+            />
+          </div>
+          {product.image2 && (
+            <div class="overflow-hidden rounded-2xl bg-bg-alt" style="aspect-ratio: 1 / 1;">
+              <img
+                src={product.image2}
+                alt={`${product.title} — alternate view`}
+                class="h-full w-full object-cover"
+                width="600"
+                height="600"
+                loading="lazy"
+              />
+            </div>
+          )}
+        </div>
+
+        <!-- Info -->
+        <div class="flex flex-col">
+          <h1 class="font-heading text-2xl font-extrabold leading-tight text-primary sm:text-3xl">
+            {product.title}
+          </h1>
+
+          <div class="mt-4 flex flex-wrap items-center gap-3">
+            <span class={`text-2xl font-bold ${onSale ? 'text-sale' : 'text-primary'}`}>
+              {formatPrice(product.price)}
+            </span>
+            {onSale && product.compareAtPrice && (
+              <>
+                <span class="text-base text-text-muted line-through">
+                  {formatPrice(product.compareAtPrice)}
+                </span>
+                <span class="rounded bg-sale px-2 py-0.5 text-xs font-bold text-white">
+                  SALE
+                </span>
+              </>
+            )}
+          </div>
+
+          <p class="mt-6 text-sm leading-relaxed text-text-muted sm:text-base">
+            {product.description}
+          </p>
+
+          <!-- Trust signals -->
+          <ul class="mt-6 space-y-2 text-sm text-text-muted">
+            <li class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              Free shipping Australia wide
+            </li>
+            <li class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              1 year warranty
+            </li>
+            <li class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              Afterpay available
+            </li>
+            <li class="flex items-center gap-2">
+              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+              Full composite fiberglass construction
+            </li>
+          </ul>
+
+          <!-- Add to cart -->
+          <div class="mt-8">
+            <AddToCartForm
+              client:load
+              variantId={product.variantId}
+              variantQuantityAvailable={99}
+              variantAvailableForSale={true}
+            />
+          </div>
+
+          <a
+            href="/collections/bait-boards"
+            class="mt-5 text-center text-sm text-text-muted underline underline-offset-2 transition-colors hover:text-primary"
+          >
+            &larr; Back to Bait Boards
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

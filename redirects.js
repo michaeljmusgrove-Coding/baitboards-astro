@@ -15,6 +15,7 @@ const redirects = [
   { from: '/pages/return-refund-policy', to: '/returns',       status: 301 },
   { from: '/pages/shipping-policy',     to: '/shipping',       status: 301 },
   { from: '/pages/terms-of-service',    to: '/terms',          status: 301 },
+  { from: '/collections/boat-fillet-table', to: '/collections/bait-boards', status: 301 },
 ];
 
 export function matchRedirect(pathname) {

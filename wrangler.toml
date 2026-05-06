@@ -19,3 +19,17 @@ workers_dev = true
 directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "404-page"
+
+# Production: deploys to baitboardsdirect.com on push to main branch
+[env.production]
+name = "baitboards"
+workers_dev = false
+routes = [
+  { pattern = "baitboardsdirect.com/*", zone_name = "baitboardsdirect.com" },
+  { pattern = "www.baitboardsdirect.com/*", zone_name = "baitboardsdirect.com" },
+]
+
+[env.production.assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"
