@@ -13,12 +13,12 @@ const navLinks = [
 const path = Astro.url.pathname;
 ---
 
-<header class="bg-dark-hero border-b border-white/10">
-  <nav class="container flex items-center justify-between py-4">
+<header class="bg-white border-b border-[#e6e6e6]" style="box-shadow: 0 1px 4px rgba(0,0,0,0.06);">
+  <nav class="container flex items-center justify-between" style="min-height: 99px;">
 
     <!-- Logo -->
     <a href="/" aria-label={site.name} class="flex-shrink-0">
-      <img src="/images/logo.webp" alt="Bait Boards Direct" width="180" height="47" class="h-9 w-auto object-contain brightness-0 invert" loading="eager" />
+      <img src="/images/logo.png" alt="Bait Boards Direct" width="180" height="47" class="h-10 w-auto object-contain" loading="eager" />
     </a>
 
     <!-- Desktop nav -->
@@ -28,7 +28,7 @@ const path = Astro.url.pathname;
           <a
             href={href}
             class={`font-heading text-xs font-semibold uppercase tracking-widest transition-colors hover:text-accent ${
-              path.startsWith(href) ? 'text-accent' : 'text-white/85'
+              path.startsWith(href) ? 'text-accent' : 'text-[#07272e]'
             }`}
           >
             {label}
@@ -39,12 +39,12 @@ const path = Astro.url.pathname;
 
     <!-- Cart + hamburger -->
     <div class="flex items-center gap-4">
-      <div class="text-white">
+      <div class="text-[#07272e]">
         <CartIcon client:idle />
       </div>
       <button
         id="mobile-menu-btn"
-        class="text-white/85 hover:text-white lg:hidden"
+        class="text-[#07272e] hover:text-accent lg:hidden"
         aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls="mobile-menu"
@@ -60,10 +60,10 @@ const path = Astro.url.pathname;
 <!-- Mobile drawer (outside header so it overlays whole page) -->
 <div id="mobile-menu" class="fixed inset-0 z-50 hidden" inert role="dialog" aria-modal="true" aria-label="Navigation menu">
   <div id="mobile-backdrop" class="absolute inset-0 bg-black/60"></div>
-  <div class="absolute right-0 top-0 h-full w-72 max-w-[85vw] bg-dark-hero shadow-2xl flex flex-col">
-    <div class="flex items-center justify-between border-b border-white/10 px-6 py-5">
-      <span class="font-heading text-base font-bold text-white">Menu</span>
-      <button id="mobile-menu-close" class="text-white/70 hover:text-white" aria-label="Close navigation menu">
+  <div class="absolute right-0 top-0 h-full w-72 max-w-[85vw] bg-white shadow-2xl flex flex-col">
+    <div class="flex items-center justify-between border-b border-[#e6e6e6] px-6 py-5">
+      <span class="font-heading text-base font-bold text-[#07272e]">Menu</span>
+      <button id="mobile-menu-close" class="text-[#07272e]/70 hover:text-[#07272e]" aria-label="Close navigation menu">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>
@@ -74,7 +74,7 @@ const path = Astro.url.pathname;
         <li>
           <a
             href={href}
-            class="block border-b border-white/10 py-4 font-heading text-sm font-semibold uppercase tracking-widest text-white/85 transition-colors hover:text-accent"
+            class="block border-b border-[#e6e6e6] py-4 font-heading text-sm font-semibold uppercase tracking-widest text-[#07272e] transition-colors hover:text-accent"
           >
             {label}
           </a>

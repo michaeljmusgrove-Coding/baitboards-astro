@@ -13,6 +13,7 @@ export interface Product {
   description: string;
   variantId: string;
   collections: string[];
+  soldOut?: boolean;
 }
 
 export const products: Product[] = [
@@ -59,6 +60,7 @@ export const products: Product[] = [
     description: 'The SeaKing SK-B04 offers the same robust features as our classic B01 and B03 models, now enhanced with integrated moulded cup holders for added convenience. Designed for those who appreciate functionality with a touch of luxury — ensuring you have everything you need for a successful fishing trip, with the practicality of built-in cup holders for added comfort on the water.',
     variantId: 'gid://shopify/ProductVariant/49211422015804',
     collections: ['bait-boards', 'on-sale'],
+    soldOut: true,
   },
   {
     handle: 'bait-board-sk-h10',

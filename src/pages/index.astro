@@ -7,12 +7,53 @@ const title = `${site.name} — ${site.tagline}`;
 const description = "Your one-stop shop for premium bait boards designed for fishing enthusiasts who demand the best. Whether you're prepping bait, filleting your catch, or just need a durable, functional surface on your boat, our bait boards are built to enhance your fishing experience.";
 
 const featuredProducts = getByCollection('bait-boards');
+
+const CDN = 'https://cdn.shopify.com/s/files/1/0779/7529/0172/files';
+
+const blackRange = [
+  {
+    handle: 'bait-board-sk-h10b',
+    title: 'SeaKing Bait Board H10B (830mm x 400mm)',
+    type: 'Sea King SK-H10 · Black',
+    price: 585,
+    compareAt: 1170,
+    image: `${CDN}/ScreenShot2023-06-16at2.16.18pm.png?v=1686889032`,
+    desc: 'Premium composite fiberglass with UV-resistant PE plastic surface, generous sink with drain fitting, and rear knife tray. Maximises cutting space while minimising onboard footprint.',
+  },
+  {
+    handle: 'bait-board-sk-e09-blk',
+    title: 'SeaKing Bait Board SK-E09 - Black (820mm x 460mm)',
+    type: 'SeaKing SK-E09 (BLK)',
+    price: 685,
+    compareAt: 1370,
+    image: `${CDN}/ScreenShot2023-06-16at12.57.00pm.png?v=1686884252`,
+    desc: 'Sleek black gel coat. Spacious knife tray, deep storage sink with drain, raised lip to hold items in turbulent water. UV-resistant PE cutting board, 316 SS fittings.',
+  },
+  {
+    handle: 'bait-board-sk-k08-blk',
+    title: 'SeaKing Bait Board SK-K08 - BLK (700mm x 420mm)',
+    type: 'SeaKing SK-K08 (BLK)',
+    price: 565,
+    compareAt: 1130,
+    image: `${CDN}/ScreenShot2023-06-16at12.29.28pm.png?v=1686882671`,
+    desc: 'Elegant yet durable with large knife tray and storage sink. Full composite materials, UV-resistant PE cutting board.',
+  },
+  {
+    handle: 'leaning-post-top-only-blk',
+    title: 'SeaKing Leaning Post Top Only - BLK (700mm x 280mm)',
+    type: 'Leaning Post',
+    price: 690,
+    compareAt: null,
+    image: 'https://cdn.shopify.com/s/files/1/0779/7529/0172/files/ScreenShot2023-06-16at2.35.36pm.png?v=1686890173',
+    desc: 'Heavy duty offshore leaning post with aluminium plate fibreglassed in. Free Shipping in Australia. Dimensions: 700mm x 280mm. Prices include GST.',
+  },
+];
 ---
 
 <BaseLayout title={title} description={description} preloadImage="/images/hero-marina.webp" preloadImageMobile="/images/hero-marina-mobile.webp">
 
   <!-- Hero Slideshow -->
-  <section class="relative overflow-hidden bg-dark-hero" style="height: clamp(480px, 70vh, 780px);">
+  <section class="relative overflow-hidden" style="background:#07272e; height: clamp(480px, 70vh, 780px);">
 
     <!-- Slide 1 (default visible) -->
     <div id="slide-1" class="hero-slide absolute inset-0 transition-opacity duration-700">
@@ -31,13 +72,11 @@ const featuredProducts = getByCollection('bait-boards');
       <div class="absolute inset-0 bg-black/40"></div>
       <div class="absolute inset-0 flex items-center justify-center">
         <div class="container text-center text-white">
-          <h1 class="font-heading mb-3 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
-            Premium Fiberglass<br class="hidden sm:block" /> Bait Boards
-          </h1>
-          <p class="mb-6 text-base text-white/75 max-w-lg mx-auto sm:text-lg">
-            Handcrafted for serious Australian anglers. Free shipping nationwide.
-          </p>
-          <a href="/collections/bait-boards" class="button-accent mx-auto w-fit">Shop Bait Boards</a>
+          <h2 class="hero-slide__heading mb-6">
+            You're here<br/>
+            <strong>Because Every Boat Needs One!</strong>
+          </h2>
+          <a href="/collections/bait-boards" class="btn-primary mx-auto w-fit">Shop now</a>
         </div>
       </div>
     </div>
@@ -58,10 +97,10 @@ const featuredProducts = getByCollection('bait-boards');
       <div class="absolute inset-0 bg-black/40"></div>
       <div class="absolute inset-0 flex items-center justify-center">
         <div class="container text-center text-white">
-          <h2 class="font-heading mb-6 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+          <h2 class="hero-slide__heading mb-6">
             Built Tough, Designed for You
           </h2>
-          <a href="/collections/bait-boards" class="button-accent mx-auto w-fit">Shop now</a>
+          <a href="/collections/bait-boards" class="btn-primary mx-auto w-fit">Shop now</a>
         </div>
       </div>
     </div>
@@ -95,28 +134,25 @@ const featuredProducts = getByCollection('bait-boards');
     })();
   </script>
 
-  <!-- Trust bar -->
-  <section class="border-b border-border bg-white">
-    <div class="container py-4">
-      <ul class="flex flex-wrap justify-center gap-5 text-sm font-semibold text-primary sm:gap-10">
-        <li class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-          Free Shipping Australia Wide
+  <!-- Trust bar — 8 items -->
+  <section class="trust-bar">
+    <ul class="trust-bar__list">
+      {[
+        { icon: '🚚', label: 'Free Shipping Australia Wide' },
+        { icon: '⚡', label: 'Fast Delivery' },
+        { icon: '🔩', label: 'Full Composite Fiberglass' },
+        { icon: '⚓', label: '316 Marine-Grade Stainless' },
+        { icon: '🇦🇺', label: 'Australian Owned' },
+        { icon: '🔒', label: 'Secure Payments' },
+        { icon: '💬', label: 'Customer Support' },
+        { icon: '🅿️', label: 'Afterpay Available' },
+      ].map(item => (
+        <li class="trust-bar__item">
+          <span aria-hidden="true">{item.icon}</span>
+          <span>{item.label}</span>
         </li>
-        <li class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-          Full Composite Fiberglass
-        </li>
-        <li class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-          316 Marine-Grade Stainless
-        </li>
-        <li class="flex items-center gap-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-accent flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-          Afterpay Available
-        </li>
-      </ul>
-    </div>
+      ))}
+    </ul>
   </section>
 
   <!-- Featured Products: Fiberglass Bait Boards -->
@@ -135,7 +171,7 @@ const featuredProducts = getByCollection('bait-boards');
             >
               <div class="relative aspect-square overflow-hidden bg-bg-alt">
                 {onSale && product.compareAtPrice && (
-                  <span class="absolute top-2 left-2 z-10 rounded bg-sale px-2 py-0.5 text-xs font-bold text-white leading-tight">
+                  <span class="badge-sale absolute top-2 left-2 z-10">
                     Save {formatPrice(product.compareAtPrice - product.price)}
                   </span>
                 )}
@@ -162,13 +198,120 @@ const featuredProducts = getByCollection('bait-boards');
                     </span>
                   )}
                 </div>
+                <div class="card-cta">
+                  {product.soldOut ? (
+                    <button class="btn-add-to-cart" disabled aria-disabled="true">Sold out</button>
+                  ) : (
+                    <button class="btn-add-to-cart">Add to cart</button>
+                  )}
+                </div>
               </div>
             </a>
           );
         })}
       </div>
-      <div class="mt-10 text-center">
-        <a href="/collections/bait-boards" class="button-accent">View All Bait Boards</a>
+      <div style="text-align:center; margin-top:32px;">
+        <a href="/collections/bait-boards" class="btn-primary">View All Bait Boards</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Welcome to Bait Boards Direct -->
+  <section class="section-welcome">
+    <div class="section-welcome__inner">
+      <div class="section-welcome__image">
+        <img
+          src="/images/shark-logo.webp"
+          alt="Bait Boards Direct"
+          width="500"
+          height="500"
+          loading="lazy"
+        />
+      </div>
+      <div class="section-welcome__text">
+        <h2>Welcome to Bait Boards Direct</h2>
+        <p>
+          Your one-stop shop for premium bait boards designed for fishing enthusiasts
+          who demand the best. Whether you're prepping bait, filleting your catch, or
+          just need a durable, functional surface on your boat, our bait boards are
+          built to enhance your fishing experience.
+        </p>
+        <a href="/about" class="btn-outline">Learn more</a>
+        <div class="welcome-badges">
+          <span>Free Shipping</span>
+          <span>1 Year Warranty</span>
+          <span>Afterpay Available</span>
+          <span>Australian Owned</span>
+          <span>316 Marine Stainless</span>
+          <span>Fiberglass Construction</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Black Range -->
+  <section class="section-black-range">
+    <div class="section-black-range__inner">
+      <h2>Black Range</h2>
+      <div class="black-range-grid">
+        {blackRange.map(p => (
+          <div class="black-range-card">
+            <a href={`/products/${p.handle}`}>
+              <img src={p.image} alt={p.title} loading="lazy" />
+            </a>
+            <p class="black-range-card__type">{p.type}</p>
+            <h3><a href={`/products/${p.handle}`}>{p.title}</a></h3>
+            <p class="black-range-card__price">
+              <strong>${p.price.toFixed(2)}</strong>
+              {p.compareAt && <s>${p.compareAt.toFixed(2)}</s>}
+              {p.compareAt && <span class="badge-sale">Save ${(p.compareAt - p.price).toFixed(0)}</span>}
+            </p>
+            <p class="black-range-card__desc">{p.desc}</p>
+            <a href={`/products/${p.handle}`} class="btn-primary">Buy now</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Our Bait Boards -->
+  <section class="section-why-choose">
+    <div class="section-why-choose__inner">
+      <div class="why-choose__image">
+        <img
+          src="/images/collection-bait-boards.webp"
+          alt="SeaKing Bait Board"
+          loading="lazy"
+        />
+      </div>
+      <div class="why-choose__content">
+        <h2>Why Choose Our Bait Boards</h2>
+        <p>
+          Made to last and super easy to use, our bait boards are the perfect fishing buddy.
+          Lightweight, rust-proof, and built with durable fiberglass, they're ready for any
+          boat and every catch.
+        </p>
+        <a href="/collections/bait-boards" class="btn-primary" style="margin-bottom: 16px;">
+          Shop Bait Boards
+        </a>
+        <ul class="why-features">
+          <li>
+            <strong>Rust-Resistant</strong>
+            <span>Crafted with premium materials to withstand saltwater and harsh marine environments.</span>
+          </li>
+          <li>
+            <strong>Built-in Cutting Surface</strong>
+            <span>Durable and hygienic cutting surface, perfect for preparing bait or cleaning your catch.</span>
+          </li>
+          <li>
+            <strong>Easy Installation</strong>
+            <span>Universal mounting system fits most boats. Install and remove in minutes.</span>
+          </li>
+          <li>
+            <strong>Fiberglass Materials</strong>
+            <span>Crafted from durable fiberglass for lightweight strength, impact resistance, and long-lasting performance.</span>
+          </li>
+        </ul>
       </div>
     </div>
   </section>
@@ -218,22 +361,35 @@ const featuredProducts = getByCollection('bait-boards');
       <p class="mb-8 text-sm leading-relaxed text-white/70">
         Need sizing advice, want to discuss bulk pricing, or have a question about installation? We're here to help — get in touch and we'll get back to you fast.
       </p>
-      <a href="/contact" class="button-accent mx-auto w-fit">Contact Us</a>
+      <a href="/contact" class="btn-primary mx-auto w-fit">Contact Us</a>
     </div>
   </section>
 
-  <!-- About / Brand strip -->
-  <section class="bg-bg-alt py-14 sm:py-20">
-    <div class="container max-w-4xl text-center">
-      <img src="/images/shark-logo.webp" alt="" class="mx-auto mb-6 h-16 w-auto" width="64" height="64" loading="lazy" aria-hidden="true" />
-      <h2 class="font-heading mb-5 text-2xl font-bold text-primary sm:text-3xl">Your one-stop shop for premium bait boards</h2>
-      <p class="mx-auto max-w-2xl text-sm leading-relaxed text-text-muted sm:text-base">
-        Designed for fishing enthusiasts who demand the best. Whether you're prepping bait, filleting your catch, or just need a durable, functional surface on your boat, our bait boards are built to enhance your fishing experience.
-      </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-4">
-        <a href="/collections/bait-boards" class="button-accent">Shop now</a>
-        <a href="/about" class="button">About us</a>
-      </div>
+  <!-- Get in Touch contact form -->
+  <section class="section-contact">
+    <div class="section-contact__inner">
+      <h2>Get in touch</h2>
+      <form class="contact-form" method="POST" action="/contact">
+        <div class="form-row">
+          <label class="form-field">
+            Name
+            <input type="text" name="contact[name]" autocomplete="name" />
+          </label>
+          <label class="form-field">
+            Email <span class="required" aria-hidden="true">*</span>
+            <input type="email" name="contact[email]" required autocomplete="email" />
+          </label>
+        </div>
+        <label class="form-field">
+          Phone
+          <input type="tel" name="contact[phone]" autocomplete="tel" />
+        </label>
+        <label class="form-field">
+          Your message
+          <textarea name="contact[body]" rows="6"></textarea>
+        </label>
+        <button type="submit" class="btn-primary">Submit now</button>
+      </form>
     </div>
   </section>
 
