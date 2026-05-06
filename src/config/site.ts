@@ -6,7 +6,7 @@ export const site = {
     "Bait Boards Direct supplies high-quality bait boards, rod holders, and fishing accessories for Australian recreational and professional anglers.",
   domain: "https://www.baitboardsdirect.com",
   shopifyDomain: "baitboardsdirect.myshopify.com",
-  ogImage: "/images/hero-marina.jpg",
+  ogImage: "/images/hero-marina.webp",
   brandColor: "#272d45",
 
   contact: {
@@ -27,7 +27,7 @@ export const site = {
 
   analytics: {
     ga4: "__TODO__",
-    clarityId: "nzuy3xur33",
+    clarityId: "__TODO__",
     okendoStoreId: "__TODO__",
   },
 
