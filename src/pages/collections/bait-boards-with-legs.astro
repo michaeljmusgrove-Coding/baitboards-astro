@@ -1,14 +1,33 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { getByCollection, formatPrice } from '../../data/products';
+import { site } from '../../config/site';
 
 const title = "Bait Boards with Legs | Bait Boards Direct";
 const description = "SeaKing bait boards with integrated mounting legs — heavy-duty fiberglass construction with the widest variety of mounting points to suit vessels of all sizes.";
 
 const products = getByCollection('bait-boards-with-legs');
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${site.domain}/collections/bait-boards-with-legs`,
+  name: 'Bait Boards with Legs',
+  url: `${site.domain}/collections/bait-boards-with-legs`,
+  description,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${site.domain}/products/${p.handle}`,
+      name: p.title,
+    })),
+  },
+};
 ---
 
-<BaseLayout title={title} description={description}>
+<BaseLayout title={title} description={description} schema={schema}>
 
   <!-- Collection header -->
   <section class="bg-dark-hero py-14 text-white">
