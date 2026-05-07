@@ -36,7 +36,7 @@ const schema = {
       <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
         <a href="/" class="hover:underline">Home</a> &rsaquo; On Sale
       </p>
-      <h1 class="font-heading text-3xl font-extrabold sm:text-4xl">On Sale</h1>
+      <h1 class="font-heading text-3xl font-extrabold sm:text-4xl" style="font-style:normal; text-transform:none;">On Sale</h1>
       <p class="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
         Discounted bait boards and accessories — all marked down, all with free shipping. Limited stock while they last.
       </p>
@@ -49,15 +49,19 @@ const schema = {
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => {
           const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
+          const soldOut = product.soldOut ?? false;
+          const savePct = onSale && product.compareAtPrice
+            ? Math.round((1 - product.price / product.compareAtPrice) * 100)
+            : 0;
           return (
             <a
               href={`/products/${product.handle}`}
               class="group block rounded-xl border border-border bg-white overflow-hidden transition hover:shadow-md"
             >
               <div class="relative aspect-square overflow-hidden bg-bg-alt">
-                {onSale && product.compareAtPrice && (
-                  <span class="absolute top-2 left-2 z-10 rounded bg-sale px-2 py-0.5 text-xs font-bold text-white leading-tight">
-                    Save {formatPrice(product.compareAtPrice - product.price)}
+                {onSale && savePct > 0 && (
+                  <span class="absolute top-2 left-2 z-10 rounded-none bg-[#07272e] px-2 py-0.5 text-xs font-bold text-white leading-tight">
+                    Save {savePct}%
                   </span>
                 )}
                 <img
@@ -70,11 +74,11 @@ const schema = {
                 />
               </div>
               <div class="p-3 sm:p-4">
-                <h2 class="font-heading text-xs font-semibold leading-snug text-primary line-clamp-2 sm:text-sm">
+                <h3 class="font-heading text-xs font-semibold leading-snug text-primary line-clamp-2 sm:text-sm">
                   {product.title}
-                </h2>
+                </h3>
                 <div class="mt-2 flex items-center gap-2 flex-wrap">
-                  <span class={`text-sm font-bold ${onSale ? 'text-sale' : 'text-primary'}`}>
+                  <span class="text-sm font-bold text-[#07272e]">
                     {formatPrice(product.price)}
                   </span>
                   {onSale && product.compareAtPrice && (
@@ -84,9 +88,48 @@ const schema = {
                   )}
                 </div>
               </div>
+              <div class="px-3 pb-3 sm:px-4 sm:pb-4">
+                {soldOut ? (
+                  <button
+                    disabled
+                    class="w-full cursor-not-allowed rounded-full bg-gray-400 py-2 text-xs font-bold uppercase tracking-widest text-white"
+                  >
+                    Sold out
+                  </button>
+                ) : (
+                  <button
+                    class="w-full rounded-full bg-[#008c9e] py-2 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#07272e]"
+                  >
+                    Add to cart
+                  </button>
+                )}
+              </div>
             </a>
           );
         })}
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO text block -->
+  <section class="border-t border-gray-200 bg-[#f7f7f7] py-14">
+    <div class="container max-w-3xl">
+      <h2 class="font-heading mb-6 text-2xl font-extrabold text-[#07272e]">
+        Premium Bait Boards at Sale Prices
+      </h2>
+      <div class="space-y-4 text-sm leading-relaxed text-gray-600">
+        <p>
+          Don't miss out on our discounted SeaKing bait boards — the same premium quality, marine-grade fiberglass construction, and practical features you expect, now at reduced prices. All orders include free shipping Australia-wide.
+        </p>
+        <p>
+          Stock is limited. Whether you're after a compact board for a tinnie or a full-sized setup with rod holders and drainage, grab it before it's gone.
+        </p>
+        <ul class="mt-2 space-y-1 list-none pl-0">
+          <li>✓ Same quality as full-price range</li>
+          <li>✓ Free shipping on all orders</li>
+          <li>✓ Limited stock while it lasts</li>
+          <li>✓ 30-day returns policy</li>
+        </ul>
       </div>
     </div>
   </section>

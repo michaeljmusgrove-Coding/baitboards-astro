@@ -162,3 +162,60 @@
   white-space: nowrap;
 }
 .button:hover { opacity: 0.8; }
+
+/* ── Page hero banners ── */
+.page-hero {
+  background-color: #07272e;
+  color: #ffffff;
+  padding: 48px 24px;
+  text-align: center;
+}
+.page-hero h1 {
+  font-family: "Montserrat", sans-serif;
+  font-size: clamp(1.8rem, 4vw, 3rem);
+  font-weight: 800;
+  font-style: italic;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin-bottom: 12px;
+}
+.page-hero p {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.85);
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+/* ── Breadcrumb ── */
+.breadcrumb { font-size: 12px; color: #888; padding: 12px 0; }
+.breadcrumb a { color: #07272e; text-decoration: none; }
+.breadcrumb a:hover { color: #008c9e; }
+
+/* ── Prose overrides ── */
+.prose a { color: #008c9e; }
+.prose strong { color: #07272e; }
+.prose h2, .prose h3 { color: #07272e; }
+
+/* ── Policy pages — no italic headings in prose ── */
+.policy-content h1,
+.policy-content h2,
+.policy-content h3 {
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+/* ── Shared form input ── */
+.form-input {
+  width: 100%;
+  border-radius: 8px;
+  border: 1px solid #e6e6e6;
+  background: #ffffff;
+  padding: 10px 14px;
+  font-family: "Archivo", sans-serif;
+  font-size: 14px;
+  color: #07272e;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.form-input:focus { border-color: #008c9e; }
