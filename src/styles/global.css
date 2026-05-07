@@ -124,7 +124,7 @@
   justify-content: center;
   padding: 12px 32px;
   background-color: #008c9e;
-  color: #ffffff !important;
+  color: #ffffff;
   font-family: "Archivo", sans-serif;
   font-size: 15px;
   font-weight: 700;
@@ -132,14 +132,14 @@
   letter-spacing: 0.06em;
   border-radius: 9999px;
   border: none;
-  text-decoration: none !important;
+  text-decoration: none;
   cursor: pointer;
   transition: background-color 0.2s ease;
   white-space: nowrap;
 }
 .button-accent:hover {
   background-color: #07272e;
-  color: #ffffff !important;
+  color: #ffffff;
 }
 
 .button {
@@ -194,7 +194,12 @@
 /* ── Prose overrides ── */
 .prose a { color: #008c9e; }
 .prose strong { color: #07272e; }
-.prose h2, .prose h3 { color: #07272e; }
+.prose h1, .prose h2, .prose h3 {
+  color: #07272e;
+  font-style: normal;
+  text-transform: none;
+  letter-spacing: normal;
+}
 
 /* ── Policy pages — no italic headings in prose ── */
 .policy-content h1,
@@ -203,6 +208,13 @@
   font-style: normal;
   text-transform: none;
   letter-spacing: normal;
+}
+
+/* ── Footer headings — uppercase but never italic ── */
+footer h2, footer h3, footer h4 {
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
 /* ── Shared form input ── */

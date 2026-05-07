@@ -79,7 +79,7 @@ const storeSchema = {
   name: site.name,
   url: site.domain,
   description: site.description,
-  logo: { '@type': 'ImageObject', url: `${site.domain}/images/logo.webp` },
+  logo: { '@type': 'ImageObject', url: `${site.domain}/images/logo.png` },
   image: [`${site.domain}/images/hero-marina.jpg`],
   areaServed: 'AU',
   telephone: site.contact.phone.startsWith('0') ? `+61${site.contact.phone.slice(1).replace(/\s/g, '')}` : site.contact.phone,
