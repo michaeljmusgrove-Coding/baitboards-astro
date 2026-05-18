@@ -47,7 +47,19 @@ if (!headers.includes(PLACEHOLDER)) {
   console.warn(`[postbuild-csp] ${PLACEHOLDER} not found in ${HEADERS_FILE} — skipping`);
   process.exit(0);
 }
-const updated = headers.replace(PLACEHOLDER, hashList);
+let updated = headers.replace(PLACEHOLDER, hashList);
+
+// Staging: inject X-Robots-Tag: noindex, nofollow into the /* block.
+// Workers Static Assets applies _headers AFTER the Worker and discards Worker-
+// set headers on known-asset 200 responses, so this is the only place that can
+// reliably attach the noindex directive for the workers.dev preview URL.
+if (process.env.DEPLOY_ENV === 'staging') {
+  // Insert immediately after the "/*\n" line; placed first inside the block so
+  // it's obvious in the file that this is the staging-only addition.
+  updated = updated.replace(/^\/\*\n/m, '/*\n  X-Robots-Tag: noindex, nofollow\n');
+  console.log('[postbuild-csp] DEPLOY_ENV=staging — injected X-Robots-Tag: noindex, nofollow into /* block');
+}
+
 writeFileSync(HEADERS_FILE, updated);
 
 console.log(`[postbuild-csp] pinned ${hashes.size} inline script hash(es) in ${HEADERS_FILE}`);

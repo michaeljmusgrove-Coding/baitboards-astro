@@ -5,12 +5,22 @@ on:
     branches:
       - dev
       - main
+  # Triggered by the baitboards-webhook Worker on Shopify product/inventory/collection changes.
+  # Defaults to building from main (production deploy).
+  repository_dispatch:
+    types: [shopify-rebuild]
+  # Manual trigger from GitHub UI for ad-hoc deploys.
+  workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        # For repository_dispatch and workflow_dispatch, default to main (production).
+        # For push events, the ref is determined automatically by the trigger.
+        with:
+          ref: ${{ github.event_name == 'repository_dispatch' && 'main' || github.ref }}
 
       - uses: actions/setup-node@v4
         with:
@@ -22,15 +32,24 @@ jobs:
 
       - name: Build
         run: npm run build
+        env:
+          PUBLIC_SHOPIFY_SHOP: ${{ secrets.PUBLIC_SHOPIFY_SHOP }}
+          PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          PRIVATE_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.PRIVATE_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          # Inject staging-only X-Robots-Tag when deploying staging.
+          DEPLOY_ENV: ${{ github.ref == 'refs/heads/dev' && 'staging' || '' }}
 
       - name: Deploy staging
-        if: github.ref == 'refs/heads/dev'
+        if: github.event_name == 'push' && github.ref == 'refs/heads/dev'
         run: npx wrangler deploy --env staging
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
 
       - name: Deploy production
-        if: github.ref == 'refs/heads/main'
+        if: |
+          (github.event_name == 'push' && github.ref == 'refs/heads/main') ||
+          github.event_name == 'repository_dispatch' ||
+          github.event_name == 'workflow_dispatch'
         run: npx wrangler deploy --env production
         env:
           CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
