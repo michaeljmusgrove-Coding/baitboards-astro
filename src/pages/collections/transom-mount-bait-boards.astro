@@ -1,0 +1,132 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllProducts, formatPrice } from '../../utils/shopify';
+import { shopifyImage } from '../../utils/shopifyImage';
+import { site } from '../../config/site';
+
+const title = "Transom & Rail Mount Bait Boards Australia | Bait Boards Direct";
+const description = "Fibreglass bait boards designed for transom and rail mounting on tinnies, runabouts, and offshore vessels. Free Australia-wide shipping, 316 marine stainless hardware, 1-year warranty.";
+
+// Flat-mount boards suitable for transom shelf or gunnel rail mounting.
+// Excludes the leg-mount SKL series (separate page) and accessories.
+const TRANSOM_HANDLES = [
+  'bait-board-b01', 'bait-board-b02', 'bait-board-b03', 'bait-board-b04',
+  'bait-board-jj-12', 'bait-board-hh-14', 'bait-board-hj-15',
+  'bait-board-sk-h10', 'bait-board-sk-h10b',
+  'bait-board-sk-e09', 'bait-board-sk-e09-blk',
+  'bait-board-sk-j07', 'bait-board-sk-k08-blk',
+  'bait-board-sq-13',
+];
+
+const allProducts = await getAllProducts(250);
+const products = TRANSOM_HANDLES
+  .map(h => allProducts.find(p => p.handle === h))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${site.domain}/collections/transom-mount-bait-boards/`,
+  name: 'Transom & Rail Mount Bait Boards',
+  url: `${site.domain}/collections/transom-mount-bait-boards/`,
+  description,
+  isPartOf: { '@id': `${site.domain}/#website` },
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${site.domain}/products/${p.handle}`,
+      name: p.title,
+    })),
+  },
+};
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+
+  <section class="bg-dark-hero py-14 text-white">
+    <div class="container">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
+        <a href="/" class="hover:underline">Home</a> &rsaquo; Collection &rsaquo; Transom & Rail Mount
+      </p>
+      <h1 class="font-heading text-3xl font-extrabold sm:text-4xl" style="font-style:normal; text-transform:none;">Transom & Rail Mount Bait Boards</h1>
+      <p class="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
+        Flat-mount fibreglass bait boards designed to bolt onto a transom shelf, gunnel rail, or custom mounting plate. Same SeaKing build quality across the range — composite fibreglass shell, 316 marine stainless hardware, integrated sink with drain. The most flexible mounting option for boats from 4 to 8 metres.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-12 sm:py-16">
+    <div class="container max-w-3xl">
+      <h2 class="font-heading mb-4 text-2xl font-extrabold text-[#07272e] sm:text-3xl" style="font-style:normal; text-transform:none;">Transom mount vs rail mount vs leg mount</h2>
+      <p class="mb-6 text-sm leading-relaxed text-text-muted sm:text-base">
+        Most SeaKing bait boards are <strong>flat-mount</strong> — meaning they bolt onto a flat surface, whether that's the transom shelf at the rear of the boat, the gunnel rail along the side, or a custom mounting plate fitted to the centre console. This is the most flexible mounting type and the right choice for the majority of recreational fishing boats. The boards in this collection are all flat-mount.
+      </p>
+      <p class="mb-6 text-sm leading-relaxed text-text-muted sm:text-base">
+        For larger offshore vessels with a leaning post or T-top, our <a href="/collections/bait-boards-with-legs" class="text-accent underline underline-offset-2 hover:text-primary">leg-mount SKL series</a> offers a different approach — the board sits on integrated stainless legs that bolt to the deck or clamp to a structural pole. Leg-mount suits vessels where there's no flat gunnel surface large enough for a flat-mount board.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white pb-12 sm:pb-16">
+    <div class="container">
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {products.map((product) => {
+          const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
+          const soldOut = !product.availableForSale;
+          const savePct = onSale && product.compareAtPrice
+            ? Math.round((1 - product.price / product.compareAtPrice) * 100)
+            : 0;
+          return (
+            <a href={`/products/${product.handle}`} class="group block rounded bg-[rgba(0,0,0,0.03)] overflow-hidden transition hover:shadow-md">
+              <div class="relative aspect-square overflow-hidden bg-[rgba(0,0,0,0.03)]">
+                {onSale && savePct > 0 && (
+                  <span class="absolute top-2 left-2 z-10 rounded-none bg-[#07272e] px-2 py-0.5 text-xs font-bold text-white leading-tight">Save {savePct}%</span>
+                )}
+                <img src={shopifyImage(product.image, 400)} alt={product.title} class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" width="400" height="400" loading="lazy" />
+              </div>
+              <div class="p-3 sm:p-4">
+                <h3 class="font-heading text-xs font-semibold leading-snug text-primary line-clamp-2 sm:text-sm">{product.title}</h3>
+                <div class="mt-2 flex items-center gap-2 flex-wrap">
+                  <span class="text-sm font-bold text-[#07272e]">{formatPrice(product.price)}</span>
+                  {onSale && product.compareAtPrice && (
+                    <span class="text-xs text-text-muted line-through">{formatPrice(product.compareAtPrice)}</span>
+                  )}
+                </div>
+              </div>
+              <div class="px-3 pb-3 sm:px-4 sm:pb-4">
+                {soldOut ? (
+                  <button disabled class="w-full cursor-not-allowed rounded-full bg-gray-400 py-2 text-xs font-bold uppercase tracking-widest text-white">Sold out</button>
+                ) : (
+                  <button class="w-full rounded-full bg-[#008c9e] py-2 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#07272e]">View product</button>
+                )}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <section class="border-t border-gray-200 bg-[#f7f7f7] py-14">
+    <div class="container max-w-3xl">
+      <h2 class="font-heading mb-6 text-2xl font-extrabold text-[#07272e]" style="font-style:normal; text-transform:none;">Installing a flat-mount bait board</h2>
+      <div class="space-y-4 text-sm leading-relaxed text-gray-600">
+        <p>
+          Flat-mount installation is the most common and the most forgiving. The board bolts through your gunnel rail or transom shelf using 316 marine-grade stainless bolts with backing plates, sealed with marine polyurethane (Sikaflex 291 or equivalent). Every board in this collection ships with the core mounting hardware needed for a standard install.
+        </p>
+        <p>
+          For a complete walkthrough including bolt sizing, sealant selection, and where most installations go wrong, see our <a href="/articles/how-to-install-a-bait-board" class="text-accent underline underline-offset-2 hover:text-primary">step-by-step installation guide</a>.
+        </p>
+        <ul class="mt-2 space-y-1 list-none pl-0">
+          <li>✓ Bolt-through transom shelf or gunnel rail</li>
+          <li>✓ 316 marine-grade stainless hardware included</li>
+          <li>✓ Backing plates supplied for stress-free mounting</li>
+          <li>✓ Universal pattern fits most fibreglass, aluminium, and timber boats</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,165 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getCollectionByHandle, formatPrice } from '../utils/shopify';
+import { shopifyImage } from '../utils/shopifyImage';
+import { site } from '../config/site';
+
+const title = "Aluminium vs Fibreglass Bait Boards — Why Fibreglass Wins for Saltwater | Bait Boards Direct";
+const description = "Choosing between aluminium and fibreglass bait boards? Australian saltwater conditions favour fibreglass — no galvanic corrosion at hardware joints, longer lifespan, better integrated sink design. Browse premium fibreglass options below.";
+
+const products = (await getCollectionByHandle({ handle: 'bait-boards', limit: 8 }));
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${site.domain}/aluminium-vs-fibreglass-bait-boards/`,
+  name: 'Aluminium vs Fibreglass Bait Boards',
+  url: `${site.domain}/aluminium-vs-fibreglass-bait-boards/`,
+  description,
+  isPartOf: { '@id': `${site.domain}/#website` },
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${site.domain}/products/${p.handle}`,
+      name: p.title,
+    })),
+  },
+};
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+
+  <section class="bg-dark-hero py-14 text-white">
+    <div class="container">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
+        <a href="/" class="hover:underline">Home</a> &rsaquo; Aluminium vs Fibreglass
+      </p>
+      <h1 class="font-heading text-3xl font-extrabold sm:text-4xl" style="font-style:normal; text-transform:none;">Aluminium vs Fibreglass Bait Boards</h1>
+      <p class="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
+        Both materials get sold for the same job. The difference shows up over years of saltwater use. Here's the short version, and our premium fibreglass range below.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white py-12 sm:py-16">
+    <div class="container max-w-3xl">
+      <h2 class="font-heading mb-6 text-2xl font-extrabold text-[#07272e] sm:text-3xl" style="font-style:normal; text-transform:none;">The short answer</h2>
+      <p class="mb-4 text-sm leading-relaxed text-text-muted sm:text-base">
+        For Australian saltwater fishing, <strong>composite fibreglass is the better material</strong>. It outlasts aluminium because saltwater + dissimilar metals at hardware joints causes galvanic corrosion in aluminium frames — a slow-motion failure that shows up at year 3, not year 1. Fibreglass with 316 stainless hardware doesn't have that failure mode.
+      </p>
+
+      <h2 class="font-heading mb-6 mt-12 text-2xl font-extrabold text-[#07272e] sm:text-3xl" style="font-style:normal; text-transform:none;">Side-by-side comparison</h2>
+      <div class="overflow-x-auto">
+        <table class="w-full border-collapse text-sm">
+          <thead>
+            <tr class="bg-[#07272e] text-white">
+              <th class="border border-gray-300 px-4 py-3 text-left font-bold">Factor</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-bold">Fibreglass</th>
+              <th class="border border-gray-300 px-4 py-3 text-left font-bold">Aluminium</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="bg-white">
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Saltwater corrosion</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">Inert. No corrosion mechanism on the structure.</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">Galvanic corrosion at every dissimilar-metal joint.</td>
+            </tr>
+            <tr class="bg-bg-alt">
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">UV durability</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">UV-resistant gelcoat layer. Chalks slowly over years.</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">Painted aluminium fades and chips at edges quickly.</td>
+            </tr>
+            <tr class="bg-white">
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Integrated sink design</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">Moulded into the shell — no joins, no salt accumulation.</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">Plastic insert in aluminium frame — joins where water pools.</td>
+            </tr>
+            <tr class="bg-bg-alt">
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Weight</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">8–22 kg depending on size.</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">6–14 kg — slight edge for portability.</td>
+            </tr>
+            <tr class="bg-white">
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Upfront cost</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">$400–$900 typical retail in AU.</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">$150–$400 typical retail in AU.</td>
+            </tr>
+            <tr class="bg-bg-alt">
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Realistic lifespan in saltwater</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">10+ years with basic maintenance.</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">3–5 years before hardware failures begin.</td>
+            </tr>
+            <tr class="bg-white">
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Repairability</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">Sand and re-laminate at any marine repair shop.</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">Welding rare in field; usually replace not repair.</td>
+            </tr>
+            <tr class="bg-bg-alt">
+              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Lifetime cost</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">Buy once. Lasts a decade.</td>
+              <td class="border border-gray-300 px-4 py-3 text-text-muted">Replace 2–3 times over the same period.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 class="font-heading mb-6 mt-12 text-2xl font-extrabold text-[#07272e] sm:text-3xl" style="font-style:normal; text-transform:none;">When aluminium might be the right choice</h2>
+      <ul class="mt-2 space-y-1 list-none pl-0 text-sm text-text-muted sm:text-base">
+        <li>✓ <strong>Freshwater-only fishing</strong> — no saltwater means no galvanic corrosion problem.</li>
+        <li>✓ <strong>Very low-use boats</strong> — a board fished 5 times a year doesn't accumulate the wear.</li>
+        <li>✓ <strong>Pure budget priority</strong> — if the choice is "aluminium now" or "no board".</li>
+        <li>✓ <strong>Kayak applications</strong> — every kilo matters.</li>
+      </ul>
+      <p class="mt-6 text-sm text-text-muted sm:text-base">
+        For everything else — saltwater fishing, regular use, multi-year ownership horizon — fibreglass is the clearer call. For the full breakdown including welding/repair details, hardware specifications, and care comparisons, see our <a href="/articles/fibreglass-vs-aluminium-bait-boards" class="text-accent underline underline-offset-2 hover:text-primary">in-depth article on fibreglass vs aluminium bait boards</a>.
+      </p>
+    </div>
+  </section>
+
+  <section class="bg-white pb-12 sm:pb-16">
+    <div class="container">
+      <h2 class="font-heading mb-8 text-center text-2xl font-bold text-primary sm:text-3xl">Premium fibreglass bait boards</h2>
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {products.map((product) => {
+          const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
+          const soldOut = !product.availableForSale;
+          const savePct = onSale && product.compareAtPrice
+            ? Math.round((1 - product.price / product.compareAtPrice) * 100)
+            : 0;
+          return (
+            <a href={`/products/${product.handle}`} class="group block rounded bg-[rgba(0,0,0,0.03)] overflow-hidden transition hover:shadow-md">
+              <div class="relative aspect-square overflow-hidden bg-[rgba(0,0,0,0.03)]">
+                {onSale && savePct > 0 && (
+                  <span class="absolute top-2 left-2 z-10 rounded-none bg-[#07272e] px-2 py-0.5 text-xs font-bold text-white leading-tight">Save {savePct}%</span>
+                )}
+                <img src={shopifyImage(product.image, 400)} alt={product.title} class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" width="400" height="400" loading="lazy" />
+              </div>
+              <div class="p-3 sm:p-4">
+                <h3 class="font-heading text-xs font-semibold leading-snug text-primary line-clamp-2 sm:text-sm">{product.title}</h3>
+                <div class="mt-2 flex items-center gap-2 flex-wrap">
+                  <span class="text-sm font-bold text-[#07272e]">{formatPrice(product.price)}</span>
+                  {onSale && product.compareAtPrice && (
+                    <span class="text-xs text-text-muted line-through">{formatPrice(product.compareAtPrice)}</span>
+                  )}
+                </div>
+              </div>
+              <div class="px-3 pb-3 sm:px-4 sm:pb-4">
+                {soldOut ? (
+                  <button disabled class="w-full cursor-not-allowed rounded-full bg-gray-400 py-2 text-xs font-bold uppercase tracking-widest text-white">Sold out</button>
+                ) : (
+                  <button class="w-full rounded-full bg-[#008c9e] py-2 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#07272e]">View product</button>
+                )}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+      <div class="mt-10 text-center">
+        <a href="/collections/bait-boards" class="button-accent">View All Bait Boards</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

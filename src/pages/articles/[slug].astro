@@ -1,0 +1,228 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollection, render } from 'astro:content';
+import { site } from '../../config/site';
+import { getAllProducts, formatPrice } from '../../utils/shopify';
+import { shopifyImage } from '../../utils/shopifyImage';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('articles', ({ data }) => !data.draft);
+  return articles.map((article) => ({
+    params: { slug: article.id },
+    props: { article },
+  }));
+}
+
+const { article } = Astro.props;
+const { Content } = await render(article);
+
+// Resolve related products at build time so we can show real prices/images.
+const allProducts = await getAllProducts(250);
+const productMap = new Map(allProducts.map((p) => [p.handle, p]));
+const relatedProducts = article.data.relatedProducts
+  .map((handle) => productMap.get(handle))
+  .filter((p): p is NonNullable<typeof p> => Boolean(p));
+
+const canonicalUrl = `${site.domain}/articles/${article.id}/`;
+const publishedISO = article.data.publishedAt.toISOString();
+const updatedISO = article.data.updatedAt?.toISOString();
+
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  '@id': `${canonicalUrl}#article`,
+  headline: article.data.title,
+  description: article.data.description,
+  url: canonicalUrl,
+  datePublished: publishedISO,
+  dateModified: updatedISO ?? publishedISO,
+  inLanguage: 'en-AU',
+  keywords: article.data.keywords.join(', '),
+  author: { '@id': `${site.domain}/about#founder` },
+  publisher: { '@id': `${site.domain}/#store` },
+  isPartOf: { '@id': `${site.domain}/#website` },
+  mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
+  ...(article.data.image && {
+    image: { '@type': 'ImageObject', url: `${site.domain}${article.data.image}` },
+  }),
+};
+---
+
+<BaseLayout
+  title={`${article.data.title} | Bait Boards Direct`}
+  description={article.data.description}
+  canonical={canonicalUrl}
+  schema={articleSchema}
+  ogType="article"
+>
+
+  <!-- Article header -->
+  <section class="bg-dark-hero py-14 text-white">
+    <div class="container max-w-3xl">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
+        <a href="/" class="hover:underline">Home</a> &rsaquo;
+        <a href="/articles/" class="hover:underline">Articles</a>
+      </p>
+      <h1 class="font-heading text-3xl font-extrabold leading-tight sm:text-4xl">
+        {article.data.title}
+      </h1>
+      <p class="mt-4 text-sm text-white/70">
+        Published {article.data.publishedAt.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
+        {article.data.updatedAt && ` · Updated ${article.data.updatedAt.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}`}
+        · By <a href="/about#founder" class="text-accent underline underline-offset-2">Harry, Bait Boards Direct</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- Article body -->
+  <section class="bg-white py-12 sm:py-16">
+    <div class="container max-w-3xl">
+      <article class="article-prose">
+        <Content />
+      </article>
+
+      {relatedProducts.length > 0 && (
+        <aside class="mt-16 rounded-2xl border border-border bg-bg-alt p-6 sm:p-8">
+          <h2 class="font-heading mb-6 text-2xl font-extrabold text-primary">Featured in this article</h2>
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {relatedProducts.map((p) => (
+              <a
+                href={`/products/${p.handle}`}
+                class="group block overflow-hidden rounded-xl border border-border bg-white transition hover:shadow-md"
+              >
+                <div class="aspect-square overflow-hidden bg-bg-alt">
+                  <img
+                    src={shopifyImage(p.image, 400)}
+                    alt={p.title}
+                    class="h-full w-full object-cover transition-transform group-hover:scale-105"
+                    width="400"
+                    height="400"
+                    loading="lazy"
+                  />
+                </div>
+                <div class="p-4">
+                  <h3 class="font-heading text-sm font-bold leading-snug text-primary line-clamp-2">{p.title}</h3>
+                  <p class="mt-2 text-sm font-bold text-[#07272e]">{formatPrice(p.price)}</p>
+                </div>
+              </a>
+            ))}
+          </div>
+        </aside>
+      )}
+
+      <div class="mt-12 text-center">
+        <a href="/articles/" class="button">&larr; Back to all articles</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style is:global>
+  .article-prose {
+    color: var(--color-text-muted, #4B5563);
+  }
+
+  .article-prose h2 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.65rem;
+    font-weight: 800;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    color: #07272e;
+    margin: 3rem 0 1rem 0;
+    padding-bottom: 0.4rem;
+    border-bottom: 2px solid rgba(0,0,0,0.08);
+  }
+
+  .article-prose h3 {
+    font-family: 'Bricolage Grotesque', sans-serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #07272e;
+    margin: 2rem 0 0.6rem 0;
+  }
+
+  .article-prose p {
+    font-size: 1rem;
+    line-height: 1.75;
+    color: #4B5563;
+    margin-bottom: 1.1rem;
+  }
+
+  .article-prose strong { color: #07272e; font-weight: 700; }
+
+  .article-prose a {
+    color: #008c9e;
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+    transition: color 0.15s;
+  }
+  .article-prose a:hover { color: #07272e; }
+
+  .article-prose ul,
+  .article-prose ol {
+    margin: 1rem 0 1.4rem 0;
+    padding-left: 1.4rem;
+  }
+
+  .article-prose ul li,
+  .article-prose ol li {
+    font-size: 1rem;
+    line-height: 1.7;
+    color: #4B5563;
+    margin-bottom: 0.4rem;
+  }
+
+  .article-prose ul li { list-style: disc; }
+  .article-prose ol li { list-style: decimal; }
+
+  .article-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.5rem 0 2rem 0;
+    font-size: 0.95rem;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.06);
+  }
+
+  .article-prose table thead {
+    background: #07272e;
+    color: white;
+  }
+
+  .article-prose table th,
+  .article-prose table td {
+    padding: 0.75rem 1rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .article-prose table th {
+    font-weight: 700;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+  }
+
+  .article-prose table tbody tr:nth-child(even) { background: #f7f7f7; }
+
+  .article-prose blockquote {
+    border-left: 4px solid #008c9e;
+    background: #f7f7f7;
+    padding: 1rem 1.25rem;
+    margin: 1.5rem 0;
+    font-style: italic;
+    border-radius: 0 0.5rem 0.5rem 0;
+  }
+
+  .article-prose code {
+    background: #f3f4f6;
+    padding: 0.15rem 0.4rem;
+    border-radius: 0.3rem;
+    font-family: monospace;
+    font-size: 0.9em;
+  }
+</style>
