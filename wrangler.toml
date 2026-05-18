@@ -9,6 +9,7 @@ workers_dev = false
 directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "404-page"
+run_worker_first = true
 
 # Staging: deploys to baitboards-dev.workers.dev on push to dev branch
 [env.staging]
@@ -19,6 +20,7 @@ workers_dev = true
 directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "404-page"
+run_worker_first = true
 
 # Production: deploys to baitboardsdirect.com on push to main branch
 [env.production]
@@ -33,3 +35,4 @@ routes = [
 directory = "./dist"
 binding = "ASSETS"
 not_found_handling = "404-page"
+run_worker_first = true
