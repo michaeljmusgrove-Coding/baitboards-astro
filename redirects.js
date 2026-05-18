@@ -32,6 +32,28 @@ const redirects = [
 
   // Shopify blog — no blog in Astro build (store has no published blog)
   { fromPrefix: '/blogs',   to: '/', status: 301 },
+
+  // Legacy SeaKing product handles (pre-rename to bait-board-* short handles).
+  // Shopify auto-redirected these while it owned the domain; once the CF
+  // Worker owns baitboardsdirect.com, those auto-redirects no longer fire —
+  // these explicit 301s preserve inbound links + indexed URLs. Mapping
+  // confirmed against live Shopify product list (2026-05-18).
+  { from: '/products/seaking-b01-fillet-table',                              to: '/products/bait-board-b01',                       status: 301 },
+  { from: '/products/seaking-b02-fillet-table',                              to: '/products/bait-board-b02',                       status: 301 },
+  { from: '/products/seaking-b03-fiberglass-fillet-table',                   to: '/products/bait-board-b03',                       status: 301 },
+  { from: '/products/seaking-b04-fiberglass-fillet-table',                   to: '/products/bait-board-b04',                       status: 301 },
+  { from: '/products/seaking-jj12-fiberglass-fillet-table',                  to: '/products/bait-board-jj-12',                     status: 301 },
+  { from: '/products/seaking-hh14-fiberglass-fillet-table',                  to: '/products/bait-board-hh-14',                     status: 301 },
+  { from: '/products/seaking-hj15-fiberglass-fillet-table',                  to: '/products/bait-board-hj-15',                     status: 301 },
+  { from: '/products/seaking-sq13-fiberglass-fillet-table',                  to: '/products/bait-board-sq-13',                     status: 301 },
+  { from: '/products/seaking-j07-fiberglass-fillet-table',                   to: '/products/bait-board-sk-j07',                    status: 301 },
+  { from: '/products/seaking-k08-fiberglass-fillet-table',                   to: '/products/bait-board-sk-k08-blk',                status: 301 },
+  { from: '/products/seaking-h10-white-fiberglass-fillet-table',             to: '/products/bait-board-sk-h10',                    status: 301 },
+  { from: '/products/seaking-h10-black-fiberglass-fillet-table',             to: '/products/bait-board-sk-h10b',                   status: 301 },
+  { from: '/products/seaking-e09-white-fiberglass-fillet-table',             to: '/products/bait-board-sk-e09',                    status: 301 },
+  { from: '/products/seaking-e09-black-fiberglass-fillet-table',             to: '/products/bait-board-sk-e09-blk',                status: 301 },
+  { from: '/products/seaking-leaning-post-white-fiberglass-fillet-table',    to: '/products/bait-boards-leaning-post-top-skl-11',  status: 301 },
+  { from: '/products/seaking-leaning-post-black-fiberglass-fillet-table',    to: '/products/leaning-post-top-only-blk',            status: 301 },
 ];
 
 export function matchRedirect(pathname) {
