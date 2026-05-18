@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { CartResult, ProductResult } from "./schemas";
+import { CartResult, ProductResult, CollectionResult } from "./schemas";
 import { config } from "./config";
 import {
   ProductsQuery,
@@ -9,6 +9,7 @@ import {
   GetCartQuery,
   RemoveCartLinesMutation,
   ProductRecommendationsQuery,
+  CollectionByHandleQuery,
 } from "./graphql";
 
 // Make a request to Shopify's GraphQL API  and return the data object from the response body as JSON data.
@@ -21,21 +22,21 @@ const makeShopifyRequest = async (
   const apiUrl = `https://${config.shopifyShop}/api/${config.apiVersion}/graphql.json`;
 
   function getOptions() {
-    // If the request is made from the server, we need to pass the private access token and the buyer IP
-    isSSR &&
-      !buyerIP &&
-      console.error(
-        `🔴 No buyer IP provided => make sure to pass the buyer IP when making a server side Shopify request.`
-      );
-
     const { privateShopifyAccessToken, publicShopifyAccessToken } = config;
     const options = {
       method: "POST",
       headers: {},
       body: JSON.stringify({ query, variables }),
     };
-    // Check if the Shopify request is made from the server or the client
-    if (isSSR) {
+
+    // Use the private token path only when a distinct delegate token is configured.
+    // Headless channel tokens are public tokens — sending them as Shopify-Storefront-Private-Token
+    // returns 403 ACCESS_DENIED. Fall through to the public header in that case.
+    if (
+      isSSR &&
+      privateShopifyAccessToken &&
+      privateShopifyAccessToken !== publicShopifyAccessToken
+    ) {
       options.headers = {
         "Content-Type": "application/json",
         "Shopify-Storefront-Private-Token": privateShopifyAccessToken,
@@ -43,11 +44,11 @@ const makeShopifyRequest = async (
       };
       return options;
     }
+
     options.headers = {
       "Content-Type": "application/json",
       "X-Shopify-Storefront-Access-Token": publicShopifyAccessToken,
     };
-
     return options;
   }
 
@@ -65,6 +66,88 @@ const makeShopifyRequest = async (
 
   return json.data;
 };
+
+// ─── Normalized product type ─────────────────────────────────────────────────
+// Flat shape used by all pages. Prices are plain AUD numbers; use formatPrice().
+
+export type NormalizedProduct = {
+  handle: string;
+  title: string;
+  price: number;
+  compareAtPrice: number | null;
+  image: string;
+  image2?: string;
+  description: string;
+  variantId: string;
+  availableForSale: boolean;
+  quantityAvailable: number;
+};
+
+export function formatPrice(amount: number): string {
+  return new Intl.NumberFormat("en-AU", {
+    style: "currency",
+    currency: "AUD",
+    minimumFractionDigits: 0,
+  }).format(amount);
+}
+
+type RawProduct = NonNullable<z.infer<typeof ProductResult>>;
+
+function normalizeProduct(raw: RawProduct): NormalizedProduct {
+  const v0 = raw.variants.nodes[0];
+  const price = v0 ? parseFloat(v0.price.amount) : 0;
+  const compareAtRaw = v0?.compareAtPrice
+    ? parseFloat(v0.compareAtPrice.amount)
+    : null;
+  const imgs = raw.images.nodes.filter(
+    (n): n is NonNullable<typeof n> => n !== null
+  );
+  return {
+    handle: raw.handle,
+    title: raw.title,
+    price,
+    compareAtPrice: compareAtRaw && compareAtRaw > price ? compareAtRaw : null,
+    image: raw.featuredImage?.url ?? imgs[0]?.url ?? "",
+    image2: imgs[1]?.url,
+    description: raw.description ?? "",
+    variantId: v0?.id ?? "",
+    availableForSale: raw.availableForSale ?? false,
+    quantityAvailable: v0?.quantityAvailable ?? 99,
+  };
+}
+
+// ─── Build-time catalogue helpers ────────────────────────────────────────────
+
+export const getAllProducts = async (
+  limit = 250
+): Promise<NormalizedProduct[]> => {
+  const data = await makeShopifyRequest(ProductsQuery, { first: limit });
+  const raw = data.products.edges.map((e: any) => e.node);
+  const parsed = z.array(ProductResult).parse(raw);
+  return parsed
+    .filter((p): p is RawProduct => p !== null)
+    .map(normalizeProduct);
+};
+
+export const getCollectionByHandle = async (options: {
+  handle: string;
+  limit?: number;
+  buyerIP?: string;
+}): Promise<NormalizedProduct[]> => {
+  const { handle, limit = 250, buyerIP = "" } = options;
+  const data = await makeShopifyRequest(
+    CollectionByHandleQuery,
+    { handle, first: limit },
+    buyerIP
+  );
+  const parsed = CollectionResult.parse(data.collection);
+  if (!parsed) return [];
+  return parsed.products.nodes
+    .filter((p): p is RawProduct => p !== null)
+    .map(normalizeProduct);
+};
+
+// ─── Legacy per-product helpers ──────────────────────────────────────────────
 
 // Get all products or a limited number of products (default: 10)
 export const getProducts = async (options: {

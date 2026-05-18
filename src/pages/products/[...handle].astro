@@ -2,9 +2,11 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import NotFoundLayout from "../../layouts/NotFoundLayout.astro";
 import AddToCartForm from "../../components/AddToCartForm.svelte";
-import { products, formatPrice } from "../../data/products";
+import { getAllProducts, formatPrice } from "../../utils/shopify";
+import { shopifyImage } from "../../utils/shopifyImage";
 
-export function getStaticPaths() {
+export async function getStaticPaths() {
+  const products = await getAllProducts(250);
   return products.map((p) => ({
     params: { handle: p.handle },
     props: { product: p },
@@ -17,8 +19,28 @@ const savePct = onSale && product.compareAtPrice
   ? Math.round((1 - product.price / product.compareAtPrice) * 100)
   : 0;
 
-const title = `${product.title} | Bait Boards Direct`;
-const description = product.description;
+// SEO title composition. Bait-board product titles already contain "Bait Board" — adding
+// "Fibreglass Bait Board for Boats Australia" duplicates keywords and pushes past Google's
+// SERP truncation width (~60 chars). For bait boards we drop the qualifier; for accessories
+// and leg-mounts (whose titles lack the keyword) we keep a short qualifier.
+const lowerTitle = product.title.toLowerCase();
+const isBaitBoard = /bait board/i.test(lowerTitle);
+const isLegMount = isBaitBoard && /leaning post|\bskl[-\s]/i.test(lowerTitle);
+const isAccessory = !isBaitBoard && /rod holder|leaning post|leg|mount|upgrade|stainless steel mounting/i.test(lowerTitle);
+const titleQualifier = isLegMount
+  ? 'Fibreglass Leg-Mount'
+  : isAccessory
+  ? 'Marine Accessory'
+  : null;
+const title = titleQualifier
+  ? `${product.title} | ${titleQualifier} | Bait Boards Direct`
+  : `${product.title} | Bait Boards Direct`;
+
+// SEO description: keyword-rich opener + product description, capped at 160 chars.
+const descriptionPrefix = isAccessory
+  ? 'Premium 316 marine-grade stainless steel accessory for SeaKing bait boards. '
+  : 'Premium fibreglass bait board with 316 marine stainless rod holders, integrated sink and free Australia-wide shipping. ';
+const description = (descriptionPrefix + product.description).slice(0, 160);
 
 const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
@@ -37,7 +59,7 @@ const productSchema = {
     priceCurrency: "AUD",
     price: product.price,
     priceValidUntil,
-    availability: "https://schema.org/InStock",
+    availability: product.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
     itemCondition: "https://schema.org/NewCondition",
     seller: { "@type": "SportingGoodsStore", "@id": "https://www.baitboardsdirect.com/#store" },
     shippingDetails: {
@@ -62,7 +84,7 @@ const productSchema = {
 };
 ---
 
-<BaseLayout title={title} description={description} schema={productSchema} preloadImage={product.image} ogType="product" productMeta={{ price: product.price, priceCurrency: 'AUD', availability: 'instock' }}>
+<BaseLayout title={title} description={description} schema={productSchema} preloadImage={shopifyImage(product.image, 1200)} ogType="product" productMeta={{ price: product.price, priceCurrency: 'AUD', availability: product.availableForSale ? 'instock' : 'outofstock' }}>
 
   <!-- Breadcrumb -->
   <div class="border-b border-border bg-bg-alt">
@@ -92,7 +114,7 @@ const productSchema = {
             )}
             <img
               id="gallery-main"
-              src={product.image}
+              src={shopifyImage(product.image, 1200)}
               alt={product.title}
               class="h-full w-full object-cover transition-opacity duration-200"
               width="600"
@@ -105,17 +127,17 @@ const productSchema = {
             <div class="mt-3 flex gap-2">
               <button
                 class="gallery-thumb h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 border-accent bg-bg-alt transition-colors"
-                data-src={product.image}
+                data-src={shopifyImage(product.image, 1200)}
                 aria-label="View image 1"
               >
-                <img src={product.image} alt={`${product.title} — image 1`} class="h-full w-full object-cover" width="64" height="64" loading="eager" />
+                <img src={shopifyImage(product.image, 128)} alt={`${product.title} — image 1`} class="h-full w-full object-cover" width="64" height="64" loading="eager" />
               </button>
               <button
                 class="gallery-thumb h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 border-border bg-bg-alt transition-colors hover:border-accent"
-                data-src={product.image2}
+                data-src={shopifyImage(product.image2, 1200)}
                 aria-label="View image 2"
               >
-                <img src={product.image2} alt={`${product.title} — image 2`} class="h-full w-full object-cover" width="64" height="64" loading="lazy" />
+                <img src={shopifyImage(product.image2, 128)} alt={`${product.title} — image 2`} class="h-full w-full object-cover" width="64" height="64" loading="lazy" />
               </button>
             </div>
           )}
@@ -186,8 +208,8 @@ const productSchema = {
             <AddToCartForm
               client:load
               variantId={product.variantId}
-              variantQuantityAvailable={99}
-              variantAvailableForSale={true}
+              variantQuantityAvailable={product.quantityAvailable}
+              variantAvailableForSale={product.availableForSale}
             />
           </div>
 
@@ -208,7 +230,7 @@ const productSchema = {
       <div class="grid gap-10 md:grid-cols-2 md:items-start">
         <div>
           <img
-            src={product.image}
+            src={shopifyImage(product.image, 1200)}
             alt={product.title}
             class="w-full rounded-xl"
             loading="lazy"
@@ -271,6 +293,31 @@ const productSchema = {
             </summary>
             <p class="mt-3 text-sm leading-relaxed text-gray-600">{item.a}</p>
           </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related guides -->
+  <section class="bg-[#f7f7f7] py-14">
+    <div class="container">
+      <h2 class="font-heading mb-8 text-3xl font-extrabold text-[#07272e]">Related guides</h2>
+      <div class="grid gap-6 sm:grid-cols-3">
+        {[
+          { href: '/articles/how-to-choose-a-bait-board-for-your-boat', title: 'How to choose a bait board for your boat', desc: 'Size, mounting style, rod holders — what actually matters.' },
+          { href: '/articles/how-to-install-a-bait-board', title: 'How to install a bait board', desc: 'Step-by-step transom and leg-mount installation guide.' },
+          { href: '/articles/fibreglass-vs-aluminium-bait-boards', title: 'Fibreglass vs aluminium bait boards', desc: 'Materials, durability, and which to pick for your setup.' },
+        ].map(g => (
+          <a
+            href={g.href}
+            class="group block rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-[#008c9e] hover:shadow-md"
+          >
+            <h3 class="font-heading mb-2 text-base font-extrabold text-[#07272e] group-hover:text-[#008c9e]">
+              {g.title}
+            </h3>
+            <p class="text-sm leading-relaxed text-gray-600">{g.desc}</p>
+            <span class="mt-3 inline-block text-xs font-semibold uppercase tracking-widest text-[#008c9e]">Read guide &rarr;</span>
+          </a>
         ))}
       </div>
     </div>

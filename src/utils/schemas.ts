@@ -60,6 +60,7 @@ export const VariantResult = z.object({
   availableForSale: z.boolean(),
   quantityAvailable: z.number().int(),
   price: MoneyV2Result,
+  compareAtPrice: MoneyV2Result.nullable().optional(),
 });
 
 export const ProductResult = z
@@ -67,6 +68,11 @@ export const ProductResult = z
     id: z.string(),
     title: z.string(),
     handle: z.string(),
+    description: z.string().default(""),
+    vendor: z.string().default(""),
+    productType: z.string().default(""),
+    tags: z.array(z.string()).default([]),
+    availableForSale: z.boolean().default(false),
     images: z.object({
       nodes: z.array(ImageResult),
     }),
@@ -74,5 +80,33 @@ export const ProductResult = z
       nodes: z.array(VariantResult),
     }),
     featuredImage: ImageResult.nullable(),
+    priceRange: z
+      .object({
+        minVariantPrice: MoneyV2Result,
+        maxVariantPrice: MoneyV2Result,
+      })
+      .optional(),
+    compareAtPriceRange: z
+      .object({
+        minVariantPrice: MoneyV2Result,
+      })
+      .optional(),
+    seo: z
+      .object({
+        title: z.string().nullable(),
+        description: z.string().nullable(),
+      })
+      .optional(),
+  })
+  .nullable();
+
+export const CollectionResult = z
+  .object({
+    id: z.string(),
+    title: z.string(),
+    handle: z.string(),
+    products: z.object({
+      nodes: z.array(ProductResult),
+    }),
   })
   .nullable();

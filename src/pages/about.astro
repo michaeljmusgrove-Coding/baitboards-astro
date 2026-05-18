@@ -1,8 +1,9 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
 
-const title = "About Us | Bait Boards Direct";
-const description = "We're all about quality, simplicity, and products that actually work. Based in South East Melbourne, supplying premium bait boards across Australia.";
+const title = "About Bait Boards Direct — Founded by Harry, 20-Year Fibreglass Boat Builder";
+const description = "Bait Boards Direct is founded by Harry, a fibreglass boat builder with 20+ years of marine composite experience. Premium SeaKing fibreglass bait boards shipped Australia-wide from South East Melbourne.";
 ---
 
 <BaseLayout title={title} description={description} preloadImage="/images/about-boatyard.webp">
@@ -21,7 +22,7 @@ const description = "We're all about quality, simplicity, and products that actu
     <div class="absolute inset-0 bg-black/50"></div>
     <div class="absolute inset-0 flex items-center justify-center">
       <h1 class="font-heading text-center text-4xl font-extrabold text-white sm:text-5xl">
-        Welcome to Bait Boards Direct
+        About Bait Boards Direct
       </h1>
     </div>
   </section>
@@ -46,6 +47,63 @@ const description = "We're all about quality, simplicity, and products that actu
         <p class="text-sm leading-relaxed text-text-muted sm:text-base">
           Our mission is simple: to provide anglers with durable, reliable, and practical bait boards that make every fishing trip smoother and more enjoyable. We're here to support your passion for fishing with high-quality products designed by people who love the water as much as you do.
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Meet the founder ═══ -->
+  <section id="founder" class="bg-white py-16 sm:py-20">
+    <div class="container max-w-3xl">
+      <div class="mb-10 text-center">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent">Meet the Founder</span>
+        <h2 class="font-heading mt-2 text-3xl font-extrabold text-primary sm:text-4xl">Harry — 20 Years of Fibreglass</h2>
+      </div>
+
+      <aside class="space-y-5 text-sm leading-relaxed text-text-muted sm:text-base">
+        <p>
+          Bait Boards Direct is founded and run by <strong class="text-primary">Harry</strong>, a working
+          fibreglass boat builder with over 20 years of hands-on experience in marine composite
+          construction. From transom rebuilds and stringer repairs to full hull lamination and gelcoat
+          finishing, Harry has spent his career working with the exact same materials our boards are
+          made from — composite fibreglass shells, 316 marine-grade stainless hardware, and
+          UV-stabilised gelcoat finishes built to take a beating.
+        </p>
+        <p>
+          A keen recreational angler himself, Harry started Bait Boards Direct after years of seeing
+          fishermen put up with cheap, flimsy bait boards that warped, rotted, or rusted out within a
+          season. The SeaKing range we supply is built to a different standard — the same construction
+          quality Harry uses every day in the workshop, scaled and shaped for offshore, inshore, and
+          estuary fishing.
+        </p>
+        <p>
+          Every board we sell is one he'd happily mount on his own boat — and he'll tell you straight
+          if a model isn't right for your setup. Need sizing advice or a fitment opinion? Give us a
+          call and you'll talk to someone who builds in this stuff for a living.
+        </p>
+      </aside>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl border border-border bg-bg-alt p-6">
+          <h3 class="font-heading mb-3 text-base font-bold text-primary">Background</h3>
+          <ul class="space-y-2 text-sm leading-relaxed text-text-muted">
+            <li>20+ years fibreglass and composite marine construction</li>
+            <li>Specialist in lamination, transom installation, gelcoat finishing</li>
+            <li>Lifelong recreational fisherman</li>
+            <li>Australian-owned, ships nationally from Melbourne</li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-border bg-bg-alt p-6">
+          <h3 class="font-heading mb-3 text-base font-bold text-primary">Knows His Stuff</h3>
+          <ul class="space-y-2 text-sm leading-relaxed text-text-muted">
+            {site.founder.knowsAbout.map((skill) => (
+              <li>• {skill}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-10 text-center">
+        <a href="/contact" class="button-accent">Talk to Harry</a>
       </div>
     </div>
   </section>

@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { site } from '../config/site';
-import { products, getByCollection, formatPrice } from '../data/products';
+import { getCollectionByHandle, formatPrice } from '../utils/shopify';
+import { shopifyImage } from '../utils/shopifyImage';
 
-const title = `${site.name} — ${site.tagline}`;
-const description = "Your one-stop shop for premium bait boards designed for fishing enthusiasts who demand the best. Whether you're prepping bait, filleting your catch, or just need a durable, functional surface on your boat, our bait boards are built to enhance your fishing experience.";
+const title = "Premium Fibreglass Bait Boards Australia | Bait Boards Direct";
+const description = "Premium fibreglass bait boards for boats Australia-wide. SeaKing range with 316 marine stainless rod holders, integrated sinks, free shipping. Built by 20-year fibreglass craftsman.";
 
-const featuredProducts = getByCollection('bait-boards');
+const featuredProducts = await getCollectionByHandle({ handle: 'bait-boards', limit: 12 });
 
 const CDN = 'https://cdn.shopify.com/s/files/1/0779/7529/0172/files';
 
@@ -53,7 +54,7 @@ const blackRange = [
 <BaseLayout title={title} description={description} preloadImage="/images/hero-marina.webp" preloadImageMobile="/images/hero-marina-mobile.webp">
 
   <!-- ═══ Hero Slideshow ═══ -->
-  <section class="relative overflow-hidden" style="background:#07272e; height: clamp(480px, 70vh, 780px);">
+  <section class="relative overflow-hidden" style="height: clamp(480px, 70vh, 780px);">
 
     <!-- Slide 1 — left-aligned text -->
     <div id="slide-1" class="hero-slide absolute inset-0 transition-opacity duration-700">
@@ -72,21 +73,26 @@ const blackRange = [
       <div class="absolute inset-0 bg-black/40"></div>
       <div class="absolute inset-0 flex items-center">
         <div class="container text-left text-white">
-          <h1 class="font-heading mb-6 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
-            <span class="block font-normal">You're here</span>
-            <span class="block">Because Every Boat Needs One!</span>
+          <h1 class="font-heading mb-4 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+            <span class="block font-normal">Premium Fibreglass Bait Boards</span>
+            <span class="block">for Australian Anglers</span>
           </h1>
-          <a href="/collections/bait-boards" class="button-accent">Shop now</a>
+          <p class="mb-6 max-w-xl text-base text-white/85 sm:text-lg">
+            Built tough for offshore, inshore, and estuary fishing — composite fibreglass, 316 marine stainless, free Australia-wide shipping.
+          </p>
+          <a href="/collections/bait-boards" class="button-accent">Shop Bait Boards</a>
         </div>
       </div>
     </div>
 
-    <!-- Slide 2 — centred text, unchanged -->
+    <!-- Slide 2 — centred text. Image src/srcset deferred via data-* attributes -->
+    <!-- to keep slide-2 hero image (54 KB) off the LCP critical path. -->
+    <!-- JS below swaps src/srcset in on first activation. -->
     <div id="slide-2" class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700" inert>
       <picture>
-        <source media="(max-width: 767px)" srcset="/images/hero-mobile.webp" type="image/webp" />
+        <source data-srcset="/images/hero-mobile.webp" media="(max-width: 767px)" type="image/webp" />
         <img
-          src="/images/hero-2.webp"
+          data-src="/images/hero-2.webp"
           alt="Bait Boards Direct — Built Tough"
           class="h-full w-full object-cover object-center"
           width="1600"
@@ -118,7 +124,18 @@ const blackRange = [
       var current = 1;
       var total = 2;
       var interval;
+      // Activate slide N: swap data-src/data-srcset to src/srcset the first time
+      // a slide is activated. Lets slide 2 (~54 KB) stay off the LCP critical path.
+      function activate(n) {
+        var slide = document.getElementById('slide-' + n);
+        if (!slide) return;
+        var img = slide.querySelector('img[data-src]');
+        if (img) { img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); }
+        var src = slide.querySelector('source[data-srcset]');
+        if (src) { src.setAttribute('srcset', src.getAttribute('data-srcset')); src.removeAttribute('data-srcset'); }
+      }
       function show(n) {
+        activate(n);
         for (var i = 1; i <= total; i++) {
           var slide = document.getElementById('slide-' + i);
           var dot = document.getElementById('dot-' + i);
@@ -158,26 +175,26 @@ const blackRange = [
   <!-- ═══ Fiberglass Bait Boards ═══ -->
   <section class="bg-white py-14 sm:py-20">
     <div class="container">
-      <h2 class="font-heading mb-10 text-center text-2xl font-bold text-primary sm:text-3xl">
+      <h2 class="font-heading mb-10 text-center text-2xl font-bold text-primary sm:text-[43px]">
         Fiberglass Bait Boards
       </h2>
-      <div class="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:gap-4 sm:grid-cols-3 lg:grid-cols-4">
+      <div class="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:gap-3 sm:grid-cols-3 lg:grid-cols-4">
         {featuredProducts.map((product) => {
           const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
-          const soldOut = product.soldOut ?? false;
+          const soldOut = !product.availableForSale;
           return (
             <a
               href={`/products/${product.handle}`}
-              class="group block rounded-xl border border-border bg-white overflow-hidden transition hover:shadow-md shrink-0 w-[47%] snap-start sm:w-auto"
+              class="group block rounded bg-[rgba(0,0,0,0.03)] overflow-hidden transition hover:shadow-md shrink-0 w-[47%] snap-start sm:w-auto"
             >
-              <div class="relative aspect-square overflow-hidden bg-bg-alt">
+              <div class="relative aspect-square overflow-hidden bg-[rgba(0,0,0,0.03)]">
                 {onSale && product.compareAtPrice && (
                   <span class="absolute top-2 left-2 z-10 rounded-none bg-[#07272e] px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-white leading-tight">
                     Save {formatPrice(product.compareAtPrice - product.price)}
                   </span>
                 )}
                 <img
-                  src={product.image}
+                  src={shopifyImage(product.image, 400)}
                   alt={product.title}
                   class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   width="400"
@@ -227,6 +244,37 @@ const blackRange = [
     </div>
   </section>
 
+  <!-- ═══ Shop by what you need ═══ -->
+  <section class="bg-[#f7f7f7] py-14 sm:py-20">
+    <div class="container">
+      <h2 class="font-heading mb-3 text-center text-2xl font-bold text-primary sm:text-[43px]">
+        Shop by what you need
+      </h2>
+      <p class="mx-auto mb-10 max-w-2xl text-center text-sm leading-relaxed text-gray-600 sm:text-base">
+        Find the right bait board for your boat and fishing style — or compare materials before you buy.
+      </p>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { href: '/bait-boards-for-tinnies', title: 'For Tinnies', desc: 'Compact boards built for small aluminium boats and side consoles.' },
+          { href: '/collections/transom-mount-bait-boards', title: 'Transom Mount', desc: 'Flat-mount boards for centre consoles and offshore vessels.' },
+          { href: '/fillet-tables', title: 'Fillet Tables', desc: 'Dedicated cleaning station options — metric and imperial.' },
+          { href: '/aluminium-vs-fibreglass-bait-boards', title: 'Aluminium vs Fibreglass', desc: 'Compare materials before you buy — weight, durability, cost.' },
+        ].map(card => (
+          <a
+            href={card.href}
+            class="group block rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-[#008c9e] hover:shadow-md"
+          >
+            <h3 class="font-heading mb-2 text-lg font-extrabold text-[#07272e] group-hover:text-[#008c9e]">
+              {card.title}
+            </h3>
+            <p class="text-sm leading-relaxed text-gray-600">{card.desc}</p>
+            <span class="mt-4 inline-block text-xs font-semibold uppercase tracking-widest text-[#008c9e]">Explore &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
   <!-- ═══ Welcome Section ═══ -->
   <section class="bg-white py-16 sm:py-20">
     <div class="container">
@@ -240,8 +288,8 @@ const blackRange = [
           />
         </div>
         <div>
-          <h2 class="font-heading mb-6 text-3xl font-extrabold text-[#07272e] sm:text-4xl">
-            Welcome to Bait Boards Direct
+          <h2 class="font-heading mb-6 text-[43px] font-extrabold text-[#07272e]">
+            Premium Fibreglass Bait Boards Australia
           </h2>
           <p class="mb-6 leading-relaxed text-gray-600">
             Your one-stop shop for premium bait boards designed for fishing enthusiasts
@@ -271,14 +319,14 @@ const blackRange = [
   <!-- ═══ Black Range ═══ -->
   <section class="bg-[#f7f7f7] py-16 sm:py-20">
     <div class="container">
-      <h2 class="font-heading mb-10 text-3xl font-extrabold text-[#07272e] sm:text-4xl">
-        Black Range
+      <h2 class="font-heading mb-10 text-[43px] font-extrabold text-[#07272e]">
+        SeaKing Black Range Bait Boards
       </h2>
       <div class="grid gap-10 md:grid-cols-2">
         {blackRange.map(p => (
           <div class="flex flex-col gap-3">
             <a href={`/products/${p.handle}`}>
-              <img src={p.image} alt={p.title} class="w-full rounded-xl" loading="lazy" />
+              <img src={shopifyImage(p.image, 800)} alt={p.title} class="w-full rounded-xl" loading="lazy" />
             </a>
             <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">{p.type}</p>
             <h3 class="font-bold text-[#07272e]">
@@ -314,8 +362,8 @@ const blackRange = [
           />
         </div>
         <div>
-          <h2 class="font-heading mb-4 text-3xl font-extrabold text-[#07272e] sm:text-4xl">
-            Why Choose Our Bait Boards
+          <h2 class="font-heading mb-4 text-[43px] font-extrabold text-[#07272e]">
+            Why Choose SeaKing Fibreglass Bait Boards
           </h2>
           <p class="mb-6 leading-relaxed text-gray-600">
             Made to last and super easy to use, our bait boards are the perfect fishing buddy.
@@ -323,7 +371,7 @@ const blackRange = [
             boat and every catch.
           </p>
           <a href="/collections/bait-boards" class="button-accent mb-8 inline-flex">
-            Shop now
+            Shop Bait Boards
           </a>
           <ul class="mt-6 divide-y divide-gray-200">
             {[
@@ -395,7 +443,7 @@ const blackRange = [
   <!-- ═══ Get in Touch Contact Form ═══ -->
   <section class="bg-[#f7f7f7] py-16 sm:py-20">
     <div class="container max-w-2xl">
-      <h2 class="font-heading mb-10 text-3xl font-extrabold text-[#07272e] sm:text-4xl">
+      <h2 class="font-heading mb-10 text-[43px] font-extrabold text-[#07272e]">
         Get in touch
       </h2>
       <form class="space-y-5" method="POST" action="/contact">

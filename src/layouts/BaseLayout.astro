@@ -70,23 +70,38 @@ function stripTodos(value: unknown): unknown {
   return value;
 }
 
-// Sitewide store schema — SportingGoodsStore is the correct Schema.org type
-// (OnlineStore is not a valid Schema.org class)
+// Founder Person schema — referenced by the store schema below.
+// Harry is a working fibreglass boat builder, so this carries genuine E-E-A-T
+// (he handcrafts in the same composite + 316 stainless materials the boards are made from).
+const founderSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${site.domain}/about#founder`,
+  name: site.founder.name,
+  jobTitle: site.founder.jobTitle,
+  description: site.founder.description,
+  knowsAbout: site.founder.knowsAbout,
+  worksFor: { '@id': `${site.domain}/#store` },
+};
+
+// Sitewide store schema — OnlineStore (subtype of Organization) is the correct type
+// for an online-only retailer. Avoids the implicit "physical address required" signal
+// that LocalBusiness subtypes (SportingGoodsStore, Store) carry.
 const storeSchema = {
   '@context': 'https://schema.org',
-  '@type': 'SportingGoodsStore',
+  '@type': 'OnlineStore',
   '@id': `${site.domain}/#store`,
   name: site.name,
   url: site.domain,
   description: site.description,
-  logo: { '@type': 'ImageObject', url: `${site.domain}/images/logo.png` },
+  logo: { '@type': 'ImageObject', url: `${site.domain}/images/logo.webp` },
   image: [`${site.domain}/images/hero-marina.jpg`],
-  areaServed: 'AU',
+  areaServed: { '@type': 'Country', name: 'Australia' },
   telephone: site.contact.phone.startsWith('0') ? `+61${site.contact.phone.slice(1).replace(/\s/g, '')}` : site.contact.phone,
   email: site.contact.email,
   currenciesAccepted: site.schema.currenciesAccepted,
   paymentAccepted: site.schema.paymentAccepted,
-  priceRange: site.schema.priceRange,
+  founder: { '@id': `${site.domain}/about#founder` },
   address: {
     '@type': 'PostalAddress',
     streetAddress: site.contact.address,
@@ -107,7 +122,7 @@ const websiteSchema = {
   name: site.name,
   description: site.tagline,
   inLanguage: 'en-AU',
-  publisher: { '@type': 'SportingGoodsStore', '@id': `${site.domain}/#store` },
+  publisher: { '@type': 'OnlineStore', '@id': `${site.domain}/#store` },
   potentialAction: {
     '@type': 'SearchAction',
     target: {
@@ -163,6 +178,7 @@ const breadcrumbSchema = pathSegments.length > 0
 // Merge sitewide + page-specific schemas, strip all __TODO__ fields before emit
 const allSchemas = [
   storeSchema,
+  founderSchema,
   websiteSchema,
   breadcrumbSchema,
   ...(Array.isArray(schema) ? schema : schema ? [schema] : []),
@@ -196,7 +212,7 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
     <link rel="preload" href="/fonts/fonts.css" as="style" />
     <link rel="stylesheet" href="/fonts/fonts.css" />
     <link rel="preload" href="/fonts/archivo/archivo-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="/fonts/montserrat/montserrat-700.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/fonts/montserrat/montserrat-800.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
 
     {preloadImage && !preloadImageMobile && (
       <link rel="preload" href={preloadImage} as="image" type={preloadImage.endsWith('.webp') ? 'image/webp' : undefined} fetchpriority="high" />

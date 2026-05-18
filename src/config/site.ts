@@ -20,13 +20,11 @@ export const site = {
   },
 
   social: {
-    instagram: "__TODO__",
-    facebook: "__TODO__",
-    youtube: "__TODO__",
+    facebook: "https://www.facebook.com/p/Bait-Boards-Direct-100092450230150/",
   },
 
   analytics: {
-    ga4: "__TODO__",
+    ga4: "G-GTL98BHGVW",
     clarityId: "__TODO__",
     okendoStoreId: "__TODO__",
   },
@@ -35,8 +33,26 @@ export const site = {
     googleVerification: "z2rC57o-AS-KbpyoHXeY-rZGYTYZlRKznqPXn_M9wz4",
   },
 
+  founder: {
+    name: "Harry",
+    jobTitle: "Founder & Marine Composite Specialist",
+    description:
+      "Founder of Bait Boards Direct and a fibreglass boat builder with over 20 years of hands-on experience in marine composite construction. Specialises in composite lamination, transom and floor installation, gelcoat application, and finishing — the same materials and craftsmanship that go into every SeaKing bait board he supplies.",
+    knowsAbout: [
+      "Fibreglass boat building",
+      "Composite lamination",
+      "Marine-grade stainless hardware",
+      "Bait board design and installation",
+      "Recreational and offshore fishing",
+      "Gelcoat finishing",
+    ],
+  },
+
   schema: {
-    type: "SportingGoodsStore",
+    // OnlineStore is a valid Schema.org subtype of Organization (added 2022).
+    // Correct primary type for an online-only retailer with no shopfront — avoids the
+    // address-required signal that LocalBusiness subtypes (e.g. SportingGoodsStore) carry.
+    type: "OnlineStore",
     currenciesAccepted: "AUD",
     paymentAccepted: "Credit Card, PayPal, Afterpay",
     priceRange: "$$",

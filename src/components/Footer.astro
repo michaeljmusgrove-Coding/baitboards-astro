@@ -1,5 +1,15 @@
 ---
+import { site } from '../config/site';
+
 const year = new Date().getFullYear();
+
+// Add new platforms here as they go live (instagram, youtube, tiktok, etc.).
+// The icon block below auto-renders only the platforms listed.
+const socialLinks = (
+  [
+    { key: 'facebook', label: 'Facebook', url: (site.social as Record<string, string>).facebook },
+  ] as const
+).filter((s) => s.url && !s.url.includes('__TODO__'));
 ---
 
 <footer class="border-t border-gray-200 bg-[#f7f7f7] text-[#07272e]">
@@ -9,12 +19,31 @@ const year = new Date().getFullYear();
       <!-- Col 1: Logo + tagline -->
       <div>
         <a href="/" class="mb-4 inline-block">
-          <img src="/images/logo.png" alt="Bait Boards Direct" class="h-10 w-auto" loading="lazy" />
+          <img src="/images/logo.webp" alt="Bait Boards Direct" class="h-10 w-auto" loading="lazy" />
         </a>
         <p class="mt-3 text-sm leading-relaxed text-gray-600">
           At Bait Boards Direct, we're all about top-quality bait boards that make your fishing
           trips easier and more fun. Built tough and ready for action!
         </p>
+        {socialLinks.length > 0 && (
+          <div class="mt-5 flex items-center gap-3">
+            {socialLinks.map((s) => (
+              <a
+                href={s.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label={`Follow Bait Boards Direct on ${s.label}`}
+                class="flex h-9 w-9 items-center justify-center rounded-full border border-gray-300 bg-white text-[#07272e] transition hover:border-[#008c9e] hover:bg-[#008c9e] hover:text-white"
+              >
+                {s.key === 'facebook' && (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+                    <path d="M22 12.06C22 6.48 17.52 2 11.94 2 6.36 2 1.88 6.48 1.88 12.06c0 5.02 3.66 9.18 8.44 9.94v-7.03H7.86v-2.91h2.46V9.85c0-2.43 1.45-3.78 3.66-3.78 1.06 0 2.17.19 2.17.19v2.39h-1.22c-1.2 0-1.58.75-1.58 1.51v1.81h2.69l-.43 2.91h-2.26v7.03c4.78-.76 8.44-4.92 8.44-9.94z"/>
+                  </svg>
+                )}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
 
       <!-- Col 2: Newsletter -->
@@ -46,7 +75,13 @@ const year = new Date().getFullYear();
         </h3>
         <ul class="space-y-2 text-sm">
           <li><a href="/collections/bait-boards" class="text-gray-600 transition-colors hover:text-[#008c9e]">Bait Boards</a></li>
+          <li><a href="/bait-boards-for-tinnies" class="text-gray-600 transition-colors hover:text-[#008c9e]">Bait Boards for Tinnies</a></li>
+          <li><a href="/collections/transom-mount-bait-boards" class="text-gray-600 transition-colors hover:text-[#008c9e]">Transom Mount Bait Boards</a></li>
+          <li><a href="/fillet-tables" class="text-gray-600 transition-colors hover:text-[#008c9e]">Fillet Tables</a></li>
           <li><a href="/collections/on-sale" class="text-gray-600 transition-colors hover:text-[#008c9e]">On Sale</a></li>
+          <li><a href="/help-me-choose" class="text-gray-600 transition-colors hover:text-[#008c9e]">Help Me Choose</a></li>
+          <li><a href="/articles" class="text-gray-600 transition-colors hover:text-[#008c9e]">Guides</a></li>
+          <li><a href="/aluminium-vs-fibreglass-bait-boards" class="text-gray-600 transition-colors hover:text-[#008c9e]">Aluminium vs Fibreglass</a></li>
           <li><a href="/about" class="text-gray-600 transition-colors hover:text-[#008c9e]">About</a></li>
           <li><a href="/contact" class="text-gray-600 transition-colors hover:text-[#008c9e]">Contact</a></li>
           <li><a href="/faqs" class="text-gray-600 transition-colors hover:text-[#008c9e]">FAQs</a></li>

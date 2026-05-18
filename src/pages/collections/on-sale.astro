@@ -1,12 +1,13 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getByCollection, formatPrice } from '../../data/products';
+import { getCollectionByHandle, formatPrice } from '../../utils/shopify';
+import { shopifyImage } from '../../utils/shopifyImage';
 import { site } from '../../config/site';
 
-const title = "On Sale | Bait Boards Direct";
-const description = "Discounted SeaKing bait boards and accessories — limited stock while they last. Free shipping Australia wide.";
+const title = "Bait Boards on Sale Australia — Discounted Fibreglass Models | Bait Boards Direct";
+const description = "Discounted premium fibreglass bait boards Australia. SeaKing models with rod holders and integrated sinks at sale prices. Free Australia-wide shipping. While stocks last.";
 
-const products = getByCollection('on-sale');
+const products = await getCollectionByHandle({ handle: 'on-sale' });
 
 const schema = {
   '@context': 'https://schema.org',
@@ -36,7 +37,7 @@ const schema = {
       <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
         <a href="/" class="hover:underline">Home</a> &rsaquo; On Sale
       </p>
-      <h1 class="font-heading text-3xl font-extrabold sm:text-4xl" style="font-style:normal; text-transform:none;">On Sale</h1>
+      <h1 class="font-heading text-3xl font-extrabold sm:text-4xl" style="font-style:normal; text-transform:none;">Bait Boards on Sale</h1>
       <p class="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
         Discounted bait boards and accessories — all marked down, all with free shipping. Limited stock while they last.
       </p>
@@ -49,23 +50,23 @@ const schema = {
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => {
           const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
-          const soldOut = product.soldOut ?? false;
+          const soldOut = !product.availableForSale;
           const savePct = onSale && product.compareAtPrice
             ? Math.round((1 - product.price / product.compareAtPrice) * 100)
             : 0;
           return (
             <a
               href={`/products/${product.handle}`}
-              class="group block rounded-xl border border-border bg-white overflow-hidden transition hover:shadow-md"
+              class="group block rounded bg-[rgba(0,0,0,0.03)] overflow-hidden transition hover:shadow-md"
             >
-              <div class="relative aspect-square overflow-hidden bg-bg-alt">
+              <div class="relative aspect-square overflow-hidden bg-[rgba(0,0,0,0.03)]">
                 {onSale && savePct > 0 && (
                   <span class="absolute top-2 left-2 z-10 rounded-none bg-[#07272e] px-2 py-0.5 text-xs font-bold text-white leading-tight">
                     Save {savePct}%
                   </span>
                 )}
                 <img
-                  src={product.image}
+                  src={shopifyImage(product.image, 400)}
                   alt={product.title}
                   class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   width="400"

@@ -1,12 +1,21 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getByCollection, formatPrice } from '../../data/products';
+import { getAllProducts, formatPrice } from '../../utils/shopify';
+import { shopifyImage } from '../../utils/shopifyImage';
 import { site } from '../../config/site';
 
-const title = "Bait Boards with Legs | Bait Boards Direct";
-const description = "SeaKing bait boards with integrated mounting legs — heavy-duty fiberglass construction with the widest variety of mounting points to suit vessels of all sizes.";
+const title = "Bait Boards with Legs — Leg-Mount Fibreglass Models Australia | Bait Boards Direct";
+const description = "Heavy-duty leg-mount fibreglass bait boards Australia. SeaKing SKL series with integrated mounting legs, 316 marine stainless hardware, generous sinks. Free Australia-wide shipping.";
 
-const products = getByCollection('bait-boards-with-legs');
+// No dedicated Shopify collection — filter by known handles until one is created.
+const WITH_LEGS_HANDLES = [
+  'bait-board-skl-l06',
+  'bait-board-skl-s05',
+  'bait-boards-leaning-post-top-skl-11',
+  'leaning-post-top-only-blk',
+];
+const allProducts = await getAllProducts(250);
+const products = allProducts.filter(p => WITH_LEGS_HANDLES.includes(p.handle));
 
 const schema = {
   '@context': 'https://schema.org',
@@ -49,23 +58,23 @@ const schema = {
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {products.map((product) => {
           const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
-          const soldOut = product.soldOut ?? false;
+          const soldOut = !product.availableForSale;
           const savePct = onSale && product.compareAtPrice
             ? Math.round((1 - product.price / product.compareAtPrice) * 100)
             : 0;
           return (
             <a
               href={`/products/${product.handle}`}
-              class="group block rounded-xl border border-border bg-white overflow-hidden transition hover:shadow-md"
+              class="group block rounded bg-[rgba(0,0,0,0.03)] overflow-hidden transition hover:shadow-md"
             >
-              <div class="relative aspect-square overflow-hidden bg-bg-alt">
+              <div class="relative aspect-square overflow-hidden bg-[rgba(0,0,0,0.03)]">
                 {onSale && savePct > 0 && (
                   <span class="absolute top-2 left-2 z-10 rounded-none bg-[#07272e] px-2 py-0.5 text-xs font-bold text-white leading-tight">
                     Save {savePct}%
                   </span>
                 )}
                 <img
-                  src={product.image}
+                  src={shopifyImage(product.image, 400)}
                   alt={product.title}
                   class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   width="400"
