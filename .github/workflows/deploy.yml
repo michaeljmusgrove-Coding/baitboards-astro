@@ -16,13 +16,13 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         # For repository_dispatch and workflow_dispatch, default to main (production).
         # For push events, the ref is determined automatically by the trigger.
         with:
           ref: ${{ github.event_name == 'repository_dispatch' && 'main' || github.ref }}
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v6
         with:
           node-version: 24
           cache: npm
