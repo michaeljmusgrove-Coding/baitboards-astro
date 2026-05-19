@@ -1,39 +1,350 @@
 ---
-import Header from "../components/Header.astro";
-import Footer from "../components/Footer.astro";
-import CartDrawer from "../components/CartDrawer.svelte";
-import AnnouncementBar from "../components/AnnouncementBar.astro";
+import '../styles/global.css';
+import { site } from '../config/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import CartDrawer from '../components/CartDrawer.svelte';
+import AnnouncementBar from '../components/AnnouncementBar.astro';
 
-export interface Props {
+interface Props {
   title: string;
-  description?: string;
+  description: string;
+  ogImage?: string;
+  canonicalUrl?: string;
+  preloadImage?: string;
+  preloadImageMobile?: string;
+  schema?: Record<string, unknown> | Record<string, unknown>[];
+  noindex?: boolean;
+  ogType?: string;
+  articleMeta?: {
+    publishedTime?: string;
+    modifiedTime?: string;
+    author?: string;
+    section?: string;
+    tags?: string[];
+  };
+  productMeta?: {
+    price: number;
+    priceCurrency: string;
+    availability: string;
+  };
 }
 
-const defaultDesc =
-  "A lightweight and minimalit Astro starter theme using Shopify with Svelte, Tailwind, and TypeScript.";
+const {
+  title,
+  description,
+  ogImage = site.ogImage,
+  canonicalUrl: canonicalUrlProp,
+  preloadImage,
+  preloadImageMobile,
+  schema,
+  noindex = false,
+  ogType = 'website',
+  articleMeta,
+  productMeta,
+} = Astro.props;
 
-const { title, description = defaultDesc } = Astro.props as Props;
+// build.format: 'file' causes Astro.url.href to include .html on non-homepage pages.
+// Strip it so canonicals, hreflang, OG, and BreadcrumbList items are all clean URLs.
+const canonicalUrl = (canonicalUrlProp ?? Astro.url.href).replace(/\.html$/, '');
+
+// Recursively strip any field whose value contains an unresolved __TODO__ placeholder.
+// Prevents client-data placeholders (phone, address, ABN, social URLs) from leaking
+// into emitted JSON-LD where Google would index them.
+function stripTodos(value: unknown): unknown {
+  if (typeof value === 'string') {
+    return value.includes('__TODO__') ? undefined : value;
+  }
+  if (Array.isArray(value)) {
+    const cleaned = value.map(stripTodos).filter((v) => v !== undefined);
+    return cleaned.length ? cleaned : undefined;
+  }
+  if (value && typeof value === 'object') {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value)) {
+      const cleaned = stripTodos(v);
+      if (cleaned !== undefined) out[k] = cleaned;
+    }
+    return Object.keys(out).length ? out : undefined;
+  }
+  return value;
+}
+
+// Founder Person schema — referenced by the store schema below.
+// Harry is a working fibreglass boat builder, so this carries genuine E-E-A-T
+// (he handcrafts in the same composite + 316 stainless materials the boards are made from).
+const founderSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${site.domain}/about#founder`,
+  name: site.founder.name,
+  jobTitle: site.founder.jobTitle,
+  description: site.founder.description,
+  knowsAbout: site.founder.knowsAbout,
+  worksFor: { '@id': `${site.domain}/#store` },
+};
+
+// Sitewide store schema — OnlineStore (subtype of Organization) is the correct type
+// for an online-only retailer. Avoids the implicit "physical address required" signal
+// that LocalBusiness subtypes (SportingGoodsStore, Store) carry.
+const storeSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'OnlineStore',
+  '@id': `${site.domain}/#store`,
+  name: site.name,
+  url: site.domain,
+  description: site.description,
+  logo: { '@type': 'ImageObject', url: `${site.domain}/images/logo.webp` },
+  image: [`${site.domain}/images/hero-marina.jpg`],
+  areaServed: { '@type': 'Country', name: 'Australia' },
+  telephone: site.contact.phone.startsWith('0') ? `+61${site.contact.phone.slice(1).replace(/\s/g, '')}` : site.contact.phone,
+  email: site.contact.email,
+  currenciesAccepted: site.schema.currenciesAccepted,
+  paymentAccepted: site.schema.paymentAccepted,
+  founder: { '@id': `${site.domain}/about#founder` },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.contact.address,
+    addressLocality: site.contact.suburb,
+    addressRegion: site.contact.state,
+    postalCode: site.contact.postcode,
+    addressCountry: site.contact.country,
+  },
+  sameAs: Object.values(site.social).filter((v) => !v.includes('__TODO__')),
+};
+
+// WebSite schema with SearchAction (product search)
+const websiteSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'WebSite',
+  '@id': `${site.domain}/#website`,
+  url: site.domain,
+  name: site.name,
+  description: site.tagline,
+  inLanguage: 'en-AU',
+  publisher: { '@type': 'OnlineStore', '@id': `${site.domain}/#store` },
+  potentialAction: {
+    '@type': 'SearchAction',
+    target: {
+      '@type': 'EntryPoint',
+      urlTemplate: `${site.domain}/products?q={search_term_string}`,
+    },
+    'query-input': 'required name=search_term_string',
+  },
+};
+
+// Display labels for known slugs (overrides auto-capitalisation)
+const SEGMENT_LABELS: Record<string, string> = {
+  faqs: 'FAQs',
+  about: 'About Us',
+  contact: 'Contact',
+  returns: 'Returns Policy',
+  shipping: 'Shipping Policy',
+  'privacy-policy': 'Privacy Policy',
+  terms: 'Terms of Service',
+  'on-sale': 'On Sale',
+  'bait-boards': 'Bait Boards',
+  'bait-boards-with-legs': 'Bait Boards With Legs',
+};
+
+// Container segments that have no page of their own — null = skip, object = replace with valid crumb
+const SEGMENT_OVERRIDES: Record<string, { name: string; url: string } | null> = {
+  collections: null, // skip — child segment IS the collection page
+  products: { name: 'Bait Boards', url: `${site.domain}/collections/bait-boards` },
+};
+
+const pathSegments = new URL(canonicalUrl).pathname.replace(/\/$/, '').split('/').filter(Boolean);
+
+const breadcrumbItems: { '@type': string; position: number; name: string; item: string }[] = [
+  { '@type': 'ListItem', position: 1, name: 'Home', item: `${site.domain}/` },
+];
+let crumbPos = 2;
+for (let i = 0; i < pathSegments.length; i++) {
+  const seg = pathSegments[i];
+  const isLast = i === pathSegments.length - 1;
+  if (!isLast && seg in SEGMENT_OVERRIDES) {
+    const override = SEGMENT_OVERRIDES[seg];
+    if (override) breadcrumbItems.push({ '@type': 'ListItem', position: crumbPos++, name: override.name, item: override.url });
+    continue;
+  }
+  const name = SEGMENT_LABELS[seg] ?? seg.split('-').map((w: string) => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
+  breadcrumbItems.push({ '@type': 'ListItem', position: crumbPos++, name, item: `${site.domain}/${pathSegments.slice(0, i + 1).join('/')}` });
+}
+
+const breadcrumbSchema = pathSegments.length > 0
+  ? { '@context': 'https://schema.org', '@type': 'BreadcrumbList', itemListElement: breadcrumbItems }
+  : null;
+
+// Merge sitewide + page-specific schemas, strip all __TODO__ fields before emit
+const allSchemas = [
+  storeSchema,
+  founderSchema,
+  websiteSchema,
+  breadcrumbSchema,
+  ...(Array.isArray(schema) ? schema : schema ? [schema] : []),
+]
+  .filter(Boolean)
+  .map(stripTodos)
+  .filter((s) => s !== undefined);
+
+const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogImage}`;
 ---
 
-<html lang="en">
+<!doctype html>
+<html lang="en-AU">
   <head>
-    <meta charset="utf-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow'} />
+    <meta name="theme-color" content="#ffffff" />
     <meta name="generator" content={Astro.generator} />
+
     <title>{title}</title>
     <meta name="description" content={description} />
-    <style is:global>
-      @import "../styles/global.css";
-    </style>
+
+    <link rel="canonical" href={canonicalUrl} />
+    <link rel="alternate" hreflang="en-AU" href={canonicalUrl} />
+    <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta name="google-site-verification" content={site.seo.googleVerification} />
+
+    <!-- Self-hosted fonts (no Google Fonts external request) -->
+    <link rel="preload" href="/fonts/fonts.css" as="style" />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
+    <link rel="preload" href="/fonts/archivo/archivo-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/fonts/montserrat/montserrat-800.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+
+    {preloadImage && !preloadImageMobile && (
+      <link rel="preload" href={preloadImage} as="image" type={preloadImage.endsWith('.webp') ? 'image/webp' : undefined} fetchpriority="high" />
+    )}
+    {preloadImage && preloadImageMobile && (
+      <link rel="preload" href={preloadImageMobile} as="image" type="image/webp" media="(max-width: 767px)" fetchpriority="high" />
+      <link rel="preload" href={preloadImage} as="image" type="image/webp" media="(min-width: 768px)" fetchpriority="high" />
+    )}
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={ogImageAbs} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_AU" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:url" content={canonicalUrl} />
+    <meta property="og:site_name" content={site.name} />
+
+    {articleMeta && (
+      <>
+        {articleMeta.publishedTime && <meta property="article:published_time" content={articleMeta.publishedTime} />}
+        {articleMeta.modifiedTime && <meta property="article:modified_time" content={articleMeta.modifiedTime} />}
+        {articleMeta.author && <meta property="article:author" content={articleMeta.author} />}
+        {articleMeta.section && <meta property="article:section" content={articleMeta.section} />}
+        {articleMeta.tags && articleMeta.tags.map((t) => <meta property="article:tag" content={t} />)}
+      </>
+    )}
+
+    {productMeta && (
+      <>
+        <meta property="product:price:amount" content={productMeta.price.toString()} />
+        <meta property="product:price:currency" content={productMeta.priceCurrency} />
+        <meta property="product:availability" content={productMeta.availability} />
+      </>
+    )}
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageAbs} />
+
+    <!-- Structured data — __TODO__ fields stripped at build time by stripTodos() -->
+    {allSchemas.map((s) => (
+      <script type="application/ld+json" set:html={JSON.stringify(s)} />
+    ))}
   </head>
   <body>
-    <AnnouncementBar />
+    <a href="#main-content" class="skip-link">Skip to content</a>
     <CartDrawer client:idle />
-    <Header />
-    <main>
+    <div class="sticky top-0 z-50">
+      <AnnouncementBar />
+      <Header />
+    </div>
+    <main id="main-content">
       <slot />
     </main>
     <Footer />
+
+    <!-- Scroll-reveal: elements with .reveal / .reveal-fade / .reveal-zoom / .reveal-stagger
+         transition in on viewport entry. Respects prefers-reduced-motion. -->
+    <script is:inline>
+      (function () {
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        var targets = document.querySelectorAll('.reveal, .reveal-fade, .reveal-zoom, .reveal-stagger');
+        if (!targets.length || !('IntersectionObserver' in window)) {
+          targets.forEach(function (el) { el.classList.add('is-visible'); });
+          return;
+        }
+        var io = new IntersectionObserver(function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.05 });
+        targets.forEach(function (el) { io.observe(el); });
+      })();
+    </script>
+
+    <!-- Analytics: GA4 (direct gtag.js) + Microsoft Clarity.
+         GTM removed — strategy is SEO-only, no Google Ads conversion tracking needed.
+         Both deferred until after page load + requestIdleCallback to keep LCP/TBT clean. -->
+    <script
+      is:inline
+      define:vars={{
+        ga4Id: site.analytics.ga4,
+        clarityId: site.analytics.clarityId,
+      }}
+    >
+      (function () {
+        function loadAnalytics() {
+          if (window.__bbdAnalyticsLoaded) return;
+          window.__bbdAnalyticsLoaded = true;
+
+          if (ga4Id && !ga4Id.startsWith('__TODO__')) {
+            window.dataLayer = window.dataLayer || [];
+            var ga4Script = document.createElement('script');
+            ga4Script.async = true;
+            ga4Script.src = 'https://www.googletagmanager.com/gtag/js?id=' + ga4Id;
+            document.head.appendChild(ga4Script);
+            ga4Script.onload = function () {
+              function gtag() { window.dataLayer.push(arguments); }
+              gtag('js', new Date());
+              gtag('config', ga4Id);
+            };
+          }
+
+          if (clarityId && !clarityId.startsWith('__TODO__')) {
+            (function (c, l, a, r, i, t, y) {
+              c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments); };
+              t = l.createElement(r); t.async = 1; t.src = 'https://www.clarity.ms/tag/' + i;
+              y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+            })(window, document, 'clarity', 'script', clarityId);
+          }
+        }
+
+        function deferUntilIdle() {
+          'requestIdleCallback' in window
+            ? requestIdleCallback(loadAnalytics, { timeout: 3000 })
+            : setTimeout(loadAnalytics, 1500);
+        }
+
+        if (document.readyState === 'complete') {
+          deferUntilIdle();
+        } else {
+          window.addEventListener('load', deferUntilIdle, { once: true });
+        }
+      })();
+    </script>
   </body>
 </html>

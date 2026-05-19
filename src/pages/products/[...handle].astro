@@ -1,74 +1,334 @@
 ---
-import { getProductByHandle } from "./../../utils/shopify";
-import { setCache } from "../../utils/cache";
-
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import NotFoundLayout from "../../layouts/NotFoundLayout.astro";
 import AddToCartForm from "../../components/AddToCartForm.svelte";
-import ProductImageGallery from "../../components/ProductImageGallery.astro";
-import ProductBreadcrumb from "../../components/ProductBreadcrumb.astro";
-import ProductInformations from "../../components/ProductInformations.astro";
-import ProductRecommendations from "../../components/ProductRecommendations.astro";
-import ProductReviews from "../../components/ProductReviews.astro";
-import ProductAccordions from "../../components/ProductAccordions.astro";
+import { getAllProducts, formatPrice } from "../../utils/shopify";
+import { shopifyImage } from "../../utils/shopifyImage";
 
-const { handle } = Astro.params;
-const headers = Astro.request.headers;
-const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
-const product = await getProductByHandle({ handle: handle || "", buyerIP: ip });
-
-if (!product) {
-  Astro.response.status = 404;
+export async function getStaticPaths() {
+  const products = await getAllProducts(250);
+  return products.map((p) => ({
+    params: { handle: p.handle },
+    props: { product: p },
+  }));
 }
 
-const firstVariant = product?.variants.nodes[0];
-setCache.short(Astro);
+const { product } = Astro.props;
+const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
+const savePct = onSale && product.compareAtPrice
+  ? Math.round((1 - product.price / product.compareAtPrice) * 100)
+  : 0;
+
+// SEO title composition. Bait-board product titles already contain "Bait Board" — adding
+// "Fibreglass Bait Board for Boats Australia" duplicates keywords and pushes past Google's
+// SERP truncation width (~60 chars). For bait boards we drop the qualifier; for accessories
+// and leg-mounts (whose titles lack the keyword) we keep a short qualifier.
+const lowerTitle = product.title.toLowerCase();
+const isBaitBoard = /bait board/i.test(lowerTitle);
+const isLegMount = isBaitBoard && /leaning post|\bskl[-\s]/i.test(lowerTitle);
+const isAccessory = !isBaitBoard && /rod holder|leaning post|leg|mount|upgrade|stainless steel mounting/i.test(lowerTitle);
+const titleQualifier = isLegMount
+  ? 'Fibreglass Leg-Mount'
+  : isAccessory
+  ? 'Marine Accessory'
+  : null;
+const title = titleQualifier
+  ? `${product.title} | ${titleQualifier} | Bait Boards Direct`
+  : `${product.title} | Bait Boards Direct`;
+
+// SEO description: keyword-rich opener + product description, capped at 160 chars.
+const descriptionPrefix = isAccessory
+  ? 'Premium 316 marine-grade stainless steel accessory for SeaKing bait boards. '
+  : 'Premium fibreglass bait board with 316 marine stainless rod holders, integrated sink and free Australia-wide shipping. ';
+const description = (descriptionPrefix + product.description).slice(0, 160);
+
+const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+
+const productSchema = {
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "@id": `https://www.baitboardsdirect.com/products/${product.handle}`,
+  name: product.title,
+  sku: product.handle,
+  image: [product.image, ...(product.image2 ? [product.image2] : [])],
+  description: product.description,
+  brand: { "@type": "Brand", name: "SeaKing" },
+  offers: {
+    "@type": "Offer",
+    url: `https://www.baitboardsdirect.com/products/${product.handle}`,
+    priceCurrency: "AUD",
+    price: product.price,
+    priceValidUntil,
+    availability: product.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+    itemCondition: "https://schema.org/NewCondition",
+    seller: { "@type": "SportingGoodsStore", "@id": "https://www.baitboardsdirect.com/#store" },
+    shippingDetails: {
+      "@type": "OfferShippingDetails",
+      shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "AUD" },
+      shippingDestination: { "@type": "DefinedRegion", addressCountry: "AU" },
+      deliveryTime: {
+        "@type": "ShippingDeliveryTime",
+        handlingTime: { "@type": "QuantitativeValue", minValue: 1, maxValue: 3, unitCode: "DAY" },
+        transitTime: { "@type": "QuantitativeValue", minValue: 3, maxValue: 7, unitCode: "DAY" },
+      },
+    },
+    hasMerchantReturnPolicy: {
+      "@type": "MerchantReturnPolicy",
+      applicableCountry: "AU",
+      returnPolicyCategory: "https://schema.org/MerchantReturnFiniteReturnWindow",
+      merchantReturnDays: 30,
+      returnMethod: "https://schema.org/ReturnByMail",
+      returnFees: "https://schema.org/OriginalShippingFees",
+    },
+  },
+};
 ---
 
-{
-  !product ? (
-    <NotFoundLayout title="Product not found" message="Product not found" />
-  ) : (
-    <BaseLayout title={product.title}>
-      <div class="container pt-6">
-        <ProductBreadcrumb title={product.title} />
-      </div>
+<BaseLayout title={title} description={description} schema={productSchema} preloadImage={shopifyImage(product.image, 1200)} ogType="product" productMeta={{ price: product.price, priceCurrency: 'AUD', availability: product.availableForSale ? 'instock' : 'outofstock' }}>
 
-      <section class="container">
-        <div class="pb-16 pt-6 lg:grid lg:grid-cols-12 lg:gap-20">
-          <div class="lg:col-span-7">
-            <ProductImageGallery images={product.images} />
-          </div>
+  <!-- Breadcrumb -->
+  <div class="border-b border-border bg-bg-alt">
+    <div class="container py-3">
+      <p class="text-xs text-text-muted">
+        <a href="/" class="hover:text-accent transition-colors">Home</a>
+        &rsaquo;
+        <a href="/collections/bait-boards" class="hover:text-accent transition-colors">Bait Boards</a>
+        &rsaquo;
+        <span class="text-primary">{product.title}</span>
+      </p>
+    </div>
+  </div>
 
-          <div class="mt-8 lg:col-span-5 lg:mt-0">
-            <ProductInformations
-              title={product.title}
-              price={firstVariant?.price}
+  <!-- Product detail -->
+  <section class="bg-white py-12 sm:py-16">
+    <div class="container">
+      <div class="grid gap-10 lg:grid-cols-2 lg:gap-16">
+
+        <!-- Image gallery -->
+        <div>
+          <div class="relative overflow-hidden rounded-2xl bg-bg-alt" style="aspect-ratio: 1 / 1;">
+            {onSale && savePct > 0 && (
+              <span class="absolute top-3 left-3 z-10 rounded-none bg-[#07272e] px-2.5 py-1 text-xs font-bold text-white leading-tight">
+                Save {savePct}%
+              </span>
+            )}
+            <img
+              id="gallery-main"
+              src={shopifyImage(product.image, 1200)}
+              alt={product.title}
+              class="h-full w-full object-cover transition-opacity duration-200"
+              width="600"
+              height="600"
+              fetchpriority="high"
+              loading="eager"
             />
-
-            <div>
-              <AddToCartForm
-                client:load
-                variantId={firstVariant?.id}
-                variantQuantityAvailable={firstVariant?.quantityAvailable}
-                variantAvailableForSale={firstVariant?.availableForSale}
-              />
-            </div>
-
-            <div class="mt-8">
-              <ProductAccordions />
-            </div>
           </div>
+          {product.image2 && (
+            <div class="mt-3 flex gap-2">
+              <button
+                class="gallery-thumb h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 border-accent bg-bg-alt transition-colors"
+                data-src={shopifyImage(product.image, 1200)}
+                aria-label="View image 1"
+              >
+                <img src={shopifyImage(product.image, 128)} alt={`${product.title} — image 1`} class="h-full w-full object-cover" width="64" height="64" loading="eager" />
+              </button>
+              <button
+                class="gallery-thumb h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 border-border bg-bg-alt transition-colors hover:border-accent"
+                data-src={shopifyImage(product.image2, 1200)}
+                aria-label="View image 2"
+              >
+                <img src={shopifyImage(product.image2, 128)} alt={`${product.title} — image 2`} class="h-full w-full object-cover" width="64" height="64" loading="lazy" />
+              </button>
+            </div>
+          )}
         </div>
-      </section>
+        <script is:inline>
+          (function () {
+            var main = document.getElementById('gallery-main');
+            if (!main) return;
+            document.querySelectorAll('.gallery-thumb').forEach(function (btn) {
+              btn.addEventListener('click', function () {
+                main.src = btn.dataset.src;
+                document.querySelectorAll('.gallery-thumb').forEach(function (b) {
+                  b.classList.remove('border-accent');
+                  b.classList.add('border-border');
+                });
+                btn.classList.remove('border-border');
+                btn.classList.add('border-accent');
+              });
+            });
+          })();
+        </script>
 
-      <section class="container">
-        <ProductReviews />
-      </section>
+        <!-- Info -->
+        <div class="flex flex-col">
+          <h1 class="font-heading text-2xl font-extrabold leading-tight text-primary sm:text-3xl">
+            {product.title}
+          </h1>
 
-      <section class="container">
-        <ProductRecommendations productId={product.id} buyerIP={ip} />
-      </section>
-    </BaseLayout>
-  )
-}
+          <div class="mt-4 flex flex-wrap items-center gap-3">
+            <span class="text-2xl font-bold text-[#07272e]">
+              {formatPrice(product.price)}
+            </span>
+            {onSale && product.compareAtPrice && (
+              <>
+                <span class="text-base text-text-muted line-through">
+                  {formatPrice(product.compareAtPrice)}
+                </span>
+                {savePct > 0 && (
+                  <span class="rounded-none bg-[#07272e] px-2 py-0.5 text-xs font-bold text-white leading-tight">
+                    Save {savePct}%
+                  </span>
+                )}
+              </>
+            )}
+          </div>
+
+          <div class="mt-6 border-t border-gray-200 pt-6">
+            <p class="text-sm leading-relaxed text-text-muted sm:text-base">
+              {product.description}
+            </p>
+          </div>
+
+          <!-- Trust signals -->
+          <ul class="mt-6 space-y-1.5 text-sm text-gray-600">
+            <li class="flex items-center gap-2">
+              <span class="font-bold text-[#008c9e]">✓</span> FREE Shipping Australia-wide
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="font-bold text-[#008c9e]">✓</span> 30 Day Returns
+            </li>
+            <li class="flex items-center gap-2">
+              <span class="font-bold text-[#008c9e]">✓</span> 1 Year Warranty
+            </li>
+          </ul>
+
+          <!-- Add to cart -->
+          <div class="mt-8">
+            <AddToCartForm
+              client:load
+              variantId={product.variantId}
+              variantQuantityAvailable={product.quantityAvailable}
+              variantAvailableForSale={product.availableForSale}
+            />
+          </div>
+
+          <a
+            href="/collections/bait-boards"
+            class="mt-5 text-center text-sm text-text-muted underline underline-offset-2 transition-colors hover:text-primary"
+          >
+            &larr; Back to Bait Boards
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Why Choose Our Bait Boards -->
+  <section class="bg-[#f7f7f7] py-14">
+    <div class="container">
+      <div class="grid gap-10 md:grid-cols-2 md:items-start">
+        <div>
+          <img
+            src={shopifyImage(product.image, 1200)}
+            alt={product.title}
+            class="w-full rounded-xl"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <h2 class="font-heading mb-4 text-3xl font-extrabold text-[#07272e]">
+            Why Choose Our Bait Boards
+          </h2>
+          <p class="mb-6 leading-relaxed text-gray-600">
+            Made to last and super easy to use, our bait boards are the perfect fishing buddy.
+            Lightweight, rust-proof, and built with durable fiberglass, they're ready for any
+            boat and every catch.
+          </p>
+          <ul class="divide-y divide-gray-200">
+            {[
+              { title: 'Fiberglass Materials', desc: 'Crafted from durable fiberglass for lightweight strength, impact resistance, and long-lasting performance.' },
+              { title: 'Built-in Cutting Surface', desc: 'Durable and hygienic cutting surface, perfect for preparing bait or cleaning your catch.' },
+              { title: 'Easy Installation', desc: 'Universal mounting system fits most boats. Install and remove in minutes.' },
+              { title: 'Rust-Resistant', desc: 'Crafted with premium materials to withstand saltwater and harsh marine environments.' },
+            ].map(f => (
+              <li class="py-4">
+                <p class="font-bold text-[#07272e]">{f.title}</p>
+                <p class="mt-1 text-sm leading-relaxed text-gray-600">{f.desc}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Trust badges row -->
+  <section class="border-b border-t border-gray-200 bg-white py-4">
+    <div class="container overflow-x-auto">
+      <ul class="flex min-w-max items-center justify-center gap-8 list-none p-0 m-0">
+        {['⚡ Fast Delivery', '✅ Trusted Quality', '🇦🇺 Australian Owned', '🔒 Secure Payments', '💬 Customer Support'].map(b => (
+          <li class="whitespace-nowrap text-xs font-semibold uppercase tracking-widest text-[#07272e]">{b}</li>
+        ))}
+      </ul>
+    </div>
+  </section>
+
+  <!-- FAQ section -->
+  <section class="bg-white py-14">
+    <div class="container max-w-3xl">
+      <h2 class="font-heading mb-8 text-3xl font-extrabold text-[#07272e]">FAQs</h2>
+      <div class="divide-y divide-gray-200">
+        {[
+          { q: 'Can I use the bait board in saltwater environments?', a: 'Absolutely! Our fiberglass bait boards are specifically crafted for saltwater use, with corrosion-resistant components that ensure long-lasting performance.' },
+          { q: 'Are replacement parts available?', a: 'We stock replacement parts including rod holders and drainage plugs. Contact us directly to inquire about specific parts.' },
+          { q: 'What size bait board is best for my boat?', a: 'Check the dimensions listed on each product page and compare with your setup. Our range covers 600mm to 830mm width to suit everything from a tinnie to a large centre console.' },
+          { q: 'Do you ship bait boards internationally?', a: 'Yes, we offer international shipping. Delivery times and costs vary by location — check our Shipping Policy or contact us for details.' },
+          { q: "Can I return a product if it's damaged during shipping?", a: "If your bait board arrives damaged, contact us immediately with photos of the damage and we'll assist with a replacement or refund per our Return and Refund Policy." },
+        ].map(item => (
+          <details class="group py-4">
+            <summary class="flex cursor-pointer items-center justify-between font-bold text-[#07272e]">
+              {item.q}
+              <span class="ml-4 flex-shrink-0 text-lg text-[#008c9e] transition-transform group-open:rotate-45">+</span>
+            </summary>
+            <p class="mt-3 text-sm leading-relaxed text-gray-600">{item.a}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Related guides -->
+  <section class="bg-[#f7f7f7] py-14">
+    <div class="container">
+      <h2 class="font-heading mb-8 text-3xl font-extrabold text-[#07272e]">Related guides</h2>
+      <div class="grid gap-6 sm:grid-cols-3">
+        {[
+          { href: '/articles/how-to-choose-a-bait-board-for-your-boat', title: 'How to choose a bait board for your boat', desc: 'Size, mounting style, rod holders — what actually matters.' },
+          { href: '/articles/how-to-install-a-bait-board', title: 'How to install a bait board', desc: 'Step-by-step transom and leg-mount installation guide.' },
+          { href: '/articles/fibreglass-vs-aluminium-bait-boards', title: 'Fibreglass vs aluminium bait boards', desc: 'Materials, durability, and which to pick for your setup.' },
+        ].map(g => (
+          <a
+            href={g.href}
+            class="group block rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-[#008c9e] hover:shadow-md"
+          >
+            <h3 class="font-heading mb-2 text-base font-extrabold text-[#07272e] group-hover:text-[#008c9e]">
+              {g.title}
+            </h3>
+            <p class="text-sm leading-relaxed text-gray-600">{g.desc}</p>
+            <span class="mt-3 inline-block text-xs font-semibold uppercase tracking-widest text-[#008c9e]">Read guide &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Okendo reviews placeholder -->
+  <section class="bg-white py-14">
+    <div class="container">
+      <h2 class="font-heading mb-8 text-3xl font-extrabold text-[#07272e]">Customer Reviews</h2>
+      <div id="oke-reviews-widget" data-oke-reviews-product-id=""></div>
+    </div>
+  </section>
+
+</BaseLayout>

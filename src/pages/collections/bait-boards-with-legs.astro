@@ -1,0 +1,146 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getAllProducts, formatPrice } from '../../utils/shopify';
+import { shopifyImage } from '../../utils/shopifyImage';
+import { site } from '../../config/site';
+
+const title = "Bait Boards with Legs — Leg-Mount Fibreglass Models Australia | Bait Boards Direct";
+const description = "Heavy-duty leg-mount fibreglass bait boards Australia. SeaKing SKL series with integrated mounting legs, 316 marine stainless hardware, generous sinks. Free Australia-wide shipping.";
+
+// No dedicated Shopify collection — filter by known handles until one is created.
+const WITH_LEGS_HANDLES = [
+  'bait-board-skl-l06',
+  'bait-board-skl-s05',
+  'bait-boards-leaning-post-top-skl-11',
+  'leaning-post-top-only-blk',
+];
+const allProducts = await getAllProducts(250);
+const products = allProducts.filter(p => WITH_LEGS_HANDLES.includes(p.handle));
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${site.domain}/collections/bait-boards-with-legs`,
+  name: 'Bait Boards with Legs',
+  url: `${site.domain}/collections/bait-boards-with-legs`,
+  image: `${site.domain}/images/collection-bait-boards.webp`,
+  description,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${site.domain}/products/${p.handle}`,
+      name: p.title,
+    })),
+  },
+};
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+
+  <!-- Collection header -->
+  <section class="bg-dark-hero py-14 text-white">
+    <div class="container">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
+        <a href="/" class="hover:underline">Home</a> &rsaquo; Collection
+      </p>
+      <h1 class="font-heading text-3xl font-extrabold sm:text-4xl" style="font-style:normal; text-transform:none;">Bait Boards with Legs</h1>
+      <p class="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
+        Heavy-duty SeaKing bait boards featuring integrated mounting legs. Designed with the widest variety of mounting points to accommodate vessels of any size — from small tinnies to large offshore vessels.
+      </p>
+    </div>
+  </section>
+
+  <!-- Product grid -->
+  <section class="bg-white py-12 sm:py-16">
+    <div class="container">
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {products.map((product) => {
+          const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
+          const soldOut = !product.availableForSale;
+          const savePct = onSale && product.compareAtPrice
+            ? Math.round((1 - product.price / product.compareAtPrice) * 100)
+            : 0;
+          return (
+            <a
+              href={`/products/${product.handle}`}
+              class="group block rounded bg-[rgba(0,0,0,0.03)] overflow-hidden transition hover:shadow-md"
+            >
+              <div class="relative aspect-square overflow-hidden bg-[rgba(0,0,0,0.03)]">
+                {onSale && savePct > 0 && (
+                  <span class="absolute top-2 left-2 z-10 rounded-none bg-[#07272e] px-2 py-0.5 text-xs font-bold text-white leading-tight">
+                    Save {savePct}%
+                  </span>
+                )}
+                <img
+                  src={shopifyImage(product.image, 400)}
+                  alt={product.title}
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                />
+              </div>
+              <div class="p-3 sm:p-4">
+                <h3 class="font-heading text-xs font-semibold leading-snug text-primary line-clamp-2 sm:text-sm">
+                  {product.title}
+                </h3>
+                <div class="mt-2 flex items-center gap-2 flex-wrap">
+                  <span class="text-sm font-bold text-[#07272e]">
+                    {formatPrice(product.price)}
+                  </span>
+                  {onSale && product.compareAtPrice && (
+                    <span class="text-xs text-text-muted line-through">
+                      {formatPrice(product.compareAtPrice)}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div class="px-3 pb-3 sm:px-4 sm:pb-4">
+                {soldOut ? (
+                  <button
+                    disabled
+                    class="w-full cursor-not-allowed rounded-full bg-gray-400 py-2 text-xs font-bold uppercase tracking-widest text-white"
+                  >
+                    Sold out
+                  </button>
+                ) : (
+                  <button
+                    class="w-full rounded-full bg-[#008c9e] py-2 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#07272e]"
+                  >
+                    Add to cart
+                  </button>
+                )}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO text block -->
+  <section class="border-t border-gray-200 bg-[#f7f7f7] py-14">
+    <div class="container max-w-3xl">
+      <h2 class="font-heading mb-6 text-2xl font-extrabold text-[#07272e]">
+        Bait Boards with Legs — Built for Any Vessel
+      </h2>
+      <div class="space-y-4 text-sm leading-relaxed text-gray-600">
+        <p>
+          Our leg-mounted SeaKing bait boards provide flexible mounting for vessels of all sizes. The SKL series integrates mounting legs directly into the board structure, giving you maximum stability without permanent modifications to your boat.
+        </p>
+        <p>
+          Handcrafted from full composite fiberglass with a UV-resistant PE plastic cutting board surface. All hardware is 316-grade marine stainless steel — built to handle saltwater, UV, and years of serious fishing.
+        </p>
+        <ul class="mt-2 space-y-1 list-none pl-0">
+          <li>✓ Integrated mounting legs for flexible vessel fit</li>
+          <li>✓ Widest variety of mounting points in the range</li>
+          <li>✓ Full composite fiberglass — no rot, no rust</li>
+          <li>✓ Free shipping Australia-wide</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

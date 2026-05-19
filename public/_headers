@@ -1,0 +1,32 @@
+/*
+  Cache-Control: public, max-age=3600, stale-while-revalidate=86400
+  Strict-Transport-Security: max-age=31536000; includeSubDomains; preload
+  X-Frame-Options: DENY
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' {{SCRIPT_HASHES}} https://www.googletagmanager.com https://www.google-analytics.com https://static.cloudflareinsights.com https://cdn.shopify.com https://d3hw6dc1ow8pp2.cloudfront.net https://www.clarity.ms https://c.clarity.ms; style-src 'self' 'unsafe-inline' https://d3hw6dc1ow8pp2.cloudfront.net; font-src 'self' https://d3hw6dc1ow8pp2.cloudfront.net; img-src 'self' data: blob: https://www.google-analytics.com https://*.google-analytics.com https://www.google.com https://*.googleusercontent.com https://www.googletagmanager.com https://cdn.shopify.com https://*.shopifycdn.com https://*.shopify.com https://d3hw6dc1ow8pp2.cloudfront.net; connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com https://static.cloudflareinsights.com https://*.cloudflareinsights.com https://baitboardsdirect.myshopify.com https://monorail-edge.shopifysvc.com https://api.okendo.io https://www.clarity.ms https://c.clarity.ms; frame-src https://checkout.shopifycloud.com; frame-ancestors 'none'; form-action 'self' https://checkout.shopifycloud.com https://api.web3forms.com; base-uri 'self'; upgrade-insecure-requests;
+
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+
+/images/*
+  Cache-Control: public, max-age=2592000
+
+/sitemap-index.xml
+  Cache-Control: public, max-age=3600
+
+/llms.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
+
+/llms-full.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8
+
+/robots.txt
+  Cache-Control: public, max-age=86400
+  Content-Type: text/plain; charset=utf-8

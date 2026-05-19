@@ -1,17 +1,495 @@
 ---
-import { getProducts } from "./../utils/shopify";
-import BaseLayout from "../layouts/BaseLayout.astro";
-import Products from "../components/Products.astro";
-import { setCache } from "../utils/cache";
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+import { getCollectionByHandle, formatPrice } from '../utils/shopify';
+import { shopifyImage } from '../utils/shopifyImage';
 
-const title = "Astro + Shopify";
-const headers = Astro.request.headers;
-const ip = headers.get("x-vercel-forwarded-for") || Astro.clientAddress;
-const products = await getProducts({ buyerIP: ip });
+const title = "Premium Fibreglass Bait Boards Australia | Bait Boards Direct";
+const description = "Premium fibreglass bait boards for boats Australia-wide. SeaKing range with 316 marine stainless rod holders, integrated sinks, free shipping. Built by 20-year fibreglass craftsman.";
 
-setCache.short(Astro);
+const featuredProducts = await getCollectionByHandle({ handle: 'bait-boards', limit: 12 });
+
+const CDN = 'https://cdn.shopify.com/s/files/1/0779/7529/0172/files';
+
+const blackRange = [
+  {
+    handle: 'bait-board-sk-h10b',
+    title: 'SeaKing Bait Board H10B (830mm x 400mm)',
+    type: 'Sea King SK-H10 · Black',
+    price: 585,
+    compareAt: 1170,
+    image: `${CDN}/ScreenShot2023-06-16at2.16.18pm.png?v=1686889032`,
+    desc: 'Premium composite fiberglass with UV-resistant PE plastic surface, generous sink with drain fitting, and rear knife tray. Maximises cutting space while minimising onboard footprint.',
+  },
+  {
+    handle: 'bait-board-sk-e09-blk',
+    title: 'SeaKing Bait Board SK-E09 - Black (820mm x 460mm)',
+    type: 'SeaKing SK-E09 (BLK)',
+    price: 685,
+    compareAt: 1370,
+    image: `${CDN}/ScreenShot2023-06-16at12.57.00pm.png?v=1686884252`,
+    desc: 'Sleek black gel coat, spacious knife tray, deep storage sink with drain, raised lip to hold items in turbulent water.',
+  },
+  {
+    handle: 'bait-board-sk-k08-blk',
+    title: 'SeaKing Bait Board SK-K08 - BLK (700mm x 420mm)',
+    type: 'SeaKing SK-K08 (BLK)',
+    price: 565,
+    compareAt: 1130,
+    image: `${CDN}/ScreenShot2023-06-16at12.29.28pm.png?v=1686882671`,
+    desc: 'Elegant yet durable with large knife tray and storage sink. Full composite fiberglass, UV-resistant PE cutting board.',
+  },
+  {
+    handle: 'leaning-post-top-only-blk',
+    title: 'SeaKing Leaning Post Top Only - BLK (700mm x 280mm)',
+    type: 'Leaning Post',
+    price: 690,
+    compareAt: null,
+    image: `${CDN}/ScreenShot2023-06-16at2.35.36pm.png?v=1686890173`,
+    desc: 'Heavy duty offshore leaning post with aluminium plate fibreglassed in. Free Shipping. Dimensions: 700mm x 280mm.',
+  },
+];
 ---
 
-<BaseLayout title={title}>
-  <Products products={products} />
+<BaseLayout title={title} description={description} preloadImage="/images/hero-marina.webp" preloadImageMobile="/images/hero-marina-mobile.webp">
+
+  <!-- ═══ Hero Slideshow ═══ -->
+  <section class="relative overflow-hidden" style="height: clamp(480px, 70vh, 780px);">
+
+    <!-- Slide 1 — left-aligned text -->
+    <div id="slide-1" class="hero-slide absolute inset-0 transition-opacity duration-700">
+      <picture>
+        <source media="(max-width: 767px)" srcset="/images/hero-marina-mobile.webp" type="image/webp" width="480" height="719" />
+        <img
+          src="/images/hero-marina.webp"
+          alt="Bait Boards Direct"
+          class="h-full w-full object-cover object-center"
+          width="1400"
+          height="2099"
+          fetchpriority="high"
+          loading="eager"
+        />
+      </picture>
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="absolute inset-0 flex items-center">
+        <div class="container text-left text-white">
+          <h1 class="font-heading mb-4 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+            <span class="block font-normal">Premium Fibreglass Bait Boards</span>
+            <span class="block">for Australian Anglers</span>
+          </h1>
+          <p class="mb-6 max-w-xl text-base text-white/85 sm:text-lg">
+            Built tough for offshore, inshore, and estuary fishing — composite fibreglass, 316 marine stainless, free Australia-wide shipping.
+          </p>
+          <a href="/collections/bait-boards" class="button-accent">Shop Bait Boards</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide 2 — centred text. Image src/srcset deferred via data-* attributes -->
+    <!-- to keep slide-2 hero image (54 KB) off the LCP critical path. -->
+    <!-- JS below swaps src/srcset in on first activation. -->
+    <div id="slide-2" class="hero-slide absolute inset-0 opacity-0 transition-opacity duration-700" inert>
+      <picture>
+        <source data-srcset="/images/hero-mobile.webp" media="(max-width: 767px)" type="image/webp" />
+        <img
+          data-src="/images/hero-2.webp"
+          alt="Bait Boards Direct — Built Tough"
+          class="h-full w-full object-cover object-center"
+          width="1600"
+          height="750"
+          loading="lazy"
+        />
+      </picture>
+      <div class="absolute inset-0 bg-black/40"></div>
+      <div class="absolute inset-0 flex items-center justify-center">
+        <div class="container text-center text-white">
+          <h2 class="font-heading mb-6 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+            Built Tough, Designed for You
+          </h2>
+          <a href="/collections/bait-boards" class="button-accent mx-auto">Shop now</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Slide indicators -->
+    <div class="absolute bottom-5 left-0 right-0 flex justify-center gap-2" aria-label="Slideshow navigation">
+      <button id="dot-1" class="hero-dot h-2 w-6 rounded-full bg-white transition-all" aria-label="Slide 1"></button>
+      <button id="dot-2" class="hero-dot h-2 w-6 rounded-full bg-white/40 transition-all" aria-label="Slide 2"></button>
+    </div>
+  </section>
+
+  <!-- Hero slideshow JS -->
+  <script is:inline>
+    (function () {
+      var current = 1;
+      var total = 2;
+      var interval;
+      // Activate slide N: swap data-src/data-srcset to src/srcset the first time
+      // a slide is activated. Lets slide 2 (~54 KB) stay off the LCP critical path.
+      function activate(n) {
+        var slide = document.getElementById('slide-' + n);
+        if (!slide) return;
+        var img = slide.querySelector('img[data-src]');
+        if (img) { img.src = img.getAttribute('data-src'); img.removeAttribute('data-src'); }
+        var src = slide.querySelector('source[data-srcset]');
+        if (src) { src.setAttribute('srcset', src.getAttribute('data-srcset')); src.removeAttribute('data-srcset'); }
+      }
+      function show(n) {
+        activate(n);
+        for (var i = 1; i <= total; i++) {
+          var slide = document.getElementById('slide-' + i);
+          var dot = document.getElementById('dot-' + i);
+          if (slide) { slide.style.opacity = i === n ? '1' : '0'; i === n ? slide.removeAttribute('inert') : slide.setAttribute('inert', ''); }
+          if (dot) { dot.style.backgroundColor = i === n ? 'white' : 'rgba(255,255,255,0.4)'; }
+        }
+        current = n;
+      }
+      function next() { show(current === total ? 1 : current + 1); }
+      interval = setInterval(next, 6000);
+      document.getElementById('dot-1').addEventListener('click', function () { clearInterval(interval); show(1); interval = setInterval(next, 6000); });
+      document.getElementById('dot-2').addEventListener('click', function () { clearInterval(interval); show(2); interval = setInterval(next, 6000); });
+    })();
+  </script>
+
+  <!-- ═══ Trust Bar — 8 items ═══ -->
+  <section class="overflow-x-auto border-b border-t border-gray-200 bg-white py-3">
+    <ul class="container flex min-w-max items-center justify-center gap-8 list-none m-0 p-0">
+      {[
+        { icon: '🚚', label: 'Free Shipping Australia Wide' },
+        { icon: '⚡', label: 'Fast Delivery' },
+        { icon: '🔩', label: 'Full Composite Fiberglass' },
+        { icon: '⚓', label: '316 Marine-Grade Stainless' },
+        { icon: '🇦🇺', label: 'Australian Owned' },
+        { icon: '🔒', label: 'Secure Payments' },
+        { icon: '💬', label: 'Customer Support' },
+        { icon: '🅿️', label: 'Afterpay Available' },
+      ].map(item => (
+        <li class="flex items-center gap-2 whitespace-nowrap text-xs font-semibold uppercase tracking-widest text-[#07272e]">
+          <span aria-hidden="true">{item.icon}</span>
+          <span>{item.label}</span>
+        </li>
+      ))}
+    </ul>
+  </section>
+
+  <!-- ═══ Fiberglass Bait Boards ═══ -->
+  <section class="bg-white py-14 sm:py-20">
+    <div class="container">
+      <h2 class="font-heading mb-10 text-center text-2xl font-bold text-primary sm:text-[43px]">
+        Fiberglass Bait Boards
+      </h2>
+      <div class="flex gap-3 overflow-x-auto snap-x snap-mandatory pb-3 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:grid sm:gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        {featuredProducts.map((product) => {
+          const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
+          const soldOut = !product.availableForSale;
+          return (
+            <a
+              href={`/products/${product.handle}`}
+              class="group block rounded bg-[rgba(0,0,0,0.03)] overflow-hidden transition hover:shadow-md shrink-0 w-[47%] snap-start sm:w-auto"
+            >
+              <div class="relative aspect-square overflow-hidden bg-[rgba(0,0,0,0.03)]">
+                {onSale && product.compareAtPrice && (
+                  <span class="absolute top-2 left-2 z-10 rounded-none bg-[#07272e] px-2 py-0.5 text-[11px] font-bold uppercase tracking-wide text-white leading-tight">
+                    Save {formatPrice(product.compareAtPrice - product.price)}
+                  </span>
+                )}
+                <img
+                  src={shopifyImage(product.image, 400)}
+                  alt={product.title}
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                />
+              </div>
+              <div class="p-3 sm:p-4">
+                <h3 class="font-heading text-xs font-semibold leading-snug text-primary line-clamp-2 sm:text-sm">
+                  {product.title}
+                </h3>
+                <div class="mt-2 flex items-center gap-2 flex-wrap">
+                  <span class={`text-sm font-bold ${onSale ? 'text-[#07272e]' : 'text-primary'}`}>
+                    {formatPrice(product.price)}
+                  </span>
+                  {onSale && product.compareAtPrice && (
+                    <span class="text-xs text-text-muted line-through">
+                      {formatPrice(product.compareAtPrice)}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div class="px-3 pb-3 sm:px-4 sm:pb-4">
+                {soldOut ? (
+                  <button
+                    disabled
+                    aria-disabled="true"
+                    class="w-full cursor-not-allowed rounded-full bg-gray-400 py-2 text-xs font-bold uppercase tracking-wide text-white"
+                  >
+                    Sold out
+                  </button>
+                ) : (
+                  <button
+                    class="w-full rounded-full bg-[#008c9e] py-2 text-xs font-bold uppercase tracking-wide text-white transition hover:bg-[#07272e]"
+                  >
+                    Add to cart
+                  </button>
+                )}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+      <div class="mt-10 text-center">
+        <a href="/collections/bait-boards" class="button-accent">View All Bait Boards</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Shop by what you need ═══ -->
+  <section class="bg-[#f7f7f7] py-14 sm:py-20">
+    <div class="container">
+      <h2 class="font-heading mb-3 text-center text-2xl font-bold text-primary sm:text-[43px]">
+        Shop by what you need
+      </h2>
+      <p class="mx-auto mb-10 max-w-2xl text-center text-sm leading-relaxed text-gray-600 sm:text-base">
+        Find the right bait board for your boat and fishing style — or compare materials before you buy.
+      </p>
+      <div class="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        {[
+          { href: '/bait-boards-for-tinnies', title: 'For Tinnies', desc: 'Compact boards built for small aluminium boats and side consoles.' },
+          { href: '/collections/transom-mount-bait-boards', title: 'Transom Mount', desc: 'Flat-mount boards for centre consoles and offshore vessels.' },
+          { href: '/fillet-tables', title: 'Fillet Tables', desc: 'Dedicated cleaning station options — metric and imperial.' },
+          { href: '/aluminium-vs-fibreglass-bait-boards', title: 'Aluminium vs Fibreglass', desc: 'Compare materials before you buy — weight, durability, cost.' },
+        ].map(card => (
+          <a
+            href={card.href}
+            class="group block rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-[#008c9e] hover:shadow-md"
+          >
+            <h3 class="font-heading mb-2 text-lg font-extrabold text-[#07272e] group-hover:text-[#008c9e]">
+              {card.title}
+            </h3>
+            <p class="text-sm leading-relaxed text-gray-600">{card.desc}</p>
+            <span class="mt-4 inline-block text-xs font-semibold uppercase tracking-widest text-[#008c9e]">Explore &rarr;</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Welcome Section ═══ -->
+  <section class="bg-white py-16 sm:py-20">
+    <div class="container">
+      <div class="grid gap-12 md:grid-cols-2 md:items-center">
+        <div>
+          <img
+            src="/images/shark-logo.webp"
+            alt="Bait Boards Direct"
+            class="w-full"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <h2 class="font-heading mb-6 text-[43px] font-extrabold text-[#07272e]">
+            Premium Fibreglass Bait Boards Australia
+          </h2>
+          <p class="mb-6 leading-relaxed text-gray-600">
+            Your one-stop shop for premium bait boards designed for fishing enthusiasts
+            who demand the best. Whether you're prepping bait, filleting your catch, or
+            just need a durable, functional surface on your boat, our bait boards are
+            built to enhance your fishing experience.
+          </p>
+          <a href="/about" class="button-accent">Learn more</a>
+          <div class="mt-8 flex flex-wrap gap-3">
+            {[
+              '⚡ Fast Delivery',
+              '✅ Trusted Quality',
+              '🇦🇺 Australian Owned',
+              '🔒 Secure Payments',
+              '💬 Customer Support',
+            ].map(badge => (
+              <span class="rounded border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#07272e]">
+                {badge}
+              </span>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Black Range ═══ -->
+  <section class="bg-[#f7f7f7] py-16 sm:py-20">
+    <div class="container">
+      <h2 class="font-heading mb-10 text-[43px] font-extrabold text-[#07272e]">
+        SeaKing Black Range Bait Boards
+      </h2>
+      <div class="grid gap-10 md:grid-cols-2">
+        {blackRange.map(p => (
+          <div class="flex flex-col gap-3">
+            <a href={`/products/${p.handle}`}>
+              <img src={shopifyImage(p.image, 800)} alt={p.title} class="w-full rounded-xl" loading="lazy" />
+            </a>
+            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">{p.type}</p>
+            <h3 class="font-bold text-[#07272e]">
+              <a href={`/products/${p.handle}`} class="hover:text-[#008c9e]">{p.title}</a>
+            </h3>
+            <p class="flex flex-wrap items-center gap-2 text-sm">
+              <strong class="text-[#07272e]">${p.price.toFixed(2)}</strong>
+              {p.compareAt && <s class="text-gray-400">${p.compareAt.toFixed(2)}</s>}
+              {p.compareAt && (
+                <span class="rounded-none bg-[#07272e] px-2 py-0.5 text-xs font-bold text-white">
+                  Save ${(p.compareAt - p.price).toFixed(0)}
+                </span>
+              )}
+            </p>
+            <p class="text-sm leading-relaxed text-gray-600">{p.desc}</p>
+            <a href={`/products/${p.handle}`} class="button-accent w-fit">Buy now</a>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Why Choose Our Bait Boards ═══ -->
+  <section class="bg-white py-16 sm:py-20">
+    <div class="container">
+      <div class="grid gap-12 md:grid-cols-2 md:items-start">
+        <div>
+          <img
+            src="/images/collection-bait-boards.webp"
+            alt="SeaKing Bait Board"
+            class="w-full rounded-xl"
+            loading="lazy"
+          />
+        </div>
+        <div>
+          <h2 class="font-heading mb-4 text-[43px] font-extrabold text-[#07272e]">
+            Why Choose SeaKing Fibreglass Bait Boards
+          </h2>
+          <p class="mb-6 leading-relaxed text-gray-600">
+            Made to last and super easy to use, our bait boards are the perfect fishing buddy.
+            Lightweight, rust-proof, and built with durable fiberglass, they're ready for any
+            boat and every catch.
+          </p>
+          <a href="/collections/bait-boards" class="button-accent mb-8 inline-flex">
+            Shop Bait Boards
+          </a>
+          <ul class="mt-6 divide-y divide-gray-200">
+            {[
+              { title: 'Rust-Resistant', desc: 'Crafted with premium materials to withstand saltwater and harsh marine environments.' },
+              { title: 'Built-in Cutting Surface', desc: 'Durable and hygienic cutting surface, perfect for preparing bait or cleaning your catch.' },
+              { title: 'Easy Installation', desc: 'Universal mounting system fits most boats. Install and remove in minutes.' },
+              { title: 'Fiberglass Materials', desc: 'Crafted from durable fiberglass for lightweight strength, impact resistance, and long-lasting performance.' },
+            ].map(f => (
+              <li class="py-4">
+                <p class="font-bold text-[#07272e]">{f.title}</p>
+                <p class="mt-1 text-sm leading-relaxed text-gray-600">{f.desc}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Built for Australian Conditions — KEEP ═══ -->
+  <section class="bg-[#f7f7f7] py-16 sm:py-20">
+    <div class="container max-w-4xl">
+      <div class="grid gap-10 lg:grid-cols-2 lg:gap-16 items-center">
+        <div>
+          <h2 class="font-heading mb-4 text-2xl font-bold text-primary sm:text-3xl">Built for Australian Conditions</h2>
+          <p class="mb-4 text-sm leading-relaxed text-text-muted sm:text-base">
+            Australian anglers fish hard. Salt spray, UV exposure, and long days on the water take a toll on equipment built from timber, aluminium, or cheap composites. SeaKing bait boards are handcrafted from full composite fibreglass (fiberglass) — the same materials used in marine vessel hull construction — so they withstand everything the Australian coast throws at them without rotting, swelling, or delaminating.
+          </p>
+          <p class="mb-4 text-sm leading-relaxed text-text-muted sm:text-base">
+            The working surface is a UV-resistant PE plastic cutting board — food-grade, non-porous, and impervious to fish oil, blood, and cleaning chemicals. All fittings are 316-grade marine stainless steel, rated for continuous saltwater use. Whether you're reef fishing off Queensland, chasing barramundi in the Territory, or running offshore from a West Australian port, the construction holds up.
+          </p>
+          <p class="text-sm leading-relaxed text-text-muted sm:text-base">
+            Board widths range from 600mm to 830mm to suit everything from a tinnie to a large offshore centre console. Every model includes an integrated sink and drain fitting — waste and scales rinse straight off the boat. No MDF, no particle board, no shortcuts.
+          </p>
+        </div>
+        <div class="grid grid-cols-2 gap-4">
+          <div class="rounded-2xl border border-border bg-white p-5">
+            <p class="font-heading mb-1 text-lg font-extrabold text-primary">316 SS</p>
+            <p class="text-xs text-text-muted">Marine-grade stainless hardware rated for continuous saltwater exposure</p>
+          </div>
+          <div class="rounded-2xl border border-border bg-white p-5">
+            <p class="font-heading mb-1 text-lg font-extrabold text-primary">600–830mm</p>
+            <p class="text-xs text-text-muted">Board widths to suit tinnies, centre consoles, and offshore vessels</p>
+          </div>
+          <div class="rounded-2xl border border-border bg-white p-5">
+            <p class="font-heading mb-1 text-lg font-extrabold text-primary">1 Year</p>
+            <p class="text-xs text-text-muted">Warranty on all boards and accessories, covering materials and workmanship</p>
+          </div>
+          <div class="rounded-2xl border border-border bg-white p-5">
+            <p class="font-heading mb-1 text-lg font-extrabold text-primary">Free Ship</p>
+            <p class="text-xs text-text-muted">Free shipping across Australia — metro, regional, and rural</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Have a question? CTA — KEEP ═══ -->
+  <section class="bg-dark-hero py-14 text-white">
+    <div class="container max-w-3xl text-center">
+      <h2 class="font-heading mb-4 text-2xl font-bold sm:text-3xl">Have a question?</h2>
+      <p class="mb-8 text-sm leading-relaxed text-white/70">
+        Need sizing advice, want to discuss bulk pricing, or have a question about installation? We're here to help — get in touch and we'll get back to you fast.
+      </p>
+      <a href="/contact" class="button-accent mx-auto">Contact Us</a>
+    </div>
+  </section>
+
+  <!-- ═══ Get in Touch Contact Form ═══ -->
+  <section class="bg-[#f7f7f7] py-16 sm:py-20">
+    <div class="container max-w-2xl">
+      <h2 class="font-heading mb-10 text-[43px] font-extrabold text-[#07272e]">
+        Get in touch
+      </h2>
+      <form class="space-y-5" method="POST" action="/contact">
+        <div class="grid gap-5 sm:grid-cols-2">
+          <label class="flex flex-col gap-1.5">
+            <span class="text-xs font-semibold uppercase tracking-wide text-[#07272e]">Name</span>
+            <input
+              type="text"
+              name="contact[name]"
+              autocomplete="name"
+              class="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-[#07272e] outline-none transition focus:border-[#008c9e]"
+            />
+          </label>
+          <label class="flex flex-col gap-1.5">
+            <span class="text-xs font-semibold uppercase tracking-wide text-[#07272e]">
+              Email <span class="text-red-500">*</span>
+            </span>
+            <input
+              type="email"
+              name="contact[email]"
+              required
+              autocomplete="email"
+              class="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-[#07272e] outline-none transition focus:border-[#008c9e]"
+            />
+          </label>
+        </div>
+        <label class="flex flex-col gap-1.5">
+          <span class="text-xs font-semibold uppercase tracking-wide text-[#07272e]">Phone</span>
+          <input
+            type="tel"
+            name="contact[phone]"
+            autocomplete="tel"
+            class="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-[#07272e] outline-none transition focus:border-[#008c9e]"
+          />
+        </label>
+        <label class="flex flex-col gap-1.5">
+          <span class="text-xs font-semibold uppercase tracking-wide text-[#07272e]">Your message</span>
+          <textarea
+            name="contact[body]"
+            rows="6"
+            class="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-[#07272e] outline-none transition focus:border-[#008c9e]"
+          ></textarea>
+        </label>
+        <button type="submit" class="button-accent">Submit now</button>
+      </form>
+    </div>
+  </section>
+
 </BaseLayout>

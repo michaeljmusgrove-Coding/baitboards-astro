@@ -1,0 +1,145 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getCollectionByHandle, formatPrice } from '../../utils/shopify';
+import { shopifyImage } from '../../utils/shopifyImage';
+import { site } from '../../config/site';
+
+const title = "Shop Fibreglass Bait Boards Australia | Bait Boards Direct";
+const description = "Shop premium fibreglass bait boards in Australia. SeaKing range with integrated sinks, 316 marine stainless rod holders, composite shells. Free Australia-wide shipping, 1-year warranty.";
+
+const products = await getCollectionByHandle({ handle: 'bait-boards' });
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'CollectionPage',
+  '@id': `${site.domain}/collections/bait-boards`,
+  name: 'Bait Boards',
+  url: `${site.domain}/collections/bait-boards`,
+  image: `${site.domain}/images/collection-bait-boards.webp`,
+  description,
+  mainEntity: {
+    '@type': 'ItemList',
+    itemListElement: products.map((p, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${site.domain}/products/${p.handle}`,
+      name: p.title,
+    })),
+  },
+};
+---
+
+<BaseLayout title={title} description={description} schema={schema}>
+
+  <!-- Collection header -->
+  <section class="bg-dark-hero py-14 text-white">
+    <div class="container">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
+        <a href="/" class="hover:underline">Home</a> &rsaquo; Collection
+      </p>
+      <h1 class="font-heading text-3xl font-extrabold sm:text-4xl" style="font-style:normal; text-transform:none;">Premium Fibreglass Bait Boards</h1>
+      <p class="mt-3 max-w-2xl text-sm leading-relaxed text-white/70">
+        Check out our premium bait boards, perfect for making your fishing trips smoother and more fun. Our bait boards are built tough and super practical — they'll handle all your bait prep and cleaning with ease.
+      </p>
+    </div>
+  </section>
+
+  <!-- Product grid -->
+  <section class="bg-white py-12 sm:py-16">
+    <div class="container">
+      <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        {products.map((product, index) => {
+          const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
+          const soldOut = !product.availableForSale;
+          const savePct = onSale && product.compareAtPrice
+            ? Math.round((1 - product.price / product.compareAtPrice) * 100)
+            : 0;
+          const isAboveFold = index < 2;
+          return (
+            <a
+              href={`/products/${product.handle}`}
+              class="group block rounded bg-[rgba(0,0,0,0.03)] overflow-hidden transition hover:shadow-md"
+            >
+              <div class="relative aspect-square overflow-hidden bg-[rgba(0,0,0,0.03)]">
+                {onSale && savePct > 0 && (
+                  <span class="absolute top-2 left-2 z-10 rounded-none bg-[#07272e] px-2 py-0.5 text-xs font-bold text-white leading-tight">
+                    Save {savePct}%
+                  </span>
+                )}
+                <img
+                  src={shopifyImage(product.image, 400)}
+                  alt={product.title}
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  width="400"
+                  height="400"
+                  loading={isAboveFold ? "eager" : "lazy"}
+                  fetchpriority={index === 0 ? "high" : "auto"}
+                />
+              </div>
+              <div class="p-3 sm:p-4">
+                <h3 class="font-heading text-xs font-semibold leading-snug text-primary line-clamp-2 sm:text-sm">
+                  {product.title}
+                </h3>
+                <div class="mt-2 flex items-center gap-2 flex-wrap">
+                  <span class="text-sm font-bold text-[#07272e]">
+                    {formatPrice(product.price)}
+                  </span>
+                  {onSale && product.compareAtPrice && (
+                    <span class="text-xs text-text-muted line-through">
+                      {formatPrice(product.compareAtPrice)}
+                    </span>
+                  )}
+                </div>
+              </div>
+              <div class="px-3 pb-3 sm:px-4 sm:pb-4">
+                {soldOut ? (
+                  <button
+                    disabled
+                    class="w-full cursor-not-allowed rounded-full bg-gray-400 py-2 text-xs font-bold uppercase tracking-widest text-white"
+                  >
+                    Sold out
+                  </button>
+                ) : (
+                  <button
+                    class="w-full rounded-full bg-[#008c9e] py-2 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#07272e]"
+                  >
+                    Add to cart
+                  </button>
+                )}
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+
+  <!-- SEO text block -->
+  <section class="border-t border-gray-200 bg-[#f7f7f7] py-14">
+    <div class="container max-w-3xl">
+      <h2 class="font-heading mb-6 text-2xl font-extrabold text-[#07272e]">
+        Bait Boards That Make Fishing Easy
+      </h2>
+      <div class="space-y-4 text-sm leading-relaxed text-gray-600">
+        <p>
+          Looking to make your fishing trips hassle-free? Our bait boards are built tough to
+          tackle even the harshest marine conditions — super easy to clean, incredibly stable,
+          and packed with features like rod holders, drainage holes, and adjustable mounts.
+        </p>
+        <p>
+          Whether you need a compact bait board for a smaller boat or a larger setup with extra
+          storage and rod holders, we have bait boards for every setup. Upgrade your fishing
+          experience with our premium range — designed for practicality, durability, and
+          performance.
+        </p>
+        <ul class="mt-2 space-y-1 list-none pl-0">
+          <li>✓ Tough, durable, and made for marine life</li>
+          <li>✓ Easy-to-clean surfaces built to last</li>
+          <li>✓ Practical features: rod holders, drainage holes, and more</li>
+          <li>✓ Quick to install and perfect for any boat setup</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

@@ -1,0 +1,15 @@
+# Normalise all text files to LF in the repo; check out as LF on all platforms.
+* text=auto eol=lf
+
+# Binary files — never mangle line endings.
+*.woff2 binary
+*.woff  binary
+*.ttf   binary
+*.png   binary
+*.jpg   binary
+*.jpeg  binary
+*.webp  binary
+*.avif  binary
+*.ico   binary
+*.pdf   binary
+*.zip   binary

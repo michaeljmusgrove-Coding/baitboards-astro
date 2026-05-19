@@ -1,9 +1,49 @@
 ---
-const message = "🎄 Free delivery for Christmas 🎁";
+import { site } from '../config/site';
+
+const hasPhone = !site.contact.phone.includes('__TODO__');
+const hasEmail = !site.contact.email.includes('__TODO__');
+
+const items = [
+  "Free Shipping Australia Wide",
+  "Got a Question?",
+  ...(hasPhone ? [`Call Us: ${site.contact.phone}`] : []),
+  ...(hasEmail ? [`Email: ${site.contact.email}`] : []),
+];
 ---
 
-<div
-  class="flex items-center justify-center bg-gradient-to-r from-[#2ca5d5] to-[#e81cff] px-4 py-2 text-sm font-bold text-white sm:px-6 lg:px-8"
->
-  {message}
+<div class="overflow-hidden border-b border-white/10" style="background-color: #07272e;" aria-label="Site announcements">
+  <ul class="announcement-track m-0 flex list-none p-0">
+    {items.map((item) => (
+      <li class="inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap px-[60px] py-3 font-heading text-sm font-normal text-white sm:text-base">
+        <span class="text-accent text-sm leading-none" aria-hidden="true">&bull;</span>
+        {item}
+      </li>
+    ))}
+    {/* Duplicate for seamless loop */}
+    {items.map((item) => (
+      <li class="inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap px-10 py-2.5 text-xs font-medium text-white/80" aria-hidden="true">
+        <span class="text-accent text-sm leading-none">&bull;</span>
+        {item}
+      </li>
+    ))}
+  </ul>
 </div>
+
+<style>
+  .announcement-track {
+    animation: announcement-scroll 20s linear infinite;
+  }
+  .announcement-track:hover {
+    animation-play-state: paused;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .announcement-track {
+      animation: none;
+    }
+  }
+  @keyframes announcement-scroll {
+    from { transform: translateX(0); }
+    to   { transform: translateX(-50%); }
+  }
+</style>

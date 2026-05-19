@@ -1,0 +1,17 @@
+from_path,to_path,from_handle,to_handle,consolidation_action,model
+/products/seaking-b01-fillet-table,/products/bait-board-b01,seaking-b01-fillet-table,bait-board-b01,301 redirect,B01
+/products/seaking-b02-fillet-table,/products/bait-board-b02,seaking-b02-fillet-table,bait-board-b02,301 redirect,B02
+/products/seaking-b03-fiberglass-fillet-table,/products/bait-board-b03,seaking-b03-fiberglass-fillet-table,bait-board-b03,301 redirect,B03
+/products/seaking-b04-fiberglass-fillet-table,/products/bait-board-b04,seaking-b04-fiberglass-fillet-table,bait-board-b04,301 redirect,B04
+/products/seaking-e09-black-fiberglass-fillet-table,/products/bait-board-sk-e09-blk,seaking-e09-black-fiberglass-fillet-table,bait-board-sk-e09-blk,301 redirect,E09-BLACK
+/products/seaking-e09-white-fiberglass-fillet-table,/products/bait-board-sk-e09,seaking-e09-white-fiberglass-fillet-table,bait-board-sk-e09,301 redirect,E09-WHITE
+/products/seaking-h10-black-fiberglass-fillet-table,/products/bait-board-sk-h10b,seaking-h10-black-fiberglass-fillet-table,bait-board-sk-h10b,301 redirect,H10-BLACK
+/products/seaking-h10-white-fiberglass-fillet-table,/products/bait-board-sk-h10,seaking-h10-white-fiberglass-fillet-table,bait-board-sk-h10,301 redirect,H10-WHITE
+/products/seaking-hh14-fiberglass-fillet-table,/products/bait-board-hh-14,seaking-hh14-fiberglass-fillet-table,bait-board-hh-14,301 redirect,HH14
+/products/seaking-hj15-fiberglass-fillet-table,/products/bait-board-hj-15,seaking-hj15-fiberglass-fillet-table,bait-board-hj-15,301 redirect,HJ15
+/products/seaking-j07-fiberglass-fillet-table,/products/bait-board-sk-j07,seaking-j07-fiberglass-fillet-table,bait-board-sk-j07,301 redirect,J07
+/products/seaking-jj12-fiberglass-fillet-table,/products/bait-board-jj-12,seaking-jj12-fiberglass-fillet-table,bait-board-jj-12,301 redirect,JJ12
+/products/seaking-k08-fiberglass-fillet-table,/products/bait-board-sk-k08-blk,seaking-k08-fiberglass-fillet-table,bait-board-sk-k08-blk,301 redirect,K08
+/products/seaking-leaning-post-black-fiberglass-fillet-table,/products/leaning-post-top-only-blk,seaking-leaning-post-black-fiberglass-fillet-table,leaning-post-top-only-blk,301 redirect,LEANING-POST-BLACK
+/products/seaking-leaning-post-white-fiberglass-fillet-table,/products/bait-boards-leaning-post-top-skl-11,seaking-leaning-post-white-fiberglass-fillet-table,bait-boards-leaning-post-top-skl-11,301 redirect,LEANING-POST-WHITE
+/products/seaking-sq13-fiberglass-fillet-table,/products/bait-board-sq-13,seaking-sq13-fiberglass-fillet-table,bait-board-sq-13,301 redirect,SQ13

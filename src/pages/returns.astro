@@ -1,0 +1,43 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+
+const title = "Returns & Refunds Policy | Bait Boards Direct";
+const description = "Bait Boards Direct returns and refunds policy. Unused products may be returned within 30 days of delivery.";
+---
+
+<BaseLayout title={title} description={description} noindex={false}>
+  <section class="bg-bg-alt py-16 sm:py-20">
+    <div class="container max-w-3xl">
+      <h1 class="font-heading mb-8 text-3xl font-bold text-primary sm:text-4xl">Returns & Refunds Policy</h1>
+      <div class="prose max-w-none policy-content text-text-muted space-y-6 text-sm leading-relaxed">
+
+        <p>We want you to be completely satisfied with your purchase. If you're not happy with your order for any reason, please contact us and we'll do our best to make it right.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Eligibility for Returns</h2>
+        <p>To be eligible for a return, your item must be:</p>
+        <ul class="list-disc pl-5 space-y-1">
+          <li>Unused and in the same condition that you received it</li>
+          <li>In the original packaging</li>
+          <li>Returned within 30 days of the delivery date</li>
+        </ul>
+
+        <h2 class="font-heading text-xl font-bold text-primary">How to Initiate a Return</h2>
+        <p>Contact us via the <a href="/contact" class="text-primary underline underline-offset-2 hover:text-accent transition-colors">contact page</a> with your order number and reason for return. We'll provide you with a return authorisation and instructions.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Refunds</h2>
+        <p>Once your return is received and inspected, we'll notify you of the approval or rejection of your refund. Approved refunds will be processed to your original payment method within 5–10 business days.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Return Shipping</h2>
+        <p>You are responsible for return shipping costs unless the product is faulty or we sent the wrong item. We recommend using a trackable shipping service.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Faulty or Damaged Items</h2>
+        <p>If you receive a faulty or damaged product, please contact us within 7 days of delivery with photos of the damage. We will arrange a replacement or full refund at no cost to you.</p>
+
+        <h2 class="font-heading text-xl font-bold text-primary">Exceptions</h2>
+        <p>Custom or modified products cannot be returned unless faulty. Sale items are final sale unless faulty.</p>
+
+        <p class="text-xs text-text-muted/70 pt-4 border-t border-border">Last updated: May 2026</p>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

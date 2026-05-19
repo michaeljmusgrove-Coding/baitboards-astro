@@ -1,0 +1,38 @@
+name = "baitboards"
+account_id = "461230c094898d0e79b1cafa18b80189"
+compatibility_date = "2026-05-06"
+compatibility_flags = ["nodejs_compat"]
+main = "worker.js"
+workers_dev = false
+
+[assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"
+run_worker_first = true
+
+# Staging: deploys to baitboards-dev.workers.dev on push to dev branch
+[env.staging]
+name = "baitboards-dev"
+workers_dev = true
+
+[env.staging.assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"
+run_worker_first = true
+
+# Production: deploys to baitboardsdirect.com on push to main branch
+[env.production]
+name = "baitboards"
+workers_dev = false
+routes = [
+  { pattern = "baitboardsdirect.com/*", zone_name = "baitboardsdirect.com" },
+  { pattern = "www.baitboardsdirect.com/*", zone_name = "baitboardsdirect.com" },
+]
+
+[env.production.assets]
+directory = "./dist"
+binding = "ASSETS"
+not_found_handling = "404-page"
+run_worker_first = true

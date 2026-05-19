@@ -1,28 +1,23 @@
 ---
 import BaseLayout from "./BaseLayout.astro";
-
-export interface Props {
-  title?: string;
-  message?: string;
-}
-
-Astro.response.status = 404;
-
-const defaultTitle = "Page not found";
-
-const { title = defaultTitle, message = defaultTitle } = Astro.props as Props;
 ---
 
-<BaseLayout title={title}>
-  <div class="container grid justify-center py-44 text-center">
-    <span class="text-6xl font-bold text-emerald-900">404</span>
-    <h1 class="mt-4 text-xl">{message}</h1>
-    <a
-      href="/"
-      class="mt-6 font-semibold text-emerald-900 hover:text-emerald-700"
-    >
-      Go back home
-      <span aria-hidden="true"> &rarr;</span>
-    </a>
-  </div>
+<BaseLayout
+  title="Page Not Found | Bait Boards Direct"
+  description="The page you were looking for doesn't exist. Browse our range of bait boards and fishing accessories."
+  noindex={true}
+>
+  <section class="bg-bg-alt flex flex-1 items-center py-24">
+    <div class="container text-center">
+      <p class="font-heading text-8xl font-extrabold text-accent">404</p>
+      <h1 class="font-heading mt-4 text-2xl font-bold text-primary sm:text-3xl">Page not found</h1>
+      <p class="mt-4 text-text-muted">
+        The page you were looking for doesn't exist or has been moved.
+      </p>
+      <div class="mt-8 flex flex-wrap justify-center gap-4">
+        <a href="/" class="button">Go home</a>
+        <a href="/collections/bait-boards" class="button-accent">Browse bait boards</a>
+      </div>
+    </div>
+  </section>
 </BaseLayout>

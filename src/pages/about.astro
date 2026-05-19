@@ -1,0 +1,155 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+
+const title = "About Bait Boards Direct — Founded by Harry, 20-Year Fibreglass Boat Builder";
+const description = "Bait Boards Direct is founded by Harry, a fibreglass boat builder with 20+ years of marine composite experience. Premium SeaKing fibreglass bait boards shipped Australia-wide from South East Melbourne.";
+---
+
+<BaseLayout title={title} description={description} preloadImage="/images/about-boatyard.webp">
+
+  <!-- Hero banner -->
+  <section class="relative overflow-hidden bg-dark-hero" style="height: clamp(280px, 40vh, 440px);">
+    <img
+      src="/images/about-boatyard.webp"
+      alt="Boat yard — Bait Boards Direct"
+      class="h-full w-full object-cover object-center"
+      width="1400"
+      height="932"
+      fetchpriority="high"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-black/50"></div>
+    <div class="absolute inset-0 flex items-center justify-center">
+      <h1 class="font-heading text-center text-4xl font-extrabold text-white sm:text-5xl">
+        About Bait Boards Direct
+      </h1>
+    </div>
+  </section>
+
+  <!-- Main content -->
+  <section class="bg-white py-16 sm:py-20">
+    <div class="container max-w-3xl">
+      <div class="space-y-5 text-sm leading-relaxed text-text-muted sm:text-base">
+        <p>
+          We know there's nothing better than a great day out on the water, but we also know that juggling bait, tackle, and gear can get messy. That's where we come in. At Bait Boards Direct we've made it our mission to keep things organised, so you can focus on what matters: catching your next big fish.
+        </p>
+        <p>
+          We're all about quality, simplicity, and products that actually work. Our bait boards are designed by fishing enthusiasts who understand the struggles of real anglers. Whether you're a weekend warrior or a seasoned pro, we've got a bait board that'll make your setup smoother, cleaner, and more efficient.
+        </p>
+        <p>
+          But it's not just about the products, it's about the experience. We're passionate about fishing, and everything we do is to help you make the most of your time on the water. From sunrise casts to sunset reels, we're here to support your adventures with gear that won't let you down.
+        </p>
+      </div>
+
+      <div class="mt-10 rounded-2xl bg-bg-alt p-8">
+        <h2 class="font-heading mb-3 text-xl font-bold text-primary">Our Mission</h2>
+        <p class="text-sm leading-relaxed text-text-muted sm:text-base">
+          Our mission is simple: to provide anglers with durable, reliable, and practical bait boards that make every fishing trip smoother and more enjoyable. We're here to support your passion for fishing with high-quality products designed by people who love the water as much as you do.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ Meet the founder ═══ -->
+  <section id="founder" class="bg-white py-16 sm:py-20">
+    <div class="container max-w-3xl">
+      <div class="mb-10 text-center">
+        <span class="text-xs font-semibold uppercase tracking-widest text-accent">Meet the Founder</span>
+        <h2 class="font-heading mt-2 text-3xl font-extrabold text-primary sm:text-4xl">Harry — 20 Years of Fibreglass</h2>
+      </div>
+
+      <aside class="space-y-5 text-sm leading-relaxed text-text-muted sm:text-base">
+        <p>
+          Bait Boards Direct is founded and run by <strong class="text-primary">Harry</strong>, a working
+          fibreglass boat builder with over 20 years of hands-on experience in marine composite
+          construction. From transom rebuilds and stringer repairs to full hull lamination and gelcoat
+          finishing, Harry has spent his career working with the exact same materials our boards are
+          made from — composite fibreglass shells, 316 marine-grade stainless hardware, and
+          UV-stabilised gelcoat finishes built to take a beating.
+        </p>
+        <p>
+          A keen recreational angler himself, Harry started Bait Boards Direct after years of seeing
+          fishermen put up with cheap, flimsy bait boards that warped, rotted, or rusted out within a
+          season. The SeaKing range we supply is built to a different standard — the same construction
+          quality Harry uses every day in the workshop, scaled and shaped for offshore, inshore, and
+          estuary fishing.
+        </p>
+        <p>
+          Every board we sell is one he'd happily mount on his own boat — and he'll tell you straight
+          if a model isn't right for your setup. Need sizing advice or a fitment opinion? Give us a
+          call and you'll talk to someone who builds in this stuff for a living.
+        </p>
+      </aside>
+
+      <div class="mt-10 grid gap-4 sm:grid-cols-2">
+        <div class="rounded-2xl border border-border bg-bg-alt p-6">
+          <h3 class="font-heading mb-3 text-base font-bold text-primary">Background</h3>
+          <ul class="space-y-2 text-sm leading-relaxed text-text-muted">
+            <li>20+ years fibreglass and composite marine construction</li>
+            <li>Specialist in lamination, transom installation, gelcoat finishing</li>
+            <li>Lifelong recreational fisherman</li>
+            <li>Australian-owned, ships nationally from Melbourne</li>
+          </ul>
+        </div>
+        <div class="rounded-2xl border border-border bg-bg-alt p-6">
+          <h3 class="font-heading mb-3 text-base font-bold text-primary">Knows His Stuff</h3>
+          <ul class="space-y-2 text-sm leading-relaxed text-text-muted">
+            {site.founder.knowsAbout.map((skill) => (
+              <li>• {skill}</li>
+            ))}
+          </ul>
+        </div>
+      </div>
+
+      <div class="mt-10 text-center">
+        <a href="/contact" class="button-accent">Talk to Harry</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values -->
+  <section class="bg-bg-alt py-16 sm:py-20">
+    <div class="container max-w-4xl">
+      <h2 class="font-heading mb-10 text-center text-2xl font-bold text-primary sm:text-3xl">Our Values</h2>
+      <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {[
+          { title: 'Quality First', body: "We're committed to delivering top-notch bait boards that stand up to the toughest fishing conditions." },
+          { title: 'Customer-Centric', body: "Your fishing experience is at the heart of everything we do. We listen, innovate, and deliver products you can trust." },
+          { title: 'Passion for Fishing', body: "We share your love for the sport, and that passion drives us to create products that enhance your time on the water." },
+          { title: 'Simplicity', body: "Fishing should be fun, not complicated. We design our bait boards to make your experience as smooth and hassle-free as possible." },
+          { title: 'Reliability', body: "You can count on our products to perform, so you can focus on what you do best – fishing." },
+        ].map(({ title: vt, body }) => (
+          <div class="rounded-2xl border border-border bg-white p-6">
+            <h3 class="font-heading mb-2 text-base font-bold text-primary">{vt}</h3>
+            <p class="text-sm leading-relaxed text-text-muted">{body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="bg-white py-16 sm:py-20">
+    <div class="container max-w-3xl text-center">
+      <h2 class="font-heading mb-4 text-2xl font-bold text-primary sm:text-3xl">Have a Question?</h2>
+      <p class="mb-8 text-sm leading-relaxed text-text-muted sm:text-base">
+        We've answered everything from materials and sizing to shipping and warranties on our FAQs page. If you still need help, our team is a phone call or email away.
+      </p>
+      <div class="flex flex-wrap justify-center gap-4">
+        <a href="/faqs" class="button-accent">View FAQs</a>
+        <a href="/contact" class="button">Contact Us</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Dark CTA banner -->
+  <section class="bg-[#07272e] py-16 text-center text-white">
+    <div class="container max-w-2xl">
+      <h2 class="font-heading mb-4 text-4xl font-extrabold text-white" style="font-style:normal; text-transform:none;">Are We Your Catch of the Day?</h2>
+      <p class="mb-8 text-lg text-white/80">It's probably time to stop scrolling and start shopping.</p>
+      <a href="/collections/bait-boards" class="button-accent">Shop now</a>
+    </div>
+  </section>
+
+</BaseLayout>

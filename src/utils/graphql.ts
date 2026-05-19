@@ -53,6 +53,11 @@ fragment productFragment on Product {
   id
   title
   handle
+  description
+  vendor
+  productType
+  tags
+  availableForSale
   images (first: 10) {
     nodes {
       url
@@ -71,6 +76,10 @@ fragment productFragment on Product {
         amount
         currencyCode
       }
+      compareAtPrice {
+        amount
+        currencyCode
+      }
     }
   }
   featuredImage {
@@ -78,6 +87,17 @@ fragment productFragment on Product {
     width
     height
     altText
+  }
+  priceRange {
+    minVariantPrice { amount currencyCode }
+    maxVariantPrice { amount currencyCode }
+  }
+  compareAtPriceRange {
+    minVariantPrice { amount currencyCode }
+  }
+  seo {
+    title
+    description
   }
 }
 `;
@@ -108,6 +128,22 @@ export const ProductRecommendationsQuery = `#graphql
   query ($productId: ID!) {
     productRecommendations(productId: $productId) {
       ...productFragment
+    }
+  }
+  ${PRODUCT_FRAGMENT}
+`;
+
+export const CollectionByHandleQuery = `#graphql
+  query ($handle: String!, $first: Int!) {
+    collection(handle: $handle) {
+      id
+      title
+      handle
+      products(first: $first) {
+        nodes {
+          ...productFragment
+        }
+      }
     }
   }
   ${PRODUCT_FRAGMENT}
