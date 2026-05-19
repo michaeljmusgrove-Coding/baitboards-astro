@@ -23,9 +23,12 @@ const emptyCart = {
   cost: { subtotalAmount: { amount: "", currencyCode: "" } },
 };
 
-// Cart store with persistent state (local storage) and initial value
+// Cart store with persistent state (local storage) and initial value.
+// Key is versioned so the Shopify primary-domain flip (apex → .myshopify) invalidates
+// any pre-flip carts cached in returning customers' localStorage — those would carry
+// stale checkoutUrls on the apex domain that 404 against the new Worker post-cutover.
 export const cart = persistentAtom<z.infer<typeof CartResult>>(
-  "cart",
+  "cart-v2",
   emptyCart,
   {
     encode: JSON.stringify,
