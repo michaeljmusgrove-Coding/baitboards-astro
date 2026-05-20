@@ -52,12 +52,20 @@ const schema = {
   <section class="bg-white py-12 sm:py-16">
     <div class="container">
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
-        {products.map((product) => {
+        {products.map((product, index) => {
           const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
           const soldOut = !product.availableForSale;
           const savePct = onSale && product.compareAtPrice
             ? Math.round((1 - product.price / product.compareAtPrice) * 100)
             : 0;
+          // Above-fold eager-load + fetchpriority on the first product card
+          // mirrors /collections/bait-boards. The first card is the LCP
+          // candidate on mobile (dark-hero text LCP loses out to the larger
+          // product image once images start arriving). Without this, mobile
+          // LCP on /collections/on-sale was sitting at 9.4 s post-cutover
+          // while bait-boards was 3.0 s with the same template — the only
+          // diff was this loading strategy.
+          const isAboveFold = index < 2;
           return (
             <a
               href={`/products/${product.handle}`}
@@ -75,7 +83,8 @@ const schema = {
                   class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   width="400"
                   height="400"
-                  loading="lazy"
+                  loading={isAboveFold ? "eager" : "lazy"}
+                  fetchpriority={index === 0 ? "high" : "auto"}
                 />
               </div>
               <div class="p-3 sm:p-4">
