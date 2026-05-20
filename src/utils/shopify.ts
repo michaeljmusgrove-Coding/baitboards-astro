@@ -81,6 +81,10 @@ export type NormalizedProduct = {
   variantId: string;
   availableForSale: boolean;
   quantityAvailable: number;
+  seo?: {
+    title: string | null;
+    description: string | null;
+  };
 };
 
 export function formatPrice(amount: number): string {
@@ -113,6 +117,12 @@ function normalizeProduct(raw: RawProduct): NormalizedProduct {
     variantId: v0?.id ?? "",
     availableForSale: raw.availableForSale ?? false,
     quantityAvailable: v0?.quantityAvailable ?? 99,
+    seo: raw.seo
+      ? {
+          title: raw.seo.title ?? null,
+          description: raw.seo.description ?? null,
+        }
+      : undefined,
   };
 }
 
