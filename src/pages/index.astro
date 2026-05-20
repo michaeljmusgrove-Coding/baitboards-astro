@@ -80,7 +80,7 @@ const blackRange = [
           <p class="mb-6 max-w-xl text-base text-white/85 sm:text-lg">
             Built tough for offshore, inshore, and estuary fishing — composite fibreglass, 316 marine stainless, free Australia-wide shipping.
           </p>
-          <a href="/collections/bait-boards" class="button-accent">Shop Bait Boards</a>
+          <a href="/collections/bait-boards" class="button-accent">Browse all 16 bait boards</a>
         </div>
       </div>
     </div>
@@ -106,7 +106,7 @@ const blackRange = [
           <h2 class="font-heading mb-6 text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
             Built Tough, Designed for You
           </h2>
-          <a href="/collections/bait-boards" class="button-accent mx-auto">Shop now</a>
+          <a href="/collections/bait-boards" class="button-accent mx-auto">Shop the SeaKing range — free shipping</a>
         </div>
       </div>
     </div>
@@ -239,7 +239,7 @@ const blackRange = [
         })}
       </div>
       <div class="mt-10 text-center">
-        <a href="/collections/bait-boards" class="button-accent">View All Bait Boards</a>
+        <a href="/collections/bait-boards" class="button-accent">View all 16 bait boards</a>
       </div>
     </div>
   </section>
@@ -297,7 +297,7 @@ const blackRange = [
             just need a durable, functional surface on your boat, our bait boards are
             built to enhance your fishing experience.
           </p>
-          <a href="/about" class="button-accent">Learn more</a>
+          <a href="/about" class="button-accent">Read Harry's story</a>
           <div class="mt-8 flex flex-wrap gap-3">
             {[
               '⚡ Fast Delivery',
@@ -371,7 +371,7 @@ const blackRange = [
             boat and every catch.
           </p>
           <a href="/collections/bait-boards" class="button-accent mb-8 inline-flex">
-            Shop Bait Boards
+            Browse the SeaKing range
           </a>
           <ul class="mt-6 divide-y divide-gray-200">
             {[
@@ -434,9 +434,12 @@ const blackRange = [
     <div class="container max-w-3xl text-center">
       <h2 class="font-heading mb-4 text-2xl font-bold sm:text-3xl">Have a question?</h2>
       <p class="mb-8 text-sm leading-relaxed text-white/70">
-        Need sizing advice, want to discuss bulk pricing, or have a question about installation? We're here to help — get in touch and we'll get back to you fast.
+        Need sizing advice, want to discuss bulk pricing, or have a question about installation? Talk to Harry — 20+ years building fibreglass boats, knows every model on the catalogue.
       </p>
-      <a href="/contact" class="button-accent mx-auto">Contact Us</a>
+      <div class="flex flex-col items-center justify-center gap-3 sm:flex-row">
+        <a href={`tel:${site.contact.phone.replace(/\s/g, '')}`} class="button-accent">Call Harry — {site.contact.phone}</a>
+        <a href="/contact" class="text-sm font-semibold text-white/80 underline underline-offset-4 transition-colors hover:text-white">or send a message</a>
+      </div>
     </div>
   </section>
 

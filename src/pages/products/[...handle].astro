@@ -7,13 +7,32 @@ import { shopifyImage } from "../../utils/shopifyImage";
 
 export async function getStaticPaths() {
   const products = await getAllProducts(250);
-  return products.map((p) => ({
-    params: { handle: p.handle },
-    props: { product: p },
-  }));
+
+  // Build a small accessory pool once, then attach up to 3 per bait-board PDP.
+  // Accessory match: anything not a "bait board" whose title contains a known
+  // accessory keyword. Cheap heuristic; fine for the current catalogue (~22
+  // active SKUs). Out-of-stock accessories are excluded so we never push a
+  // dead cross-sell.
+  const isBaitBoardTitle = (t: string) => /bait board/i.test(t);
+  const isAccessoryTitle = (t: string) =>
+    !isBaitBoardTitle(t) &&
+    /rod holder|leaning post|leg|mount|upgrade|stainless steel mounting/i.test(t);
+  const accessoryPool = products.filter(
+    (p) => isAccessoryTitle(p.title) && p.availableForSale,
+  );
+
+  return products.map((p) => {
+    const accessories = isBaitBoardTitle(p.title)
+      ? accessoryPool.filter((a) => a.handle !== p.handle).slice(0, 3)
+      : [];
+    return {
+      params: { handle: p.handle },
+      props: { product: p, accessories },
+    };
+  });
 }
 
-const { product } = Astro.props;
+const { product, accessories } = Astro.props;
 const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
 const savePct = onSale && product.compareAtPrice
   ? Math.round((1 - product.price / product.compareAtPrice) * 100)
@@ -132,6 +151,7 @@ const productSchema = {
               <button
                 class="gallery-thumb h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 border-accent bg-bg-alt transition-colors"
                 data-src={shopifyImage(product.image, 1200)}
+                data-srcset={`${shopifyImage(product.image, 600)} 600w, ${shopifyImage(product.image, 1200)} 1200w`}
                 aria-label="View image 1"
               >
                 <img src={shopifyImage(product.image, 128)} alt={`${product.title} — image 1`} class="h-full w-full object-cover" width="64" height="64" loading="eager" />
@@ -139,6 +159,7 @@ const productSchema = {
               <button
                 class="gallery-thumb h-16 w-16 shrink-0 overflow-hidden rounded-lg border-2 border-border bg-bg-alt transition-colors hover:border-accent"
                 data-src={shopifyImage(product.image2, 1200)}
+                data-srcset={`${shopifyImage(product.image2, 600)} 600w, ${shopifyImage(product.image2, 1200)} 1200w`}
                 aria-label="View image 2"
               >
                 <img src={shopifyImage(product.image2, 128)} alt={`${product.title} — image 2`} class="h-full w-full object-cover" width="64" height="64" loading="lazy" />
@@ -152,6 +173,9 @@ const productSchema = {
             if (!main) return;
             document.querySelectorAll('.gallery-thumb').forEach(function (btn) {
               btn.addEventListener('click', function () {
+                // Update srcset FIRST so the browser's responsive image
+                // selection picks the right width before src triggers a load.
+                if (btn.dataset.srcset) main.srcset = btn.dataset.srcset;
                 main.src = btn.dataset.src;
                 document.querySelectorAll('.gallery-thumb').forEach(function (b) {
                   b.classList.remove('border-accent');
@@ -198,27 +222,34 @@ const productSchema = {
             </p>
           )}
 
-          <div class="mt-6 border-t border-gray-200 pt-6">
+          {/* Mobile-priority reorder: trust → ATC sit ABOVE description on
+              mobile (order-4 + order-5) so the Add to Cart button is closer
+              to the fold. On desktop the natural reading order is preserved
+              (description → trust → ATC) via lg:order-* overrides. */}
+          <div class="order-6 lg:order-4 mt-6 border-t border-gray-200 pt-6">
             <p class="text-sm leading-relaxed text-text-muted sm:text-base">
               {product.description}
             </p>
           </div>
 
-          <!-- Trust signals -->
-          <ul class="mt-6 space-y-1.5 text-sm text-gray-600">
-            <li class="flex items-center gap-2">
-              <span class="font-bold text-[#008c9e]">✓</span> FREE Shipping Australia-wide
+          <!-- Trust signals — concrete specifics over boilerplate. -->
+          <ul class="order-4 lg:order-5 mt-6 space-y-1.5 text-sm text-gray-600">
+            <li class="flex items-start gap-2">
+              <span class="font-bold text-[#008c9e]">✓</span> Free shipping Australia-wide — no minimum order
             </li>
-            <li class="flex items-center gap-2">
-              <span class="font-bold text-[#008c9e]">✓</span> 30 Day Returns
+            <li class="flex items-start gap-2">
+              <span class="font-bold text-[#008c9e]">✓</span> 30-day returns + 1-year warranty on every SeaKing board
             </li>
-            <li class="flex items-center gap-2">
-              <span class="font-bold text-[#008c9e]">✓</span> 1 Year Warranty
+            <li class="flex items-start gap-2">
+              <span class="font-bold text-[#008c9e]">✓</span> Handcrafted in Melbourne by a 20-year fibreglass craftsman
+            </li>
+            <li class="flex items-start gap-2">
+              <span class="font-bold text-[#008c9e]">✓</span> Ships within 1-3 business days
             </li>
           </ul>
 
           <!-- Add to cart -->
-          <div class="mt-8" id="sticky-atc-target">
+          <div class="order-5 lg:order-6 mt-8" id="sticky-atc-target">
             <AddToCartForm
               client:visible
               variantId={product.variantId}
@@ -229,7 +260,7 @@ const productSchema = {
 
           <a
             href="/collections/bait-boards"
-            class="mt-5 text-center text-sm text-text-muted underline underline-offset-2 transition-colors hover:text-primary"
+            class="order-7 mt-5 text-center text-sm text-text-muted underline underline-offset-2 transition-colors hover:text-primary"
           >
             &larr; Back to Bait Boards
           </a>
@@ -237,6 +268,46 @@ const productSchema = {
       </div>
     </div>
   </section>
+
+  {/* Complete your setup — accessory cross-sells. Only renders on bait-board
+      PDPs (accessories is empty array for non-bait-board pages, so the
+      section short-circuits). Pool built once in getStaticPaths; up to 3
+      shown per page. */}
+  {accessories.length > 0 && (
+    <section class="border-t border-gray-200 bg-white py-12 sm:py-14">
+      <div class="container">
+        <h2 class="font-heading mb-2 text-2xl font-extrabold text-[#07272e] sm:text-3xl">
+          Complete your setup
+        </h2>
+        <p class="mb-8 max-w-2xl text-sm leading-relaxed text-text-muted sm:text-base">
+          Marine-grade accessories that pair with your SeaKing bait board — built from the same 316 stainless and composite materials.
+        </p>
+        <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {accessories.map((a) => (
+            <a
+              href={`/products/${a.handle}`}
+              class="group block rounded-2xl border border-gray-200 bg-white p-4 transition hover:border-[#008c9e] hover:shadow-md"
+            >
+              <div class="mb-3 aspect-square overflow-hidden rounded-xl bg-bg-alt">
+                <img
+                  src={shopifyImage(a.image, 400)}
+                  alt={a.title}
+                  class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
+                  width="400"
+                  height="400"
+                  loading="lazy"
+                />
+              </div>
+              <h3 class="font-heading line-clamp-2 text-sm font-extrabold text-[#07272e] group-hover:text-[#008c9e]">
+                {a.title}
+              </h3>
+              <p class="mt-2 text-sm font-bold text-[#07272e]">{formatPrice(a.price)}</p>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
 
   <!-- Why Choose Our Bait Boards -->
   <section class="bg-[#f7f7f7] py-14">
