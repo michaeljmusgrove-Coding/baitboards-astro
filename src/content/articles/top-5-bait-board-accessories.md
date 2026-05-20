@@ -25,6 +25,8 @@ If your bait board has 2 or 4 integrated rod holders, you've got the most-used p
 
 **The SeaKing game-rated rod holder** ([product page](/products/rod-holders)) is the standalone version of the rod holders integrated into our bait boards. 316 stainless, game-rated, through-bolted, 15-degree gunnel angle. Drop-in compatible with any flat surface that accepts a 50 mm hole.
 
+If you'd rather buy a board that ships with rod holders already integrated through the shell, see the [B-series with rod holders included](/collections/bait-boards-with-rod-holders) — same 316 stainless, structurally reinforced into the fibreglass during manufacture rather than bolted on afterwards.
+
 **What to skip:** "fishing boat rod holder kits" sold at general-purpose marine stores for $30–$50 a piece. Often 304 stainless or worse, often welded poorly, and rarely game-rated even when described as such.
 
 **Realistic price:** $80–$150 per quality 316 stainless game-rated holder. Plan for 2–4 additional holders depending on fishing style.

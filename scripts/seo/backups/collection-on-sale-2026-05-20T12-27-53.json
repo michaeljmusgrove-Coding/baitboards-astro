@@ -1,0 +1,53 @@
+{
+  "handle": "on-sale",
+  "id": 499269796156,
+  "kind": "smart",
+  "collection": {
+    "id": 499269796156,
+    "handle": "on-sale",
+    "title": "On Sale",
+    "updated_at": "2026-05-20T21:25:19+10:00",
+    "body_html": "",
+    "published_at": "2024-12-04T14:34:48+11:00",
+    "sort_order": "price-desc",
+    "template_suffix": "",
+    "disjunctive": false,
+    "rules": [
+      {
+        "column": "variant_compare_at_price",
+        "relation": "greater_than",
+        "condition": "1"
+      }
+    ],
+    "published_scope": "global",
+    "admin_graphql_api_id": "gid://shopify/Collection/499269796156"
+  },
+  "metafields": [
+    {
+      "id": 102722070085948,
+      "namespace": "global",
+      "key": "title_tag",
+      "value": "Bait Boards on Sale Australia — Discounted Fibreglass Models | Bait Boards Direct",
+      "description": null,
+      "owner_id": 499269796156,
+      "created_at": "2024-12-04T14:34:47+11:00",
+      "updated_at": "2026-05-20T14:56:40+10:00",
+      "owner_resource": "collection",
+      "type": "single_line_text_field",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102722070085948"
+    },
+    {
+      "id": 102722070118716,
+      "namespace": "global",
+      "key": "description_tag",
+      "value": "Discounted SeaKing fibreglass bait boards. Premium quality at sale prices. Free Australia-wide shipping. While stocks last.",
+      "description": null,
+      "owner_id": 499269796156,
+      "created_at": "2024-12-04T14:34:47+11:00",
+      "updated_at": "2026-05-20T14:56:40+10:00",
+      "owner_resource": "collection",
+      "type": "multi_line_text_field",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102722070118716"
+    }
+  ]
+}
