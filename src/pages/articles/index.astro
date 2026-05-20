@@ -12,9 +12,9 @@ const description = "Practical guides for Australian anglers — choosing the ri
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
-  '@id': `${site.domain}/articles/`,
+  '@id': `${site.domain}/articles`,
   name: 'Bait Board Articles & Buying Guides',
-  url: `${site.domain}/articles/`,
+  url: `${site.domain}/articles`,
   description,
   isPartOf: { '@id': `${site.domain}/#website` },
   mainEntity: {
@@ -22,7 +22,7 @@ const schema = {
     itemListElement: articles.map((a, i) => ({
       '@type': 'ListItem',
       position: i + 1,
-      url: `${site.domain}/articles/${a.id}/`,
+      url: `${site.domain}/articles/${a.id}`,
       name: a.data.title,
     })),
   },
@@ -50,7 +50,7 @@ const schema = {
       <div class="grid gap-6">
         {articles.map((article) => (
           <a
-            href={`/articles/${article.id}/`}
+            href={`/articles/${article.id}`}
             class="group block rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:border-accent hover:shadow-md sm:p-8"
           >
             <div class="flex flex-col gap-3">

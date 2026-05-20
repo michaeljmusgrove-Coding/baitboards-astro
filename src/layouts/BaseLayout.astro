@@ -229,7 +229,14 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang="en-AU" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+    <!-- Favicon set — .ico for legacy browser default requests, .svg for sharp
+         vector rendering, .png fallback, apple-touch-icon for iOS home-screen,
+         PWA manifest for Android/installable shortcut. -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="any" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
     <meta name="google-site-verification" content={site.seo.googleVerification} />
 
     <!-- Self-hosted fonts (no Google Fonts external request).
