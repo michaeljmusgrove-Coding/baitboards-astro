@@ -48,63 +48,25 @@ const schema = {
         </div>
       )}
 
-      <!-- Contact form via Web3Forms -->
-      <form
-        action="https://api.web3forms.com/submit"
-        method="POST"
-        class="space-y-5 rounded-xl border border-border bg-white p-6 sm:p-8"
-      >
-        <input type="hidden" name="access_key" value="__TODO__" />
-        <input type="hidden" name="redirect_to" value="https://www.baitboardsdirect.com/thank-you" />
-        <input type="hidden" name="subject" value="New enquiry from Bait Boards Direct website" />
-        <input type="checkbox" name="botcheck" class="hidden" style="display:none" />
-
-        <div>
-          <label for="name" class="mb-1.5 block text-sm font-medium text-primary">Name</label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            autocomplete="name"
-            class="w-full rounded-lg border border-border px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-          />
+      <!-- Email CTA (form deferred to Day 2 — Web3Forms integration pending) -->
+      {hasEmail && (
+        <div class="rounded-xl border border-border bg-white p-6 sm:p-8">
+          <h2 class="font-heading mb-3 text-xl font-bold text-primary">Send us an enquiry</h2>
+          <p class="mb-6 text-text-muted">
+            Email us with your boat model, transom width, and how you plan to use the bait board.
+            We aim to respond within one business day.
+          </p>
+          <a
+            href={`mailto:${site.contact.email}?subject=Bait%20Boards%20Direct%20enquiry`}
+            class="button-accent inline-flex items-center gap-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+            </svg>
+            Email {site.contact.email}
+          </a>
         </div>
-        <div>
-          <label for="email" class="mb-1.5 block text-sm font-medium text-primary">Email</label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            autocomplete="email"
-            class="w-full rounded-lg border border-border px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-          />
-        </div>
-        <div>
-          <label for="phone" class="mb-1.5 block text-sm font-medium text-primary">Phone <span class="font-normal text-text-muted">(optional)</span></label>
-          <input
-            type="tel"
-            id="phone"
-            name="phone"
-            autocomplete="tel"
-            class="w-full rounded-lg border border-border px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-          />
-        </div>
-        <div>
-          <label for="message" class="mb-1.5 block text-sm font-medium text-primary">Message</label>
-          <textarea
-            id="message"
-            name="message"
-            rows="5"
-            required
-            class="w-full rounded-lg border border-border px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-1 focus:ring-primary"
-          ></textarea>
-        </div>
-        <button type="submit" class="button-accent w-full sm:w-auto">
-          Send Message
-        </button>
-      </form>
+      )}
     </div>
   </section>
 </BaseLayout>
