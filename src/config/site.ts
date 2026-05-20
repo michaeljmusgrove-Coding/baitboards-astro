@@ -4,7 +4,7 @@ export const site = {
   tagline: "Premium Bait Boards for Serious Anglers",
   description:
     "Bait Boards Direct supplies high-quality bait boards, rod holders, and fishing accessories for Australian recreational and professional anglers.",
-  domain: "https://www.baitboardsdirect.com",
+  domain: "https://baitboardsdirect.com",
   shopifyDomain: "baitboardsdirect.myshopify.com",
   ogImage: "/images/hero-marina.webp",
   brandColor: "#272d45",

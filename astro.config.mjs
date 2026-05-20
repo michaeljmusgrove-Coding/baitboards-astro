@@ -5,7 +5,7 @@ import svelte from "@astrojs/svelte";
 import tailwindcss from "@tailwindcss/vite";
 import rehypeImgAttrs from "./src/plugins/rehype-img-attrs.mjs";
 
-const siteUrl = "https://www.baitboardsdirect.com";
+const siteUrl = "https://baitboardsdirect.com";
 
 export default defineConfig({
   output: "static",
