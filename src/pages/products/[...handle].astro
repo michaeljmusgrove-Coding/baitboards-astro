@@ -46,6 +46,11 @@ const lowerTitle = product.title.toLowerCase();
 const isBaitBoard = /bait board/i.test(lowerTitle);
 const isLegMount = isBaitBoard && /leaning post|\bskl[-\s]/i.test(lowerTitle);
 const isAccessory = !isBaitBoard && /rod holder|leaning post|leg|mount|upgrade|stainless steel mounting/i.test(lowerTitle);
+// Transom-mount bait boards = bait boards that aren't leg-mount. Used to
+// auto-inject a "see all transom-mount" cross-link below the description,
+// directing equity to /collections/transom-mount-bait-boards from the
+// PDPs that fit it (most of the SeaKing range except the SKL series).
+const isTransomMount = isBaitBoard && !isLegMount;
 const titleQualifier = isLegMount
   ? 'Fibreglass Leg-Mount'
   : isAccessory
@@ -230,6 +235,20 @@ const productSchema = {
             <p class="text-sm leading-relaxed text-text-muted sm:text-base">
               {product.description}
             </p>
+            {isTransomMount && (
+              <p class="mt-3 text-sm">
+                <a href="/collections/transom-mount-bait-boards" class="font-semibold text-[#008c9e] underline underline-offset-2 hover:text-[#07272e]">
+                  &rarr; Browse all transom-mount bait boards
+                </a>
+              </p>
+            )}
+            {isLegMount && (
+              <p class="mt-3 text-sm">
+                <a href="/collections/bait-boards-with-legs" class="font-semibold text-[#008c9e] underline underline-offset-2 hover:text-[#07272e]">
+                  &rarr; Browse all leg-mount bait boards
+                </a>
+              </p>
+            )}
           </div>
 
           <!-- Trust signals — concrete specifics over boilerplate. -->
