@@ -1,13 +1,18 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollectionByHandle, formatPrice } from '../../utils/shopify';
+import { getCollectionWithMeta, formatPrice } from '../../utils/shopify';
 import { shopifyImage } from '../../utils/shopifyImage';
 import { site } from '../../config/site';
 
-const title = "Shop Fibreglass Bait Boards Australia | Bait Boards Direct";
-const description = "Shop premium fibreglass bait boards in Australia. SeaKing range with integrated sinks, 316 marine stainless rod holders, composite shells. Free Australia-wide shipping, 1-year warranty.";
+const collection = await getCollectionWithMeta({ handle: 'bait-boards' });
+const products = collection?.products ?? [];
 
-const products = await getCollectionByHandle({ handle: 'bait-boards' });
+// Prefer Shopify SEO metafields (managed via scripts/seo/5-apply-collections.mjs),
+// fall back to hardcoded values if the metafield is unset.
+const fallbackTitle = "Shop Fibreglass Bait Boards Australia | Bait Boards Direct";
+const fallbackDescription = "Shop premium fibreglass bait boards in Australia. SeaKing range with integrated sinks, 316 marine stainless rod holders, composite shells. Free Australia-wide shipping, 1-year warranty.";
+const title = collection?.seo.title?.trim() || fallbackTitle;
+const description = collection?.seo.description?.trim() || fallbackDescription;
 
 const schema = {
   '@context': 'https://schema.org',

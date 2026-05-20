@@ -105,6 +105,13 @@ export const CollectionResult = z
     id: z.string(),
     title: z.string(),
     handle: z.string(),
+    description: z.string().default(""),
+    seo: z
+      .object({
+        title: z.string().nullable(),
+        description: z.string().nullable(),
+      })
+      .optional(),
     products: z.object({
       nodes: z.array(ProductResult),
     }),

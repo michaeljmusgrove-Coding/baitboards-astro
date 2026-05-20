@@ -157,6 +157,43 @@ export const getCollectionByHandle = async (options: {
     .map(normalizeProduct);
 };
 
+// Fetches the collection's products AND its metadata (title, SEO fields).
+// Use on collection landing pages so the rendered <title> / <meta description>
+// match the Shopify-side SEO title_tag / description_tag metafields
+// (managed via scripts/seo/5-apply-collections.mjs).
+export type CollectionWithMeta = {
+  title: string;
+  description: string;
+  seo: { title: string | null; description: string | null };
+  products: NormalizedProduct[];
+};
+
+export const getCollectionWithMeta = async (options: {
+  handle: string;
+  limit?: number;
+  buyerIP?: string;
+}): Promise<CollectionWithMeta | null> => {
+  const { handle, limit = 250, buyerIP = "" } = options;
+  const data = await makeShopifyRequest(
+    CollectionByHandleQuery,
+    { handle, first: limit },
+    buyerIP
+  );
+  const parsed = CollectionResult.parse(data.collection);
+  if (!parsed) return null;
+  return {
+    title: parsed.title,
+    description: parsed.description || "",
+    seo: {
+      title: parsed.seo?.title ?? null,
+      description: parsed.seo?.description ?? null,
+    },
+    products: parsed.products.nodes
+      .filter((p): p is RawProduct => p !== null)
+      .map(normalizeProduct),
+  };
+};
+
 // ─── Legacy per-product helpers ──────────────────────────────────────────────
 
 // Get all products or a limited number of products (default: 10)

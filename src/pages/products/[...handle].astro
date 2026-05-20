@@ -205,7 +205,7 @@ const productSchema = {
           </ul>
 
           <!-- Add to cart -->
-          <div class="mt-8">
+          <div class="mt-8" id="sticky-atc-target">
             <AddToCartForm
               client:load
               variantId={product.variantId}
@@ -324,12 +324,55 @@ const productSchema = {
     </div>
   </section>
 
-  <!-- Okendo reviews placeholder -->
-  <section class="bg-white py-14">
-    <div class="container">
-      <h2 class="font-heading mb-8 text-3xl font-extrabold text-[#07272e]">Customer Reviews</h2>
-      <div id="oke-reviews-widget" data-oke-reviews-product-id=""></div>
+  {/* Customer Reviews section deliberately removed until a review platform
+      (judge.me / Loox / Stamped) is wired up. An empty "Customer Reviews"
+      heading above an empty Okendo widget div is worse than no section
+      (CRO audit 2026-05-20 flagged as HIGH). Add back once the review
+      provider's data-oke-reviews-product-id (or equivalent) is populated
+      with each product's external ID. */}
+
+  {/* Sticky mobile add-to-cart bar — appears once the in-page AddToCartForm
+      scrolls out of view (above the viewport). Hidden on desktop. */}
+  <div
+    id="sticky-atc-sentinel"
+    class="h-1 w-1"
+    aria-hidden="true"
+    data-sticky-atc-sentinel
+  ></div>
+
+  <div
+    id="sticky-atc-bar"
+    class="md:hidden fixed bottom-0 inset-x-0 z-50 translate-y-full transition-transform duration-300 ease-out bg-white border-t border-gray-200 shadow-[0_-4px_16px_rgba(0,0,0,0.08)]"
+    aria-hidden="true"
+  >
+    <div class="container max-w-3xl flex items-center justify-between gap-3 py-3">
+      <div class="flex-shrink min-w-0">
+        <p class="text-xs font-semibold text-[#07272e] truncate leading-tight">{product.title.replace(/\s*&\s*\d+\s*Game Rated Rod Holders\s*/i, '').trim()}</p>
+        <p class="text-base font-bold text-[#07272e] leading-tight">{formatPrice(product.price)}</p>
+      </div>
+      <a
+        href="#sticky-atc-target"
+        class="flex-shrink-0 rounded-full bg-[#008c9e] px-5 py-2.5 text-xs font-bold uppercase tracking-widest text-white transition-colors hover:bg-[#07272e]"
+        data-sticky-atc-cta
+      >Add to cart</a>
     </div>
-  </section>
+  </div>
+
+  <script is:inline>
+    (function () {
+      var sentinel = document.getElementById('sticky-atc-sentinel');
+      var bar = document.getElementById('sticky-atc-bar');
+      if (!sentinel || !bar || !('IntersectionObserver' in window)) return;
+      // Reveal the bar when the sentinel is scrolled OUT of view above the
+      // viewport (i.e. user has scrolled past the in-page Add to Cart).
+      var observer = new IntersectionObserver(function (entries) {
+        var entry = entries[0];
+        var aboveViewport = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+        bar.classList.toggle('translate-y-full', !aboveViewport);
+        bar.setAttribute('aria-hidden', aboveViewport ? 'false' : 'true');
+      }, { threshold: 0 });
+      observer.observe(sentinel);
+    })();
+  </script>
 
 </BaseLayout>
