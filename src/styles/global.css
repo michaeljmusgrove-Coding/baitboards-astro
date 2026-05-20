@@ -11,9 +11,12 @@
   --color-bg-alt:      #f7f7f7;
   --color-sale:        #07272e;
 
-  /* Typography */
-  --font-body:    'Archivo', sans-serif;
-  --font-heading: 'Montserrat', sans-serif;
+  /* Typography
+     Fallback faces are metric-matched (see BaseLayout @font-face block) so
+     the swap from local('Arial') -> woff2 web font does not push text-LCP
+     out by ~2s on slow-CPU mobile (Lighthouse mobile profile). */
+  --font-body:    'Archivo', 'Archivo Fallback', sans-serif;
+  --font-heading: 'Montserrat', 'Montserrat Fallback', sans-serif;
 
   /* Animation */
   --animate-shake: shake 0.5s infinite;
@@ -126,7 +129,7 @@
   padding: 12px 32px;
   background-color: #008c9e;
   color: #ffffff;
-  font-family: "Archivo", sans-serif;
+  font-family: "Archivo", "Archivo Fallback", sans-serif;
   font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;
@@ -150,7 +153,7 @@
   padding: 12px 32px;
   background-color: #07272e;
   color: #ffffff;
-  font-family: "Archivo", sans-serif;
+  font-family: "Archivo", "Archivo Fallback", sans-serif;
   font-size: 15px;
   font-weight: 700;
   text-transform: uppercase;
@@ -172,7 +175,7 @@
   text-align: center;
 }
 .page-hero h1 {
-  font-family: "Montserrat", sans-serif;
+  font-family: "Montserrat", "Montserrat Fallback", sans-serif;
   font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 800;
   font-style: italic;
@@ -225,7 +228,7 @@ footer h2, footer h3, footer h4 {
   border: 1px solid #e6e6e6;
   background: #ffffff;
   padding: 10px 14px;
-  font-family: "Archivo", sans-serif;
+  font-family: "Archivo", "Archivo Fallback", sans-serif;
   font-size: 14px;
   color: #07272e;
   outline: none;

@@ -95,7 +95,7 @@ After 20 years building and repairing fibreglass marine equipment, here are the 
 
 ## What to do if you're still unsure
 
-The fastest way to get to the right board is to use our [Help Me Choose tool](/help-me-choose) — three questions covering fishing style, boat size, and rod setup, and you'll see the SeaKing model that fits.
+The fastest way to get to the right board is to [contact us](/contact) with your fishing style, boat size, and rod setup — we'll match you to the SeaKing model that fits. Or browse the full [SeaKing range](/collections/bait-boards) — every product page lists dimensions, materials, included hardware, and the fishing styles each model suits.
 
 Or [browse the full bait board range](/collections/bait-boards) — every product page lists dimensions, materials, included hardware, and the type of fishing each model suits.
 

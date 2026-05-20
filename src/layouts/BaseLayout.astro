@@ -126,6 +126,36 @@ const websiteSchema = {
   publisher: { '@type': 'OnlineStore', '@id': `${site.domain}/#store` },
 };
 
+// LocalBusiness schema — separate entity to the sitewide OnlineStore.
+// Models the Melbourne workshop where SeaKing boards are handcrafted. Adds
+// AU local-pack / map-pack signals that OnlineStore alone does not. Address
+// fields containing __TODO__ are stripped at render so partial address data
+// (suburb/state/country) is still surfaced rather than nothing.
+const localBusinessSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${site.domain}/#workshop`,
+  name: `${site.name} — Workshop`,
+  description: 'Melbourne workshop where every SeaKing bait board is handcrafted from full composite fibreglass with 316 marine stainless hardware.',
+  url: `${site.domain}/about`,
+  telephone: site.contact.phone.startsWith('0') ? `+61${site.contact.phone.slice(1).replace(/\s/g, '')}` : site.contact.phone,
+  email: site.contact.email,
+  image: `${site.domain}/images/logo-sm.webp`,
+  priceRange: site.schema.priceRange,
+  currenciesAccepted: site.schema.currenciesAccepted,
+  paymentAccepted: site.schema.paymentAccepted,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.contact.address,
+    addressLocality: site.contact.suburb,
+    addressRegion: site.contact.state,
+    postalCode: site.contact.postcode,
+    addressCountry: site.contact.country,
+  },
+  areaServed: { '@type': 'Country', name: 'Australia' },
+  parentOrganization: { '@id': `${site.domain}/#store` },
+};
+
 // Display labels for known slugs (overrides auto-capitalisation)
 const SEGMENT_LABELS: Record<string, string> = {
   faqs: 'FAQs',
@@ -171,6 +201,7 @@ const breadcrumbSchema = pathSegments.length > 0
 // Merge sitewide + page-specific schemas, strip all __TODO__ fields before emit
 const allSchemas = [
   storeSchema,
+  localBusinessSchema,
   founderSchema,
   websiteSchema,
   breadcrumbSchema,
@@ -201,11 +232,32 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
     <link rel="icon" type="image/png" href="/favicon.png" />
     <meta name="google-site-verification" content={site.seo.googleVerification} />
 
-    <!-- Self-hosted fonts (no Google Fonts external request) -->
-    <link rel="preload" href="/fonts/fonts.css" as="style" />
-    <link rel="stylesheet" href="/fonts/fonts.css" />
+    <!-- Self-hosted fonts (no Google Fonts external request).
+         @font-face rules inlined here (was external /fonts/fonts.css) so they
+         don't add a render-blocking HTTP round-trip on first paint. The actual
+         .woff2 binaries are preloaded below so the network kicks off before
+         the parser sees the @font-face rules.
+         All families use font-display: swap so text-LCP is not blocked on font
+         delivery. -->
     <link rel="preload" href="/fonts/archivo/archivo-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/fonts/archivo/archivo-600.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     <link rel="preload" href="/fonts/montserrat/montserrat-800.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <style>
+      @font-face{font-family:'Archivo';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/archivo/archivo-400.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+      @font-face{font-family:'Archivo';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/archivo/archivo-600.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+      @font-face{font-family:'Archivo';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/archivo/archivo-700.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+      @font-face{font-family:'Montserrat';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/montserrat/montserrat-600.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+      @font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/montserrat/montserrat-700.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+      @font-face{font-family:'Montserrat';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/montserrat/montserrat-800.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
+      /* Metric-matched fallback fonts so the FOUT (flash of unstyled text)
+         from system fallback -> Archivo / Montserrat does not push text-LCP
+         past 2.5s on slow-CPU mobile. Lighthouse can then settle LCP at the
+         fallback paint (~FCP) on text-LCP pages (articles index, dark-hero
+         H1s on home + PDP). Values from Malte Ubl's calibration sheet for
+         the two families against Arial. */
+      @font-face{font-family:'Archivo Fallback';src:local('Arial');size-adjust:99.8%;ascent-override:102.2%;descent-override:26.32%;line-gap-override:0%}
+      @font-face{font-family:'Montserrat Fallback';src:local('Arial');size-adjust:96%;ascent-override:96.875%;descent-override:23.85%;line-gap-override:0%}
+    </style>
 
     {preloadImage && !preloadImageMobile && (
       <link rel="preload" href={preloadImage} as="image" type={preloadImage.endsWith('.webp') ? 'image/webp' : undefined} fetchpriority="high" />

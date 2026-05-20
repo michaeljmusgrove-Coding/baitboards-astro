@@ -58,7 +58,6 @@ Every board sold at Bait Boards Direct is one Harry would mount on his own boat.
 - [Bait Boards for Tinnies & Small Boats](https://baitboardsdirect.com/bait-boards-for-tinnies)
 - [Fillet Tables (= Bait Boards in AU vocabulary)](https://baitboardsdirect.com/fillet-tables)
 - [Aluminium vs Fibreglass Bait Boards Comparison](https://baitboardsdirect.com/aluminium-vs-fibreglass-bait-boards)
-- [Help Me Choose — 3-question quiz](https://baitboardsdirect.com/help-me-choose)
 - [Articles & Buying Guides](https://baitboardsdirect.com/articles)
 - [About — Founder Harry's Story](https://baitboardsdirect.com/about)
 - [FAQs — 22 questions answered](https://baitboardsdirect.com/faqs)
@@ -119,16 +118,6 @@ Six in-depth guides covering choosing, installing, comparing, and maintaining a 
 - **[Best Bait Board Setup for Offshore Fishing in Australia](https://baitboardsdirect.com/articles/best-bait-board-setup-for-offshore-fishing-australia)** — what offshore conditions demand from a bait board, sizing for 5.5-10m vessels, rod holder configuration for game fishing, sink and drain design, mounting positions, hardware specifications, maintenance protocol.
 - **[Top 5 Accessories to Pair With Your Bait Board](https://baitboardsdirect.com/articles/top-5-bait-board-accessories)** — additional rod holders, mounting hardware kits, drainage upgrades (through-hull fitting), filleting knives with on-board storage, and care kits. What to skip.
 - **[Bait Board Maintenance and Care: Making Yours Last 10+ Years](https://baitboardsdirect.com/articles/bait-board-maintenance-and-care)** — practical maintenance schedule (after-trip rinse, weekly clean, monthly inspection, seasonal deep clean, annual hardware service, off-season storage). What goes wrong and why.
-
-## Help-me-choose tool
-
-A 3-question quiz at https://baitboardsdirect.com/help-me-choose that asks:
-
-1. What kind of fishing do you do most? (offshore / inshore / estuary)
-2. How long is your boat? (under 5m / 5-7m / over 7m)
-3. How many rod holders do you need? (2 / 4 / 6+)
-
-The combination of answers (27 possible) maps to a specific recommended SeaKing model with reasoning. Each result page renders the recommendation with the user's answer summary, the recommended product card (live from Shopify), and the reasoning Harry would give for that match.
 
 ## FAQ summary
 

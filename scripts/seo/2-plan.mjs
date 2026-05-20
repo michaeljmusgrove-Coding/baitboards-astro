@@ -5,7 +5,46 @@
 
 import { readFileSync } from "node:fs";
 import { join } from "node:path";
-import { saveText, SCRIPT_DIR, timestamp } from "./lib.mjs";
+import { saveText, SCRIPT_DIR, timestamp, adminFetch } from "./lib.mjs";
+
+// ─── Pre-flight: fetch tags that Smart Collections filter by ───────────────
+//
+// Smart Collections with tag-based rules will silently empty if the SEO apply
+// drops the tag they filter by. The baitboards site hit this on 2026-05-20:
+// the `bait-boards` Smart Collection filters by tag="bait boards", and the
+// new-taxonomy tag list (seaking, transom-mount, fibreglass, etc.) didn't
+// include it — 16 products disappeared from /collections/bait-boards.
+//
+// To prevent regression on Site 2+ uses of this script, we query the
+// Smart Collection rules up front and treat their tag conditions as
+// MUST-PRESERVE tags. inferTags() then adds these to whatever taxonomy
+// it generates (only if the original product had the tag — never silently
+// add an arbitrary tag to a product that didn't have it).
+
+async function fetchSmartCollectionRuleTags() {
+  const tags = new Set();
+  try {
+    const resp = await adminFetch("/smart_collections.json?limit=250");
+    if (!resp.ok) {
+      console.warn(`[plan] smart_collections fetch failed (${resp.status}); proceeding without preserve list`);
+      return tags;
+    }
+    const data = await resp.json();
+    for (const sc of data.smart_collections || []) {
+      for (const rule of sc.rules || []) {
+        if (rule.column === "tag") {
+          tags.add(String(rule.condition).toLowerCase());
+        }
+      }
+    }
+    console.log(`[plan] preserve-list from Smart Collection rules: ${tags.size} tag(s) — ${[...tags].join(", ") || "(none)"}`);
+  } catch (err) {
+    console.warn(`[plan] could not fetch smart_collections (${err.message}); proceeding without preserve list`);
+  }
+  return tags;
+}
+
+const PRESERVE_TAGS = await fetchSmartCollectionRuleTags();
 
 const auditPath = join(SCRIPT_DIR, `audit-${timestamp()}.json`);
 const audit = JSON.parse(readFileSync(auditPath, "utf8"));
@@ -109,6 +148,17 @@ for (const [filletHandle, canonicalHandle] of Object.entries(PAIR_MAP)) {
 function inferTags(p) {
   const tags = new Set();
   const t = p.title.toLowerCase();
+
+  // PRESERVE any current tag that's used as a Smart Collection rule condition.
+  // (Only if the original product actually had that tag — never silently add
+  // a collection-rule tag to a product that wasn't already in the collection.)
+  const currentTags = (p.tags || "")
+    .split(",")
+    .map((s) => s.trim().toLowerCase())
+    .filter(Boolean);
+  for (const ct of currentTags) {
+    if (PRESERVE_TAGS.has(ct)) tags.add(ct);
+  }
 
   // Mounting type
   if (/skl[-\s]/i.test(p.title) || t.includes("leaning post")) tags.add("leg-mount");

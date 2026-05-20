@@ -117,4 +117,4 @@ A composite fibreglass bait board with 316 marine-grade stainless hardware costs
 
 The SeaKing range we supply at [Bait Boards Direct](/collections/bait-boards) is exclusively composite fibreglass, manufactured to marine vessel construction standards. Each board is inspected before dispatch. Hardware is 316 stainless throughout. The gelcoat is UV-rated for tropical sun.
 
-If you're trying to decide between fibreglass and aluminium for your specific setup, our [Help Me Choose](/help-me-choose) tool walks you through three quick questions and points you to the right model. Or contact us directly with your boat type and fishing style — we'll talk you through the trade-offs honestly.
+If you're trying to decide between fibreglass and aluminium for your specific setup, [contact us](/contact) directly with your boat type and fishing style — we'll talk you through the trade-offs honestly and recommend the right model.
