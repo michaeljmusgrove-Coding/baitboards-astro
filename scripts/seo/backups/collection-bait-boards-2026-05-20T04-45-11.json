@@ -1,0 +1,73 @@
+{
+  "handle": "bait-boards",
+  "id": 495386198332,
+  "kind": "smart",
+  "collection": {
+    "id": 495386198332,
+    "handle": "bait-boards",
+    "title": "Bait Boards",
+    "updated_at": "2026-05-20T14:06:29+10:00",
+    "body_html": "<p>Check out our premium bait boards, perfect for making your fishing trips smoother and more fun. Our bait boards are built tough and super practical, they’ll handle all your bait prep and cleaning with ease.</p>",
+    "published_at": "2024-09-04T10:19:44+10:00",
+    "sort_order": "alpha-asc",
+    "template_suffix": "",
+    "disjunctive": false,
+    "rules": [
+      {
+        "column": "tag",
+        "relation": "equals",
+        "condition": "bait boards"
+      }
+    ],
+    "published_scope": "global",
+    "admin_graphql_api_id": "gid://shopify/Collection/495386198332",
+    "image": {
+      "created_at": "2024-12-08T15:55:18+11:00",
+      "alt": null,
+      "width": 1000,
+      "height": 1000,
+      "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/collections/bait-board-b02-3.png?v=1733633719"
+    }
+  },
+  "metafields": [
+    {
+      "id": 102762320855356,
+      "namespace": "custom",
+      "key": "seocontent",
+      "value": "{\"type\":\"root\",\"children\":[{\"type\":\"heading\",\"level\":2,\"children\":[{\"type\":\"text\",\"value\":\"Bait Boards That Make Fishing Easy\",\"bold\":true}]},{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"value\":\"Looking to make your fishing trips hassle-free? Our bait boards are here to help! Whether you’re heading out for a casual day on the water or you’re a serious angler, our range of bait boards is designed to handle all your needs.\"}]},{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"value\":\"Made with high-quality, marine-grade materials, these bait boards are built tough to tackle even the harshest marine conditions. Our bait boards are super easy to clean, incredibly stable, and come packed with features like rod holders, drainage holes, and adjustable mounts. With our bait boards, you’ll spend less time fussing and more time catching fish!\"}]},{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"value\":\"Need a compact bait board for a smaller boat? We’ve got you covered. Looking for a larger bait board with extra storage, room for your gear, and added rod holders? No problem. We have bait boards for every setup, so you can focus on enjoying your fishing adventure.\"}]},{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"value\":\"Why You’ll Love Our Bait Boards:\"}]},{\"type\":\"list\",\"listType\":\"unordered\",\"children\":[{\"type\":\"list-item\",\"children\":[{\"type\":\"text\",\"value\":\"Tough, durable, and made for marine life\"}]},{\"type\":\"list-item\",\"children\":[{\"type\":\"text\",\"value\":\"Easy-to-clean bait boards that are built to last\"}]},{\"type\":\"list-item\",\"children\":[{\"type\":\"text\",\"value\":\"Packed with practical features like rod holders, drainage holes, and more\"}]},{\"type\":\"list-item\",\"children\":[{\"type\":\"text\",\"value\":\"Quick to install and perfect for any boat setup\"}]}]},{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"value\":\"Upgrade your fishing experience with our premium bait boards, designed for practicality, durability, and performance. Check out our collection of bait boards now and make every fishing trip smoother, easier, and a whole lot more fun. Because every angler deserves the best bait boards on the market!\"}]}]}",
+      "description": null,
+      "owner_id": 495386198332,
+      "created_at": "2024-12-08T15:56:31+11:00",
+      "updated_at": "2024-12-08T16:05:31+11:00",
+      "owner_resource": "collection",
+      "type": "rich_text_field",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102762320855356"
+    },
+    {
+      "id": 102946611790140,
+      "namespace": "global",
+      "key": "title_tag",
+      "value": "Premium Bait Boards Online | Bait Boards Direct",
+      "description": null,
+      "owner_id": 495386198332,
+      "created_at": "2024-12-18T11:36:32+11:00",
+      "updated_at": "2024-12-18T11:36:32+11:00",
+      "owner_resource": "collection",
+      "type": "string",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102946611790140"
+    },
+    {
+      "id": 102946611822908,
+      "namespace": "global",
+      "key": "description_tag",
+      "value": "Explore our range of premium bait boards. Perfect for fishing trips, available with fast Australia-wide delivery.",
+      "description": null,
+      "owner_id": 495386198332,
+      "created_at": "2024-12-18T11:36:32+11:00",
+      "updated_at": "2024-12-18T11:36:32+11:00",
+      "owner_resource": "collection",
+      "type": "string",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102946611822908"
+    }
+  ]
+}

@@ -185,6 +185,16 @@ const productSchema = {
             )}
           </div>
 
+          {/* Low-stock urgency — only when ≥1 unit but ≤5 left. Quantities >5
+              don't display (avoids "33 in stock" oversupply signal); zero/sold
+              out is handled by the Sold out button on the add-to-cart form. */}
+          {product.availableForSale && product.quantityAvailable > 0 && product.quantityAvailable <= 5 && (
+            <p class="mt-3 inline-flex items-center gap-2 rounded-full bg-[#fef2e9] px-3 py-1 text-xs font-bold text-[#c2410c]" role="status">
+              <span aria-hidden="true">⚡</span>
+              Only {product.quantityAvailable} left in stock
+            </p>
+          )}
+
           <div class="mt-6 border-t border-gray-200 pt-6">
             <p class="text-sm leading-relaxed text-text-muted sm:text-base">
               {product.description}
