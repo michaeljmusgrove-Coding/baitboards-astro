@@ -4,101 +4,150 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 const title = "Bait Board FAQs — Sizing, Mounting, Shipping, Warranty | Bait Boards Direct";
 const description = "Frequently asked questions about premium fibreglass bait boards Australia. Sizing, mounting on tinnies / centre consoles, transom installation, shipping, returns, 1-year warranty.";
 
-const faqs = [
+// FAQs grouped into 7 thematic categories. Category order reflects the
+// typical pre-purchase question funnel: materials → fit/install → ship →
+// pay → return/warranty → about. Each FAQ keeps its existing answer copy —
+// only the grouping is new.
+const categories = [
   {
-    q: "What are your bait boards made from?",
-    a: "All SeaKing bait boards are handcrafted from full composite fiberglass (fibreglass) — the same construction used in marine vessel components designed for offshore conditions. The working surface is a UV-resistant PE plastic cutting board that resists staining, odour absorption, and sun degradation. Each board features an integrated sink with a drain fitting so blood, scales, and waste rinse cleanly off the deck. All fittings and hardware are 316-grade marine stainless steel, rated for continuous saltwater exposure without rusting. Depending on the model, boards include rod holders and moulded cup holders as standard or optional extras. There is no MDF, particle board, or chipboard — just solid composite fibreglass front to back, built to outlast years of serious offshore and estuary fishing.",
+    slug: 'materials-construction',
+    label: 'Materials & Construction',
+    faqs: [
+      {
+        q: "What are your bait boards made from?",
+        a: "All SeaKing bait boards are handcrafted from full composite fiberglass (fibreglass) — the same construction used in marine vessel components designed for offshore conditions. The working surface is a UV-resistant PE plastic cutting board that resists staining, odour absorption, and sun degradation. Each board features an integrated sink with a drain fitting so blood, scales, and waste rinse cleanly off the deck. All fittings and hardware are 316-grade marine stainless steel, rated for continuous saltwater exposure without rusting. Depending on the model, boards include rod holders and moulded cup holders as standard or optional extras. There is no MDF, particle board, or chipboard — just solid composite fibreglass front to back, built to outlast years of serious offshore and estuary fishing.",
+      },
+      {
+        q: "Are the SeaKing rod holders rated for game fishing?",
+        a: "Yes — every rod holder supplied with our SeaKing boards is game-rated, meaning it is built to handle the heavy drag pressures and shock loads of trolling for marlin, tuna, kingfish, and other pelagic species. Each holder is fabricated from 316 marine-grade stainless steel and reinforced where it joins the board structure, so it transfers load through the composite shell without flexing or pulling out. Standard board configurations include two or four rod holders depending on the model. They suit both overhead and spinning reels, and the angle is set for trolling at speed without rod tip lift. If you are targeting heavy game species and need additional rod holder positions, we can supply standalone game-rated rod holders to upgrade your board configuration.",
+      },
+      {
+        q: "How heavy are the bait boards?",
+        a: "SeaKing bait boards range from approximately 8 kg for the smallest models (such as the JJ-12 at 600mm x 350mm) up to around 22 kg for the largest leg-mount SKL-L06 at 900mm x 500mm. Most mid-sized flat-mount boards in the 700-830mm range weigh between 12 and 18 kg. The exact figure depends on the model and any included accessories such as rod holders, leaning posts, and moulded cup holders. Despite the rugged composite fibreglass construction, the boards are noticeably lighter than equivalent timber or aluminium-framed alternatives because the fibreglass shell is hollow rather than solid. This makes them easier to lift on and off seasonally if you remove your board between trips. Specific weights are listed on the shipping documentation for each model.",
+      },
+    ],
   },
   {
-    q: "Are the SeaKing rod holders rated for game fishing?",
-    a: "Yes — every rod holder supplied with our SeaKing boards is game-rated, meaning it is built to handle the heavy drag pressures and shock loads of trolling for marlin, tuna, kingfish, and other pelagic species. Each holder is fabricated from 316 marine-grade stainless steel and reinforced where it joins the board structure, so it transfers load through the composite shell without flexing or pulling out. Standard board configurations include two or four rod holders depending on the model. They suit both overhead and spinning reels, and the angle is set for trolling at speed without rod tip lift. If you are targeting heavy game species and need additional rod holder positions, we can supply standalone game-rated rod holders to upgrade your board configuration.",
+    slug: 'saltwater-maintenance',
+    label: 'Saltwater & Maintenance',
+    faqs: [
+      {
+        q: "Are the boards suitable for saltwater use?",
+        a: "Absolutely. Every SeaKing board is designed and built for continuous marine use, both offshore and inshore. The fiberglass shell is fully waterproof and saltwater resistant — it will not delaminate, swell, or rot when exposed to seawater, UV radiation, and the temperature extremes of an Australian summer on the water. All hardware including screws, fittings, drain fittings, and rod holder mounts are 316-grade marine stainless steel, the same specification used in boat cleats and rigging components. The PE plastic cutting board surface is food-grade, non-porous, and resistant to salt, fish oil, and standard cleaning chemicals. A simple rinse with fresh water after each session keeps the board in excellent condition for years.",
+      },
+      {
+        q: "How do I clean and maintain the cutting surface?",
+        a: "After each fishing session, rinse the board down with fresh water — particularly the cutting surface, sink, and drain fitting — to flush salt, blood, scales, and bait residue. The UV-resistant PE plastic surface is non-porous so it will not absorb fish odour the way timber or treated MDF cutting boards do. For routine cleaning, warm soapy water and a soft brush is all that is needed. For more stubborn stains or odours, food-grade vinegar or a diluted bleach solution (1:10 with water) is safe to use on the PE surface. Avoid abrasive scouring pads, harsh solvents, and acid-based marine cleaners on the fibreglass shell as these can dull the gel coat over time. The 316 stainless hardware is corrosion resistant but will benefit from an occasional fresh-water rinse and a light silicone spray on bolt threads to prevent salt build-up.",
+      },
+    ],
   },
   {
-    q: "How heavy are the bait boards?",
-    a: "SeaKing bait boards range from approximately 8 kg for the smallest models (such as the JJ-12 at 600mm x 350mm) up to around 22 kg for the largest leg-mount SKL-L06 at 900mm x 500mm. Most mid-sized flat-mount boards in the 700-830mm range weigh between 12 and 18 kg. The exact figure depends on the model and any included accessories such as rod holders, leaning posts, and moulded cup holders. Despite the rugged composite fibreglass construction, the boards are noticeably lighter than equivalent timber or aluminium-framed alternatives because the fibreglass shell is hollow rather than solid. This makes them easier to lift on and off seasonally if you remove your board between trips. Specific weights are listed on the shipping documentation for each model.",
+    slug: 'sizing-installation',
+    label: 'Sizing & Installation',
+    faqs: [
+      {
+        q: "How do I choose the right bait board size?",
+        a: "Board dimensions are listed in each product title — for example, 700mm x 420mm means 700mm wide and 420mm deep front to back. Start by measuring the mounting surface on your vessel: the width of your gunnel, leaning post platform, or transom shelf. Leave at least 50mm of clearance on each side for comfortable use. Smaller boards (600-700mm wide) suit tinnies, kayaks, and centre consoles under 5m. Boards in the 700-830mm range are ideal for larger centre consoles and offshore vessels where you need space for multiple fish. The leg-mounted SKL series offers flexible mounting for larger vessels. If you are between sizes or unsure what fits your boat, contact us with your boat make and model and we will point you to the right board.",
+      },
+      {
+        q: "Can I install on a fibreglass, aluminium, or wooden boat?",
+        a: "Yes — SeaKing bait boards mount to fibreglass, aluminium, and timber-built vessels using marine-grade stainless steel hardware suited to each surface. On fibreglass and timber gunnels, boards bolt directly through the mounting surface with backing plates to spread the load and prevent stress cracking. On aluminium boats, we recommend using stainless bolts with nylon washers or insulating sleeves to prevent galvanic corrosion between dissimilar metals. The integrated leg-mount SKL series suits boats with leaning posts or T-tops, where the legs clamp around an existing structural pole rather than penetrating the deck. If you are unsure how your specific boat will accept a board, send us a photo of the intended mounting area and we will advise on the right model and any additional hardware you may need.",
+      },
+      {
+        q: "Do the bait boards come with mounting hardware?",
+        a: "Most SeaKing bait boards are supplied with their core mounting hardware — the exact contents depend on the model and are specified in each product listing. Standard flat-mount boards include the board and drain fittings. The SKL leg series includes integrated mounting legs. Additional 316 marine-grade stainless steel mounting bases, leg extensions, and clamp kits are available as optional extras to suit different vessel configurations. If you have a non-standard mounting requirement — such as an unusual gunnel width or a custom leaning post diameter — contact us before purchasing and we can advise the best setup and any additional hardware you may need.",
+      },
+      {
+        q: "Can I retrofit a sink or upgrade a board later?",
+        a: "Most SeaKing boards already include an integrated sink with drain fitting as standard — this is moulded into the fibreglass shell during manufacture rather than fitted afterwards, so retrofitting a sink to a board that doesn't have one is generally not feasible. However, you can add accessories to a board after purchase: additional rod holders can be retrofitted to most models with the right backing plate, drain fittings can be replaced or upgraded if yours wears out, and we offer separate stainless mounting hardware kits for upgrading or repositioning your board. If you are looking at a specific upgrade, contact us with the board model and what you would like to add, and we will confirm what is possible and supply the parts. For larger functional changes, the simplest path is usually to upgrade to a model that already includes the feature you need.",
+      },
+    ],
   },
   {
-    q: "Are the boards suitable for saltwater use?",
-    a: "Absolutely. Every SeaKing board is designed and built for continuous marine use, both offshore and inshore. The fiberglass shell is fully waterproof and saltwater resistant — it will not delaminate, swell, or rot when exposed to seawater, UV radiation, and the temperature extremes of an Australian summer on the water. All hardware including screws, fittings, drain fittings, and rod holder mounts are 316-grade marine stainless steel, the same specification used in boat cleats and rigging components. The PE plastic cutting board surface is food-grade, non-porous, and resistant to salt, fish oil, and standard cleaning chemicals. A simple rinse with fresh water after each session keeps the board in excellent condition for years.",
+    slug: 'shipping-delivery',
+    label: 'Shipping & Delivery',
+    faqs: [
+      {
+        q: "Do you offer free shipping?",
+        a: "Yes, we offer free shipping on all orders across Australia — no minimum order value, no hidden freight surcharges. Larger boards are palletised and shipped via road freight to ensure they arrive undamaged. Smaller items like rod holders ship via express post. We deliver to metro, regional, and rural areas across the country — whether you are in Sydney, Perth, Darwin, or a remote coastal town, your order ships free. For rural and remote deliveries, transit times may extend beyond our standard window. Our team will contact you if your location requires special freight handling. Free shipping is included in the listed price — what you see is what you pay.",
+      },
+      {
+        q: "How long does delivery take?",
+        a: "Most orders are dispatched within 1-3 business days of being placed. For metro areas including Sydney, Melbourne, Brisbane, Perth, and Adelaide, delivery typically takes 3-7 business days from dispatch. Regional areas generally add 2-4 business days on top of metro times, while remote and rural locations may take 7-14 business days depending on freight carrier routing. Once dispatched, you will receive a tracking number via email to follow your delivery in real time. If you need your board by a specific date for a fishing trip or as a gift, contact us before ordering and we will check current dispatch times and do our best to help.",
+      },
+      {
+        q: "What is the lead time on out-of-stock or backorder boards?",
+        a: "In-stock items dispatch within 1-3 business days. If a particular model is showing as out of stock or sold out at the time of order, the lead time depends on whether we are awaiting a routine restock or a custom production run. Routine restocks of popular models typically take 3-6 weeks from order placement. Custom configurations or boards built to order can take 6-10 weeks. We update product pages with backorder status as soon as we have firm production dates from the manufacturer. If you need a board by a specific date — for a fishing trip, gift, or charter season start — contact us before ordering and we will confirm current stock levels and estimated availability so there are no surprises.",
+      },
+      {
+        q: "Do you ship to New Zealand or internationally?",
+        a: "Yes, we ship to New Zealand and select international destinations on request. Free shipping applies to Australian addresses only — international orders are quoted individually based on destination, weight, and freight method. Bait boards are large, palletised items so air freight is rarely cost-effective for international destinations; sea freight is the usual route for most countries and adds 4-8 weeks to delivery times. For New Zealand, transit times are typically 2-3 weeks and freight costs are reasonable given the proximity. International customers are responsible for any import duties, GST, and customs charges in the destination country. If you would like an international quote, email us at info@baitboardsdirect.com.au with your full delivery address and the model you are interested in, and we will come back with a freight quote within 1-2 business days.",
+      },
+      {
+        q: "Can I collect my order in Melbourne?",
+        a: "We are an online business operating from a Melbourne warehouse rather than a public retail showroom, so we do not have walk-in collection by default. However, local pickup can usually be arranged for Melbourne-based customers by prior agreement. If you would like to collect rather than have your board freighted, mention it in the order notes or contact us before placing the order so we can confirm warehouse availability and arrange a pickup time. Local pickup avoids the freight handling time and lets you inspect the board on collection. We are located in South East Melbourne; specific address and access times are confirmed on a per-order basis once a pickup is arranged.",
+      },
+      {
+        q: "What happens if my board arrives damaged?",
+        a: "In the rare case a board arrives damaged in transit, contact us within 48 hours of delivery — the sooner the better, as we need to lodge a freight claim with the carrier within tight time windows. Take clear photos of: (1) the outer packaging showing any damage to the box or pallet, (2) the inner packing material, and (3) the damaged area of the board itself, before you remove or discard anything. Email these to info@baitboardsdirect.com.au along with your order number. We will assess the damage and arrange a replacement, repair, or full refund — whichever you prefer. Do not sign a clean delivery docket if damage is visible on the outer carton; mark it as damaged on the docket so the carrier acknowledges the condition on receipt. We cover all costs of replacement and return freight on shipping-damaged orders.",
+      },
+    ],
   },
   {
-    q: "How do I choose the right bait board size?",
-    a: "Board dimensions are listed in each product title — for example, 700mm x 420mm means 700mm wide and 420mm deep front to back. Start by measuring the mounting surface on your vessel: the width of your gunnel, leaning post platform, or transom shelf. Leave at least 50mm of clearance on each side for comfortable use. Smaller boards (600-700mm wide) suit tinnies, kayaks, and centre consoles under 5m. Boards in the 700-830mm range are ideal for larger centre consoles and offshore vessels where you need space for multiple fish. The leg-mounted SKL series offers flexible mounting for larger vessels. If you are between sizes or unsure what fits your boat, contact us with your boat make and model and we will point you to the right board.",
+    slug: 'payments',
+    label: 'Payments',
+    faqs: [
+      {
+        q: "What payment methods do you accept?",
+        a: "We accept all major credit cards (Visa, Mastercard, American Express), debit cards, and PayPal at checkout. Australian customers can also use Apple Pay and Google Pay where supported by their device. For larger commercial orders we can arrange direct bank transfer (EFT) on request — contact us before placing the order. Afterpay is available for orders within Afterpay's eligibility limits, which are determined by your Afterpay account rather than by us. All payments are processed through Shopify's PCI-compliant payment infrastructure with end-to-end SSL encryption — we never see or store your full card details. Refunds are processed to the original payment method, which can take 3-5 business days to appear in your account depending on your bank.",
+      },
+      {
+        q: "Is Afterpay available?",
+        a: "Yes, Afterpay is offered at checkout for Australian customers. Afterpay splits your purchase into four equal interest-free instalments paid fortnightly, and we ship your order as soon as the first instalment clears — you do not have to wait for the full amount to be paid. Afterpay eligibility (including which orders qualify and the maximum order value you can use it for) is set by Afterpay based on your account history, not by us. The total order amount remains the same as paying upfront — there are no hidden Afterpay surcharges from our end. Late payment fees on missed instalments are charged by Afterpay directly. If your order is over the Afterpay limit on your account, the option will not appear at checkout — try splitting the order or using a standard payment method instead.",
+      },
+    ],
   },
   {
-    q: "Can I install on a fibreglass, aluminium, or wooden boat?",
-    a: "Yes — SeaKing bait boards mount to fibreglass, aluminium, and timber-built vessels using marine-grade stainless steel hardware suited to each surface. On fibreglass and timber gunnels, boards bolt directly through the mounting surface with backing plates to spread the load and prevent stress cracking. On aluminium boats, we recommend using stainless bolts with nylon washers or insulating sleeves to prevent galvanic corrosion between dissimilar metals. The integrated leg-mount SKL series suits boats with leaning posts or T-tops, where the legs clamp around an existing structural pole rather than penetrating the deck. If you are unsure how your specific boat will accept a board, send us a photo of the intended mounting area and we will advise on the right model and any additional hardware you may need.",
+    slug: 'returns-warranty',
+    label: 'Returns & Warranty',
+    faqs: [
+      {
+        q: "Can I return a product if it doesn't suit my vessel?",
+        a: "Yes. Unused products in original, undamaged packaging can be returned within 30 days of delivery for a full refund or exchange. To start a return, contact us at info@baitboardsdirect.com.au with your order number and reason for return, and we will provide return instructions. Please do not return a product without contacting us first. Return shipping costs are the responsibility of the customer unless the item arrived damaged or was incorrect. Once we receive and inspect the returned item, refunds are processed to your original payment method within 3-5 business days. For full details see our Returns and Refunds Policy in the footer.",
+      },
+      {
+        q: "Is there a warranty on your bait boards?",
+        a: "Yes, all SeaKing bait boards come with a 1-year warranty covering defects in materials and workmanship from the date of purchase. If your board develops a fault within the warranty period — such as delamination, fiberglass cracking, or a fitting failure under normal use — contact us at info@baitboardsdirect.com.au with photos and your order details. We will arrange a repair, replacement, or refund at our discretion. The warranty does not cover damage from improper installation, impacts, abrasive chemicals, or modifications to the board. Normal wear to the cutting board surface such as knife marks is expected with regular use and is not a defect. The same 1-year warranty applies to accessories including rod holders.",
+      },
+    ],
   },
   {
-    q: "Do the bait boards come with mounting hardware?",
-    a: "Most SeaKing bait boards are supplied with their core mounting hardware — the exact contents depend on the model and are specified in each product listing. Standard flat-mount boards include the board and drain fittings. The SKL leg series includes integrated mounting legs. Additional 316 marine-grade stainless steel mounting bases, leg extensions, and clamp kits are available as optional extras to suit different vessel configurations. If you have a non-standard mounting requirement — such as an unusual gunnel width or a custom leaning post diameter — contact us before purchasing and we can advise the best setup and any additional hardware you may need.",
-  },
-  {
-    q: "Can I retrofit a sink or upgrade a board later?",
-    a: "Most SeaKing boards already include an integrated sink with drain fitting as standard — this is moulded into the fibreglass shell during manufacture rather than fitted afterwards, so retrofitting a sink to a board that doesn't have one is generally not feasible. However, you can add accessories to a board after purchase: additional rod holders can be retrofitted to most models with the right backing plate, drain fittings can be replaced or upgraded if yours wears out, and we offer separate stainless mounting hardware kits for upgrading or repositioning your board. If you are looking at a specific upgrade, contact us with the board model and what you would like to add, and we will confirm what is possible and supply the parts. For larger functional changes, the simplest path is usually to upgrade to a model that already includes the feature you need.",
-  },
-  {
-    q: "How do I clean and maintain the cutting surface?",
-    a: "After each fishing session, rinse the board down with fresh water — particularly the cutting surface, sink, and drain fitting — to flush salt, blood, scales, and bait residue. The UV-resistant PE plastic surface is non-porous so it will not absorb fish odour the way timber or treated MDF cutting boards do. For routine cleaning, warm soapy water and a soft brush is all that is needed. For more stubborn stains or odours, food-grade vinegar or a diluted bleach solution (1:10 with water) is safe to use on the PE surface. Avoid abrasive scouring pads, harsh solvents, and acid-based marine cleaners on the fibreglass shell as these can dull the gel coat over time. The 316 stainless hardware is corrosion resistant but will benefit from an occasional fresh-water rinse and a light silicone spray on bolt threads to prevent salt build-up.",
-  },
-  {
-    q: "Do you offer free shipping?",
-    a: "Yes, we offer free shipping on all orders across Australia — no minimum order value, no hidden freight surcharges. Larger boards are palletised and shipped via road freight to ensure they arrive undamaged. Smaller items like rod holders ship via express post. We deliver to metro, regional, and rural areas across the country — whether you are in Sydney, Perth, Darwin, or a remote coastal town, your order ships free. For rural and remote deliveries, transit times may extend beyond our standard window. Our team will contact you if your location requires special freight handling. Free shipping is included in the listed price — what you see is what you pay.",
-  },
-  {
-    q: "How long does delivery take?",
-    a: "Most orders are dispatched within 1-3 business days of being placed. For metro areas including Sydney, Melbourne, Brisbane, Perth, and Adelaide, delivery typically takes 3-7 business days from dispatch. Regional areas generally add 2-4 business days on top of metro times, while remote and rural locations may take 7-14 business days depending on freight carrier routing. Once dispatched, you will receive a tracking number via email to follow your delivery in real time. If you need your board by a specific date for a fishing trip or as a gift, contact us before ordering and we will check current dispatch times and do our best to help.",
-  },
-  {
-    q: "What is the lead time on out-of-stock or backorder boards?",
-    a: "In-stock items dispatch within 1-3 business days. If a particular model is showing as out of stock or sold out at the time of order, the lead time depends on whether we are awaiting a routine restock or a custom production run. Routine restocks of popular models typically take 3-6 weeks from order placement. Custom configurations or boards built to order can take 6-10 weeks. We update product pages with backorder status as soon as we have firm production dates from the manufacturer. If you need a board by a specific date — for a fishing trip, gift, or charter season start — contact us before ordering and we will confirm current stock levels and estimated availability so there are no surprises.",
-  },
-  {
-    q: "Do you ship to New Zealand or internationally?",
-    a: "Yes, we ship to New Zealand and select international destinations on request. Free shipping applies to Australian addresses only — international orders are quoted individually based on destination, weight, and freight method. Bait boards are large, palletised items so air freight is rarely cost-effective for international destinations; sea freight is the usual route for most countries and adds 4-8 weeks to delivery times. For New Zealand, transit times are typically 2-3 weeks and freight costs are reasonable given the proximity. International customers are responsible for any import duties, GST, and customs charges in the destination country. If you would like an international quote, email us at info@baitboardsdirect.com.au with your full delivery address and the model you are interested in, and we will come back with a freight quote within 1-2 business days.",
-  },
-  {
-    q: "Can I collect my order in Melbourne?",
-    a: "We are an online business operating from a Melbourne warehouse rather than a public retail showroom, so we do not have walk-in collection by default. However, local pickup can usually be arranged for Melbourne-based customers by prior agreement. If you would like to collect rather than have your board freighted, mention it in the order notes or contact us before placing the order so we can confirm warehouse availability and arrange a pickup time. Local pickup avoids the freight handling time and lets you inspect the board on collection. We are located in South East Melbourne; specific address and access times are confirmed on a per-order basis once a pickup is arranged.",
-  },
-  {
-    q: "What happens if my board arrives damaged?",
-    a: "In the rare case a board arrives damaged in transit, contact us within 48 hours of delivery — the sooner the better, as we need to lodge a freight claim with the carrier within tight time windows. Take clear photos of: (1) the outer packaging showing any damage to the box or pallet, (2) the inner packing material, and (3) the damaged area of the board itself, before you remove or discard anything. Email these to info@baitboardsdirect.com.au along with your order number. We will assess the damage and arrange a replacement, repair, or full refund — whichever you prefer. Do not sign a clean delivery docket if damage is visible on the outer carton; mark it as damaged on the docket so the carrier acknowledges the condition on receipt. We cover all costs of replacement and return freight on shipping-damaged orders.",
-  },
-  {
-    q: "What payment methods do you accept?",
-    a: "We accept all major credit cards (Visa, Mastercard, American Express), debit cards, and PayPal at checkout. Australian customers can also use Apple Pay and Google Pay where supported by their device. For larger commercial orders we can arrange direct bank transfer (EFT) on request — contact us before placing the order. Afterpay is available for orders within Afterpay's eligibility limits, which are determined by your Afterpay account rather than by us. All payments are processed through Shopify's PCI-compliant payment infrastructure with end-to-end SSL encryption — we never see or store your full card details. Refunds are processed to the original payment method, which can take 3-5 business days to appear in your account depending on your bank.",
-  },
-  {
-    q: "Is Afterpay available?",
-    a: "Yes, Afterpay is offered at checkout for Australian customers. Afterpay splits your purchase into four equal interest-free instalments paid fortnightly, and we ship your order as soon as the first instalment clears — you do not have to wait for the full amount to be paid. Afterpay eligibility (including which orders qualify and the maximum order value you can use it for) is set by Afterpay based on your account history, not by us. The total order amount remains the same as paying upfront — there are no hidden Afterpay surcharges from our end. Late payment fees on missed instalments are charged by Afterpay directly. If your order is over the Afterpay limit on your account, the option will not appear at checkout — try splitting the order or using a standard payment method instead.",
-  },
-  {
-    q: "Can I return a product if it doesn't suit my vessel?",
-    a: "Yes. Unused products in original, undamaged packaging can be returned within 30 days of delivery for a full refund or exchange. To start a return, contact us at info@baitboardsdirect.com.au with your order number and reason for return, and we will provide return instructions. Please do not return a product without contacting us first. Return shipping costs are the responsibility of the customer unless the item arrived damaged or was incorrect. Once we receive and inspect the returned item, refunds are processed to your original payment method within 3-5 business days. For full details see our Returns and Refunds Policy in the footer.",
-  },
-  {
-    q: "Is there a warranty on your bait boards?",
-    a: "Yes, all SeaKing bait boards come with a 1-year warranty covering defects in materials and workmanship from the date of purchase. If your board develops a fault within the warranty period — such as delamination, fiberglass cracking, or a fitting failure under normal use — contact us at info@baitboardsdirect.com.au with photos and your order details. We will arrange a repair, replacement, or refund at our discretion. The warranty does not cover damage from improper installation, impacts, abrasive chemicals, or modifications to the board. Normal wear to the cutting board surface such as knife marks is expected with regular use and is not a defect. The same 1-year warranty applies to accessories including rod holders.",
-  },
-  {
-    q: "Where are you based?",
-    a: "We are proudly based in South East Melbourne, Victoria, Australia. While our warehouse and dispatch operations are in Melbourne, we ship to fishing enthusiasts right across the country — from Queensland reef-fishing grounds and the West Australian coast to the Northern Territory's barramundi rivers and Tasmania's offshore grounds. Being Australian-based means your order ships from within Australia with no international customs delays, our team operates in Australian time zones, and our boards are built for the conditions Australian anglers face: intense UV, heavy saltwater spray, and long days on the water. If you are Melbourne-based and would like to view a board before purchasing, get in touch and we will see what we can arrange.",
-  },
-  {
-    q: "Do you have a physical store, or are you online-only?",
-    a: "We are online-only, and that is a deliberate choice that benefits you as a customer. By operating without a retail shopfront, we avoid the overhead costs of commercial floor space, staff, and retail distribution margins — and we pass those savings directly on to you. Our boards are priced significantly below comparable products sold through physical fishing retailers that carry their own mark-ups. You receive the same or better quality product for less, shipped directly from our warehouse to your door. Our online store is open 24 hours a day, 7 days a week. If you have questions before buying, our team is available by phone and email during business hours.",
-  },
-  {
-    q: "Do you offer bulk discounts for large orders?",
-    a: "Yes. If you are purchasing multiple boards for a charter business, commercial fishing operation, fishing club, waterfront hospitality venue, or any other bulk requirement, we are happy to discuss volume pricing. The discount available depends on the quantity and specific models you are ordering. Reach out to us at info@baitboardsdirect.com.au or call 0474 332 034 with the details of what you need and quantities involved, and we will put together a custom quote. We have supplied boards to commercial fishing operations, charter boat fleets, and marine businesses across Australia. Bulk orders typically require a lead time of 2-4 weeks depending on current stock availability.",
+    slug: 'about-us',
+    label: 'About Us',
+    faqs: [
+      {
+        q: "Where are you based?",
+        a: "We are proudly based in South East Melbourne, Victoria, Australia. While our warehouse and dispatch operations are in Melbourne, we ship to fishing enthusiasts right across the country — from Queensland reef-fishing grounds and the West Australian coast to the Northern Territory's barramundi rivers and Tasmania's offshore grounds. Being Australian-based means your order ships from within Australia with no international customs delays, our team operates in Australian time zones, and our boards are built for the conditions Australian anglers face: intense UV, heavy saltwater spray, and long days on the water. If you are Melbourne-based and would like to view a board before purchasing, get in touch and we will see what we can arrange.",
+      },
+      {
+        q: "Do you have a physical store, or are you online-only?",
+        a: "We are online-only, and that is a deliberate choice that benefits you as a customer. By operating without a retail shopfront, we avoid the overhead costs of commercial floor space, staff, and retail distribution margins — and we pass those savings directly on to you. Our boards are priced significantly below comparable products sold through physical fishing retailers that carry their own mark-ups. You receive the same or better quality product for less, shipped directly from our warehouse to your door. Our online store is open 24 hours a day, 7 days a week. If you have questions before buying, our team is available by phone and email during business hours.",
+      },
+      {
+        q: "Do you offer bulk discounts for large orders?",
+        a: "Yes. If you are purchasing multiple boards for a charter business, commercial fishing operation, fishing club, waterfront hospitality venue, or any other bulk requirement, we are happy to discuss volume pricing. The discount available depends on the quantity and specific models you are ordering. Reach out to us at info@baitboardsdirect.com.au or call 0474 332 034 with the details of what you need and quantities involved, and we will put together a custom quote. We have supplied boards to commercial fishing operations, charter boat fleets, and marine businesses across Australia. Bulk orders typically require a lead time of 2-4 weeks depending on current stock availability.",
+      },
+    ],
   },
 ];
+
+// Flatten for the FAQPage JSON-LD — order doesn't matter for SEO; presence does.
+const allFaqs = categories.flatMap((c) => c.faqs);
 
 const schema = {
   "@context": "https://schema.org",
   "@type": "FAQPage",
-  mainEntity: faqs.map(({ q, a }) => ({
+  mainEntity: allFaqs.map(({ q, a }) => ({
     "@type": "Question",
     name: q,
     acceptedAnswer: { "@type": "Answer", text: a },
@@ -109,23 +158,46 @@ const schema = {
 <BaseLayout title={title} description={description} schema={schema}>
   <section class="bg-bg-alt py-16 sm:py-20">
     <div class="container max-w-3xl">
-      <h1 class="font-heading mb-10 text-3xl font-bold text-primary sm:text-4xl">Bait Board FAQs — Australia</h1>
+      <h1 class="font-heading mb-4 text-3xl font-bold text-primary sm:text-4xl">Bait Board FAQs — Australia</h1>
+      <p class="mb-8 text-sm text-text-muted">
+        {allFaqs.length} questions across {categories.length} topics — jump straight to the one you need.
+      </p>
 
-      <div class="space-y-3">
-        {faqs.map(({ q, a }, i) => (
-          <details class="group rounded-xl border border-border bg-white" open={i === 0}>
-            <summary class="flex cursor-pointer items-center justify-between px-5 py-4 font-heading text-sm font-semibold text-primary">
-              {q}
-              <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 rotate-0 transition-transform group-open:rotate-180 text-[#008c9e]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
-              </svg>
-            </summary>
-            <div class="border-t border-border px-5 py-4 text-sm leading-relaxed text-text-muted">
-              {a}
-            </div>
-          </details>
+      {/* Category quick-jump nav. Anchor IDs match each section so users can
+          link straight to a category from PDPs or articles. */}
+      <nav aria-label="FAQ topics" class="mb-10 flex flex-wrap gap-2">
+        {categories.map((c) => (
+          <a
+            href={`#${c.slug}`}
+            class="rounded-full border border-border bg-white px-3 py-1.5 text-xs font-semibold uppercase tracking-wide text-[#07272e] transition-colors hover:border-[#008c9e] hover:text-[#008c9e]"
+          >
+            {c.label}
+          </a>
         ))}
-      </div>
+      </nav>
+
+      {categories.map((cat, ci) => (
+        <section id={cat.slug} class="mb-10 scroll-mt-24">
+          <h2 class="font-heading mb-4 text-lg font-extrabold uppercase tracking-wide text-[#07272e]">
+            {cat.label}
+          </h2>
+          <div class="space-y-3">
+            {cat.faqs.map(({ q, a }, qi) => (
+              <details class="group rounded-xl border border-border bg-white" open={ci === 0 && qi === 0}>
+                <summary class="flex cursor-pointer items-center justify-between px-5 py-4 font-heading text-sm font-semibold text-primary">
+                  {q}
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 flex-shrink-0 rotate-0 transition-transform group-open:rotate-180 text-[#008c9e]" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </summary>
+                <div class="border-t border-border px-5 py-4 text-sm leading-relaxed text-text-muted">
+                  {a}
+                </div>
+              </details>
+            ))}
+          </div>
+        </section>
+      ))}
 
       <div class="mt-12 rounded-xl bg-[#f7f7f7] p-8 text-center">
         <p class="mb-4 font-semibold text-[#07272e]">Can't find your answer?</p>
