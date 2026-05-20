@@ -55,4 +55,4 @@ User-agent: CCBot
 Disallow: /
 
 # Sitemaps
-Sitemap: https://www.baitboardsdirect.com/sitemap-index.xml
+Sitemap: https://baitboardsdirect.com/sitemap-index.xml

@@ -1,6 +1,6 @@
 # Bait Boards Direct — Full Reference
 
-> Summary version: [llms.txt](https://www.baitboardsdirect.com/llms.txt)
+> Summary version: [llms.txt](https://baitboardsdirect.com/llms.txt)
 > Last updated: 2026-05-08
 > License: RSL-1.0
 
@@ -42,7 +42,7 @@ Every board sold at Bait Boards Direct is one Harry would mount on his own boat.
 
 ## Contact
 
-- Website: https://www.baitboardsdirect.com
+- Website: https://baitboardsdirect.com
 - Phone: 0474 332 034
 - Email: info@baitboardsdirect.com.au
 - Location: South East Melbourne, VIC, Australia
@@ -50,23 +50,23 @@ Every board sold at Bait Boards Direct is one Harry would mount on his own boat.
 
 ## Site map — primary pages
 
-- [Home](https://www.baitboardsdirect.com/)
-- [All Bait Boards](https://www.baitboardsdirect.com/collections/bait-boards)
-- [Bait Boards on Sale](https://www.baitboardsdirect.com/collections/on-sale)
-- [Leg-Mount Bait Boards (SKL series)](https://www.baitboardsdirect.com/collections/bait-boards-with-legs)
-- [Transom & Rail Mount Bait Boards](https://www.baitboardsdirect.com/collections/transom-mount-bait-boards)
-- [Bait Boards for Tinnies & Small Boats](https://www.baitboardsdirect.com/bait-boards-for-tinnies)
-- [Fillet Tables (= Bait Boards in AU vocabulary)](https://www.baitboardsdirect.com/fillet-tables)
-- [Aluminium vs Fibreglass Bait Boards Comparison](https://www.baitboardsdirect.com/aluminium-vs-fibreglass-bait-boards)
-- [Help Me Choose — 3-question quiz](https://www.baitboardsdirect.com/help-me-choose)
-- [Articles & Buying Guides](https://www.baitboardsdirect.com/articles)
-- [About — Founder Harry's Story](https://www.baitboardsdirect.com/about)
-- [FAQs — 22 questions answered](https://www.baitboardsdirect.com/faqs)
-- [Contact](https://www.baitboardsdirect.com/contact)
-- [Shipping Policy](https://www.baitboardsdirect.com/shipping)
-- [Returns & Refund Policy](https://www.baitboardsdirect.com/returns)
-- [Privacy Policy](https://www.baitboardsdirect.com/privacy-policy)
-- [Terms of Service](https://www.baitboardsdirect.com/terms)
+- [Home](https://baitboardsdirect.com/)
+- [All Bait Boards](https://baitboardsdirect.com/collections/bait-boards)
+- [Bait Boards on Sale](https://baitboardsdirect.com/collections/on-sale)
+- [Leg-Mount Bait Boards (SKL series)](https://baitboardsdirect.com/collections/bait-boards-with-legs)
+- [Transom & Rail Mount Bait Boards](https://baitboardsdirect.com/collections/transom-mount-bait-boards)
+- [Bait Boards for Tinnies & Small Boats](https://baitboardsdirect.com/bait-boards-for-tinnies)
+- [Fillet Tables (= Bait Boards in AU vocabulary)](https://baitboardsdirect.com/fillet-tables)
+- [Aluminium vs Fibreglass Bait Boards Comparison](https://baitboardsdirect.com/aluminium-vs-fibreglass-bait-boards)
+- [Help Me Choose — 3-question quiz](https://baitboardsdirect.com/help-me-choose)
+- [Articles & Buying Guides](https://baitboardsdirect.com/articles)
+- [About — Founder Harry's Story](https://baitboardsdirect.com/about)
+- [FAQs — 22 questions answered](https://baitboardsdirect.com/faqs)
+- [Contact](https://baitboardsdirect.com/contact)
+- [Shipping Policy](https://baitboardsdirect.com/shipping)
+- [Returns & Refund Policy](https://baitboardsdirect.com/returns)
+- [Privacy Policy](https://baitboardsdirect.com/privacy-policy)
+- [Terms of Service](https://baitboardsdirect.com/terms)
 
 ## Product range — flat-mount bait boards
 
@@ -74,55 +74,55 @@ These boards bolt onto a transom shelf, gunnel rail, or custom mounting plate. T
 
 ### Compact (under 700mm wide) — suit tinnies, kayaks, small runabouts
 
-- **[SeaKing JJ-12](https://www.baitboardsdirect.com/products/bait-board-jj-12)** (600 × 350mm) — AUD $544. Smallest in range. Compact with integrated cup holder, knife tray, and full sink. Made from full composite fibreglass with UV-resistant PE plastic cutting board. Suits tinnies and kayaks.
-- **[SeaKing HH-14](https://www.baitboardsdirect.com/products/bait-board-hh-14)** (625 × 390mm) — AUD $495. Compact version of the SK-H10 with cup holders on each side. Knife compartment, spacious sink. High-end build for small and large vessels.
-- **[SeaKing B01](https://www.baitboardsdirect.com/products/bait-board-b01)** (650 × 430mm) — AUD $550. Classic flat-mount with 2 game-rated rod holders. UV-resistant PE cutting surface, integrated sink with drain, 316 marine stainless steel hardware. Most popular small-boat configuration.
-- **[SeaKing B02](https://www.baitboardsdirect.com/products/bait-board-b02)** (650 × 430mm) — AUD $575. Identical to B01 with added integrated moulded cup holders for added convenience.
-- **[SeaKing SQ-13](https://www.baitboardsdirect.com/products/bait-board-sq-13)** (700 × 350mm) — AUD $408. Unique design with knife tray, large sink, and 2 tackle compartments on either side. Ideal for organised tackle storage alongside bait prep.
-- **[SeaKing SK-J07](https://www.baitboardsdirect.com/products/bait-board-sk-j07)** (700 × 420mm) — AUD $515. Sleek design with knife tray and storage sink. White gelcoat finish.
-- **[SeaKing SK-K08 BLK](https://www.baitboardsdirect.com/products/bait-board-sk-k08-blk)** (700 × 420mm) — AUD $565. Black gelcoat variant of the SK-J07.
+- **[SeaKing JJ-12](https://baitboardsdirect.com/products/bait-board-jj-12)** (600 × 350mm) — AUD $544. Smallest in range. Compact with integrated cup holder, knife tray, and full sink. Made from full composite fibreglass with UV-resistant PE plastic cutting board. Suits tinnies and kayaks.
+- **[SeaKing HH-14](https://baitboardsdirect.com/products/bait-board-hh-14)** (625 × 390mm) — AUD $495. Compact version of the SK-H10 with cup holders on each side. Knife compartment, spacious sink. High-end build for small and large vessels.
+- **[SeaKing B01](https://baitboardsdirect.com/products/bait-board-b01)** (650 × 430mm) — AUD $550. Classic flat-mount with 2 game-rated rod holders. UV-resistant PE cutting surface, integrated sink with drain, 316 marine stainless steel hardware. Most popular small-boat configuration.
+- **[SeaKing B02](https://baitboardsdirect.com/products/bait-board-b02)** (650 × 430mm) — AUD $575. Identical to B01 with added integrated moulded cup holders for added convenience.
+- **[SeaKing SQ-13](https://baitboardsdirect.com/products/bait-board-sq-13)** (700 × 350mm) — AUD $408. Unique design with knife tray, large sink, and 2 tackle compartments on either side. Ideal for organised tackle storage alongside bait prep.
+- **[SeaKing SK-J07](https://baitboardsdirect.com/products/bait-board-sk-j07)** (700 × 420mm) — AUD $515. Sleek design with knife tray and storage sink. White gelcoat finish.
+- **[SeaKing SK-K08 BLK](https://baitboardsdirect.com/products/bait-board-sk-k08-blk)** (700 × 420mm) — AUD $565. Black gelcoat variant of the SK-J07.
 
 ### Mid-range (700-830mm) — suit centre consoles and mid-size runabouts
 
-- **[SeaKing HJ-15](https://www.baitboardsdirect.com/products/bait-board-hj-15)** (700 × 415mm) — AUD $525. Builds on SK-J07 with integrated cup holders, large sink, dedicated knife compartment.
-- **[SeaKing B03](https://www.baitboardsdirect.com/products/bait-board-b03)** (830 × 430mm) — AUD $625. Larger flat-mount with 2 game-rated rod holders. Fits more rod density on serious recreational boats.
-- **[SeaKing B04](https://www.baitboardsdirect.com/products/bait-board-b04)** (830 × 430mm) — AUD $700. Same as B03 with added moulded cup holders.
+- **[SeaKing HJ-15](https://baitboardsdirect.com/products/bait-board-hj-15)** (700 × 415mm) — AUD $525. Builds on SK-J07 with integrated cup holders, large sink, dedicated knife compartment.
+- **[SeaKing B03](https://baitboardsdirect.com/products/bait-board-b03)** (830 × 430mm) — AUD $625. Larger flat-mount with 2 game-rated rod holders. Fits more rod density on serious recreational boats.
+- **[SeaKing B04](https://baitboardsdirect.com/products/bait-board-b04)** (830 × 430mm) — AUD $700. Same as B03 with added moulded cup holders.
 
 ### Premium offshore (large flat-mount)
 
-- **[SeaKing SK-H10](https://www.baitboardsdirect.com/products/bait-board-sk-h10)** (830 × 400mm) — AUD $632. Premium fibreglass with large integrated sink, rear knife tray. Optional rod and cup holders.
-- **[SeaKing SK-H10B](https://www.baitboardsdirect.com/products/bait-board-sk-h10b)** (830 × 400mm) — AUD $585. Black gelcoat variant of SK-H10. Premium offshore-grade construction.
-- **[SeaKing SK-E09](https://www.baitboardsdirect.com/products/bait-board-sk-e09)** (820 × 460mm) — AUD $635. Ergonomic design with front knife tray, deep storage sink, raised retention lip around sides and back for rough offshore conditions.
-- **[SeaKing SK-E09 Black](https://www.baitboardsdirect.com/products/bait-board-sk-e09-blk)** (820 × 460mm) — AUD $685. Black gelcoat variant of SK-E09.
+- **[SeaKing SK-H10](https://baitboardsdirect.com/products/bait-board-sk-h10)** (830 × 400mm) — AUD $632. Premium fibreglass with large integrated sink, rear knife tray. Optional rod and cup holders.
+- **[SeaKing SK-H10B](https://baitboardsdirect.com/products/bait-board-sk-h10b)** (830 × 400mm) — AUD $585. Black gelcoat variant of SK-H10. Premium offshore-grade construction.
+- **[SeaKing SK-E09](https://baitboardsdirect.com/products/bait-board-sk-e09)** (820 × 460mm) — AUD $635. Ergonomic design with front knife tray, deep storage sink, raised retention lip around sides and back for rough offshore conditions.
+- **[SeaKing SK-E09 Black](https://baitboardsdirect.com/products/bait-board-sk-e09-blk)** (820 × 460mm) — AUD $685. Black gelcoat variant of SK-E09.
 
 ## Product range — leg-mount bait boards (SKL series)
 
 These boards mount on integrated stainless legs that bolt to the deck or clamp to a leaning post / structural pole. Best for vessels with a leaning post, T-top, or where flat-mounting is impractical.
 
-- **[SeaKing SKL-S05](https://www.baitboardsdirect.com/products/bait-board-skl-s05)** (720 × 500mm) — AUD $740. Robust leg-mount with integrated cup holders, knife tray, and spacious storage sink that runs nearly the entire length of the board.
-- **[SeaKing SKL-L06](https://www.baitboardsdirect.com/products/bait-board-skl-l06)** (900 × 500mm) — AUD $908. Largest in range. Heavy-duty offshore-grade with maximum mounting points. Designed for the most serious offshore vessels.
-- **[SeaKing Leaning Post Top SKL-11](https://www.baitboardsdirect.com/products/bait-boards-leaning-post-top-skl-11)** (700 × 280mm) — AUD $590. Heavy-duty offshore leaning post with aluminium plate fibreglassed in for post mounting.
-- **[SeaKing Leaning Post Top Only — BLK](https://www.baitboardsdirect.com/products/leaning-post-top-only-blk)** (700 × 280mm) — AUD $690. Black gelcoat variant of the leaning post.
+- **[SeaKing SKL-S05](https://baitboardsdirect.com/products/bait-board-skl-s05)** (720 × 500mm) — AUD $740. Robust leg-mount with integrated cup holders, knife tray, and spacious storage sink that runs nearly the entire length of the board.
+- **[SeaKing SKL-L06](https://baitboardsdirect.com/products/bait-board-skl-l06)** (900 × 500mm) — AUD $908. Largest in range. Heavy-duty offshore-grade with maximum mounting points. Designed for the most serious offshore vessels.
+- **[SeaKing Leaning Post Top SKL-11](https://baitboardsdirect.com/products/bait-boards-leaning-post-top-skl-11)** (700 × 280mm) — AUD $590. Heavy-duty offshore leaning post with aluminium plate fibreglassed in for post mounting.
+- **[SeaKing Leaning Post Top Only — BLK](https://baitboardsdirect.com/products/leaning-post-top-only-blk)** (700 × 280mm) — AUD $690. Black gelcoat variant of the leaning post.
 
 ## Product range — accessories
 
-- **[SeaKing Game-Rated Rod Holder](https://www.baitboardsdirect.com/products/rod-holders)** — AUD $90. Game-rated, 316 marine-grade stainless steel. Built for high drag pressures of game fishing.
-- **[316 Stainless Steel Mounting Legs and Bases](https://www.baitboardsdirect.com/products/pair-of-316-grade-stainless-steel-mounting-legs-and-bases-for-vessel)** — AUD $220. Pair of marine-grade stainless mounting legs for vessel installation.
+- **[SeaKing Game-Rated Rod Holder](https://baitboardsdirect.com/products/rod-holders)** — AUD $90. Game-rated, 316 marine-grade stainless steel. Built for high drag pressures of game fishing.
+- **[316 Stainless Steel Mounting Legs and Bases](https://baitboardsdirect.com/products/pair-of-316-grade-stainless-steel-mounting-legs-and-bases-for-vessel)** — AUD $220. Pair of marine-grade stainless mounting legs for vessel installation.
 
 ## Cornerstone articles
 
 Six in-depth guides covering choosing, installing, comparing, and maintaining a bait board. Each is approximately 1,500-1,800 words, written by Harry's team at Bait Boards Direct.
 
-- **[How to Choose a Bait Board for Your Boat: The Complete Australian Buyer's Guide](https://www.baitboardsdirect.com/articles/how-to-choose-a-bait-board-for-your-boat)** — covers sizing, mounting position, materials, rod holder count, working surface design, warranty considerations, and the most common mistakes when buying.
-- **[Fibreglass vs Aluminium Bait Boards: Which Is Better in 2026?](https://www.baitboardsdirect.com/articles/fibreglass-vs-aluminium-bait-boards)** — side-by-side comparison covering saltwater durability, UV exposure, weight, cost, maintenance, repairability, working surface design, aesthetics, and resale value. Concludes that fibreglass is the better material for Australian saltwater use in most scenarios.
-- **[How to Install a Bait Board: Step-by-Step Guide for Australian Boats](https://www.baitboardsdirect.com/articles/how-to-install-a-bait-board)** — installation guide covering tools, marking, drilling, sealing with marine polyurethane (Sikaflex 291), 316 stainless hardware, backing plates, and common installation mistakes. Includes leg-mount installation specifics.
-- **[Best Bait Board Setup for Offshore Fishing in Australia](https://www.baitboardsdirect.com/articles/best-bait-board-setup-for-offshore-fishing-australia)** — what offshore conditions demand from a bait board, sizing for 5.5-10m vessels, rod holder configuration for game fishing, sink and drain design, mounting positions, hardware specifications, maintenance protocol.
-- **[Top 5 Accessories to Pair With Your Bait Board](https://www.baitboardsdirect.com/articles/top-5-bait-board-accessories)** — additional rod holders, mounting hardware kits, drainage upgrades (through-hull fitting), filleting knives with on-board storage, and care kits. What to skip.
-- **[Bait Board Maintenance and Care: Making Yours Last 10+ Years](https://www.baitboardsdirect.com/articles/bait-board-maintenance-and-care)** — practical maintenance schedule (after-trip rinse, weekly clean, monthly inspection, seasonal deep clean, annual hardware service, off-season storage). What goes wrong and why.
+- **[How to Choose a Bait Board for Your Boat: The Complete Australian Buyer's Guide](https://baitboardsdirect.com/articles/how-to-choose-a-bait-board-for-your-boat)** — covers sizing, mounting position, materials, rod holder count, working surface design, warranty considerations, and the most common mistakes when buying.
+- **[Fibreglass vs Aluminium Bait Boards: Which Is Better in 2026?](https://baitboardsdirect.com/articles/fibreglass-vs-aluminium-bait-boards)** — side-by-side comparison covering saltwater durability, UV exposure, weight, cost, maintenance, repairability, working surface design, aesthetics, and resale value. Concludes that fibreglass is the better material for Australian saltwater use in most scenarios.
+- **[How to Install a Bait Board: Step-by-Step Guide for Australian Boats](https://baitboardsdirect.com/articles/how-to-install-a-bait-board)** — installation guide covering tools, marking, drilling, sealing with marine polyurethane (Sikaflex 291), 316 stainless hardware, backing plates, and common installation mistakes. Includes leg-mount installation specifics.
+- **[Best Bait Board Setup for Offshore Fishing in Australia](https://baitboardsdirect.com/articles/best-bait-board-setup-for-offshore-fishing-australia)** — what offshore conditions demand from a bait board, sizing for 5.5-10m vessels, rod holder configuration for game fishing, sink and drain design, mounting positions, hardware specifications, maintenance protocol.
+- **[Top 5 Accessories to Pair With Your Bait Board](https://baitboardsdirect.com/articles/top-5-bait-board-accessories)** — additional rod holders, mounting hardware kits, drainage upgrades (through-hull fitting), filleting knives with on-board storage, and care kits. What to skip.
+- **[Bait Board Maintenance and Care: Making Yours Last 10+ Years](https://baitboardsdirect.com/articles/bait-board-maintenance-and-care)** — practical maintenance schedule (after-trip rinse, weekly clean, monthly inspection, seasonal deep clean, annual hardware service, off-season storage). What goes wrong and why.
 
 ## Help-me-choose tool
 
-A 3-question quiz at https://www.baitboardsdirect.com/help-me-choose that asks:
+A 3-question quiz at https://baitboardsdirect.com/help-me-choose that asks:
 
 1. What kind of fishing do you do most? (offshore / inshore / estuary)
 2. How long is your boat? (under 5m / 5-7m / over 7m)
@@ -132,7 +132,7 @@ The combination of answers (27 possible) maps to a specific recommended SeaKing 
 
 ## FAQ summary
 
-The FAQ page at https://www.baitboardsdirect.com/faqs answers 22 questions across these categories:
+The FAQ page at https://baitboardsdirect.com/faqs answers 22 questions across these categories:
 
 - **Materials**: handcrafted full composite fibreglass with UV-resistant PE plastic cutting surface, 316 marine-grade stainless hardware, integrated sink with drain. No MDF, no particle board.
 - **Rod holders**: game-rated 316 stainless, suitable for marlin, tuna, kingfish.

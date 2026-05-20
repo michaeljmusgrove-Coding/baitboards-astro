@@ -47,7 +47,7 @@ const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOSt
 const productSchema = {
   "@context": "https://schema.org",
   "@type": "Product",
-  "@id": `https://www.baitboardsdirect.com/products/${product.handle}`,
+  "@id": `https://baitboardsdirect.com/products/${product.handle}`,
   name: product.title,
   sku: product.handle,
   image: [product.image, ...(product.image2 ? [product.image2] : [])],
@@ -55,13 +55,13 @@ const productSchema = {
   brand: { "@type": "Brand", name: "SeaKing" },
   offers: {
     "@type": "Offer",
-    url: `https://www.baitboardsdirect.com/products/${product.handle}`,
+    url: `https://baitboardsdirect.com/products/${product.handle}`,
     priceCurrency: "AUD",
     price: product.price,
     priceValidUntil,
     availability: product.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
     itemCondition: "https://schema.org/NewCondition",
-    seller: { "@type": "SportingGoodsStore", "@id": "https://www.baitboardsdirect.com/#store" },
+    seller: { "@type": "SportingGoodsStore", "@id": "https://baitboardsdirect.com/#store" },
     shippingDetails: {
       "@type": "OfferShippingDetails",
       shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "AUD" },
