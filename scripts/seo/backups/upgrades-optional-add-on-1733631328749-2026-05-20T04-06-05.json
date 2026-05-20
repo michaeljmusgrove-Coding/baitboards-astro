@@ -1,0 +1,174 @@
+{
+  "handle": "upgrades-optional-add-on-1733631328749",
+  "id": 9811142967612,
+  "saved_at": "2026-05-20T04:06:05.469Z",
+  "product": {
+    "id": 9811142967612,
+    "title": "Upgrades (Optional Add on)",
+    "body_html": "",
+    "vendor": "SeaKing",
+    "product_type": "easify_addon_product",
+    "created_at": "2024-12-08T15:15:28+11:00",
+    "handle": "upgrades-optional-add-on-1733631328749",
+    "updated_at": "2026-05-08T18:53:02+10:00",
+    "published_at": "2024-12-08T15:15:29+11:00",
+    "template_suffix": null,
+    "published_scope": "web",
+    "tags": "easify_product_options",
+    "status": "active",
+    "admin_graphql_api_id": "gid://shopify/Product/9811142967612",
+    "variants": [
+      {
+        "id": 50526398153020,
+        "product_id": 9811142967612,
+        "title": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel",
+        "price": "160.00",
+        "position": 2,
+        "inventory_policy": "deny",
+        "compare_at_price": null,
+        "option1": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel",
+        "option2": null,
+        "option3": null,
+        "created_at": "2024-12-08T15:15:30+11:00",
+        "updated_at": "2026-04-25T14:48:54+10:00",
+        "taxable": true,
+        "barcode": null,
+        "fulfillment_service": "manual",
+        "grams": 0,
+        "inventory_management": null,
+        "requires_shipping": true,
+        "sku": null,
+        "weight": 0,
+        "weight_unit": "kg",
+        "inventory_item_id": 52413702308156,
+        "inventory_quantity": -34,
+        "old_inventory_quantity": -34,
+        "admin_graphql_api_id": "gid://shopify/ProductVariant/50526398153020",
+        "image_id": 49683470025020
+      }
+    ],
+    "options": [
+      {
+        "id": 12256480723260,
+        "product_id": 9811142967612,
+        "name": "items",
+        "position": 1,
+        "values": [
+          "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel"
+        ]
+      }
+    ],
+    "images": [
+      {
+        "id": 49683470025020,
+        "alt": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel",
+        "position": 1,
+        "product_id": 9811142967612,
+        "created_at": "2024-12-08T15:23:39+11:00",
+        "updated_at": "2024-12-08T15:23:41+11:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/41658829013308",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/pairoflegs_304aa1d3-0a8a-4c0e-b49b-5b9c2fcc790c.jpg?v=1733631821",
+        "variant_ids": [
+          50526398153020
+        ]
+      }
+    ],
+    "image": {
+      "id": 49683470025020,
+      "alt": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel",
+      "position": 1,
+      "product_id": 9811142967612,
+      "created_at": "2024-12-08T15:23:39+11:00",
+      "updated_at": "2024-12-08T15:23:41+11:00",
+      "admin_graphql_api_id": "gid://shopify/MediaImage/41658829013308",
+      "width": 1000,
+      "height": 1000,
+      "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/pairoflegs_304aa1d3-0a8a-4c0e-b49b-5b9c2fcc790c.jpg?v=1733631821",
+      "variant_ids": [
+        50526398153020
+      ]
+    }
+  },
+  "metafields": [
+    {
+      "id": 102762264199484,
+      "namespace": "seo",
+      "key": "hidden",
+      "value": 1,
+      "description": null,
+      "owner_id": 9811142967612,
+      "created_at": "2024-12-08T15:15:28+11:00",
+      "updated_at": "2024-12-08T15:15:28+11:00",
+      "owner_resource": "product",
+      "type": "number_integer",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102762264199484"
+    },
+    {
+      "id": 110354519359804,
+      "namespace": "okendo",
+      "key": "ReviewsWidgetSnippet",
+      "value": "<div data-oke-reviews-version=\"0.81.8\" aria-label=\"Rated 5.0 out of 5 stars Based on 1 review\" data-oke-container=\"\" tabindex=\"-1\" role=\"region\" class=\"okeReviews oke-w\"><div class=\"js-oke-widgetSize oke-is-large\"><div class=\"oke-w-header\"><div class=\"oke-w-header-content oke-w-header-content--verticalAlignTop oke-w-header-content--spaceBetween\"><div class=\"oke-w-header-content-block oke-w-header-content-block--oneThird oke-w-header-content-block--left\"><div class=\"oke-w-header-content-module oke-w-header-content-module--left\"><div class=\"oke-w-ratingAverageModule oke-w-ratingAverageModule--oneLine oke-w-ratingAverageModule--left\"><div class=\"oke-w-ratingAverageModule-rating\"><span class=\"oke-w-ratingAverageModule-rating-average\"> 5.0 </span><span class=\"oke-w-ratingAverageModule-rating-stars\"><div class=\"oke-stars\"><!----><div class=\"oke-stars-background\"><svg height=\"18\" viewBox=\"0 0 79.22222222222221 14\" aria-hidden=\"true\" role=\"none\"><use x=\"0\" href=\"#oke-star-empty\"></use><use x=\"16.155555555555555\" href=\"#oke-star-empty\"></use><use x=\"32.31111111111111\" href=\"#oke-star-empty\"></use><use x=\"48.46666666666667\" href=\"#oke-star-empty\"></use><use x=\"64.62222222222222\" href=\"#oke-star-empty\"></use></svg></div><div class=\"oke-stars-foreground\" style=\"width: 100%;\"><svg height=\"18\" viewBox=\"0 0 79.22222222222221 14\" aria-hidden=\"true\" role=\"none\"><use x=\"0\" href=\"#oke-star-filled\"></use><use x=\"16.155555555555555\" href=\"#oke-star-filled\"></use><use x=\"32.31111111111111\" href=\"#oke-star-filled\"></use><use x=\"48.46666666666667\" href=\"#oke-star-filled\"></use><use x=\"64.62222222222222\" href=\"#oke-star-filled\"></use></svg></div><span class=\"oke-a11yText\">Rated 5.0 out of 5 stars</span></div></span></div><div class=\"oke-w-ratingAverageModule-count\"> Based on 1 review </div></div><!----><!----><!----><!----><!----><!----><!----></div><div class=\"oke-w-header-content-module oke-w-header-content-module--left\"><!----><div class=\"oke-w-breakdownModule oke-w-breakdownModule--contain\"><div class=\"oke-w-breakdownModule-distribution\"><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-label\"><span class=\"oke-w-breakdownModule-distribution-label-number\"> 5 </span><span class=\"oke-w-breakdownModule-distribution-label-star\"><div class=\"oke-stars\"><svg height=\"12\" viewBox=\"0 0 14.599999999999998 14\" aria-hidden=\"true\" style=\"overflow: visible;\"><use href=\"#oke-star-filled\"></use></svg><!----><span class=\"oke-a11yText\">Rated  out of 5 stars</span></div></span></div><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-bar\" style=\"background-color: rgb(244, 244, 246);\"><div class=\"oke-w-breakdownModule-distribution-bar-fill\" style=\"width: 100%; background-color: rgb(154, 157, 177);\"></div></div><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-count\"> 1 </div><span class=\"oke-a11yText\"> Total 5 star reviews: 1 </span><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-label\"><span class=\"oke-w-breakdownModule-distribution-label-number\"> 4 </span><span class=\"oke-w-breakdownModule-distribution-label-star\"><div class=\"oke-stars\"><svg height=\"12\" viewBox=\"0 0 14.599999999999998 14\" aria-hidden=\"true\" style=\"overflow: visible;\"><use href=\"#oke-star-filled\"></use></svg><!----><span class=\"oke-a11yText\">Rated  out of 5 stars</span></div></span></div><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-bar\" style=\"background-color: rgb(244, 244, 246);\"><div class=\"oke-w-breakdownModule-distribution-bar-fill\" style=\"width: 0%; min-width: 0px; background-color: rgb(154, 157, 177);\"></div></div><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-count\"> 0 </div><span class=\"oke-a11yText\"> Total 4 star reviews: 0 </span><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-label\"><span class=\"oke-w-breakdownModule-distribution-label-number\"> 3 </span><span class=\"oke-w-breakdownModule-distribution-label-star\"><div class=\"oke-stars\"><svg height=\"12\" viewBox=\"0 0 14.599999999999998 14\" aria-hidden=\"true\" style=\"overflow: visible;\"><use href=\"#oke-star-filled\"></use></svg><!----><span class=\"oke-a11yText\">Rated  out of 5 stars</span></div></span></div><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-bar\" style=\"background-color: rgb(244, 244, 246);\"><div class=\"oke-w-breakdownModule-distribution-bar-fill\" style=\"width: 0%; min-width: 0px; background-color: rgb(154, 157, 177);\"></div></div><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-count\"> 0 </div><span class=\"oke-a11yText\"> Total 3 star reviews: 0 </span><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-label\"><span class=\"oke-w-breakdownModule-distribution-label-number\"> 2 </span><span class=\"oke-w-breakdownModule-distribution-label-star\"><div class=\"oke-stars\"><svg height=\"12\" viewBox=\"0 0 14.599999999999998 14\" aria-hidden=\"true\" style=\"overflow: visible;\"><use href=\"#oke-star-filled\"></use></svg><!----><span class=\"oke-a11yText\">Rated  out of 5 stars</span></div></span></div><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-bar\" style=\"background-color: rgb(244, 244, 246);\"><div class=\"oke-w-breakdownModule-distribution-bar-fill\" style=\"width: 0%; min-width: 0px; background-color: rgb(154, 157, 177);\"></div></div><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-count\"> 0 </div><span class=\"oke-a11yText\"> Total 2 star reviews: 0 </span><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-label\"><span class=\"oke-w-breakdownModule-distribution-label-number\"> 1 </span><span class=\"oke-w-breakdownModule-distribution-label-star\"><div class=\"oke-stars\"><svg height=\"12\" viewBox=\"0 0 14.599999999999998 14\" aria-hidden=\"true\" style=\"overflow: visible;\"><use href=\"#oke-star-filled\"></use></svg><!----><span class=\"oke-a11yText\">Rated  out of 5 stars</span></div></span></div><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-bar\" style=\"background-color: rgb(244, 244, 246);\"><div class=\"oke-w-breakdownModule-distribution-bar-fill\" style=\"width: 0%; min-width: 0px; background-color: rgb(154, 157, 177);\"></div></div><div aria-hidden=\"true\" class=\"oke-w-breakdownModule-distribution-count\"> 0 </div><span class=\"oke-a11yText\"> Total 1 star reviews: 0 </span></div></div><!----><!----><!----><!----><!----><!----></div></div><div class=\"oke-w-header-content-block oke-w-header-content-block--twoThirds oke-w-header-content-block--left\"><div class=\"oke-w-header-content-module oke-w-header-content-module--left\"><!----><!----><div class=\"oke-w-recommendsModule\"><strong class=\"oke-w-recommendsModule-value\">100%</strong><span class=\"oke-w-recommendsModule-text\">would recommend this product</span></div><!----><!----><!----><!----><!----></div><div class=\"oke-w-header-content-module oke-w-header-content-module--left\"><!----><!----><!----><!----><!----><div class=\"oke-w-mediaCarouselModule\"><div tabindex=\"0\" role=\"region\" aria-label=\"Carousel of customer-uploaded media. Press left and right arrows to navigate. Press enter or space to open more details.\" class=\"oke-mediaCarousel\" style=\"height: 120px;\"><div><button disabled=\"disabled\" type=\"button\" title=\"Previous Slide\" tabindex=\"-1\" class=\"oke-mediaCarousel-prev\"></button><section class=\"hooper\" role=\"group\" style=\"padding: 0px;\"><div class=\"hooper-list\"><ul class=\"hooper-track\" style=\"transform: translate(0px, 0px);\"><li class=\"oke-mediaCarousel-slide hooper-slide is-active is-current\" aria-hidden=\"false\" style=\"width: 120px; height: 120px; margin-right: 4px;\"><div class=\"oke-media oke-media--linked oke-is-loading\" style=\"width: 120px;\"><button tabindex=\"-1\" role=\"button\" type=\"button\" class=\"oke-media-link\"><img alt=\"A white motorboat beached on sandy shore with calm water and sailboat in background under cloudy sky\" draggable=\"false\" class=\"oke-media-image\" style=\"opacity: 0;\"></button></div></li></ul><span aria-live=\"polite\" class=\"hooper-sr-only\"></span><div aria-live=\"polite\" aria-atomic=\"true\" class=\"hooper-liveregion hooper-sr-only\"></div></div></section><button disabled=\"disabled\" type=\"button\" title=\"Next Slide\" tabindex=\"-1\" class=\"oke-mediaCarousel-next\"></button></div><div aria-live=\"polite\" class=\"oke-a11yText\"> Slide 1 selected </div></div></div><!----><!----></div></div></div></div><div class=\"oke-w-controls\"><div class=\"oke-w-controls-nav\"><!----><a href=\"https://okendo.io?utm_source=f1836375-f3e7-4b40-bcd3-7a83d0a4c948&amp;utm_medium=widget&amp;utm_campaign=poweredby\" target=\"_blank\" rel=\"noopener noreferrer\" class=\"oke-poweredBy\"><img height=\"16px\" width=\"155px\" alt=\"Powered by Okendo\" class=\"oke-poweredBy-image\" style=\"opacity: 0;\"><span class=\"oke-a11yText\">Open Okendo Reviews in a new window</span></a></div></div><div class=\"oke-w-main\"><div id=\"reviews-panel-50f1ef2f-cf46-4a9b-8a41-8261aa757713\" role=\"tabpanel\" class=\"oke-w-panel\"><div class=\"oke-w-reviewsTab\"><div class=\"oke-w-reviews\"><div class=\"oke-w-reviews-head\"><button aria-expanded=\"false\" aria-controls=\"filter-options\" id=\"filter-toggle\" type=\"button\" class=\"oke-button oke-w-reviews-filterToggle\"><span class=\"oke-icon\"></span><span class=\"oke-button-text\"> Filters <!----></span></button><div id=\"filter-options\" aria-labelledby=\"filter-toggle\" role=\"region\" class=\"oke-w-reviews-filters\"><!----></div><div class=\"oke-w-reviews-writeReview\"><a href=\"https://okendo.reviews/?subscriberId=f1836375-f3e7-4b40-bcd3-7a83d0a4c948&amp;productId=shopify-9811142967612&amp;locale=en\" target=\"_blank\" rel=\"noopener\" class=\"oke-w-writeReview oke-button\"> Write a Review <span class=\"oke-a11yText\">(Opens in a new window)</span></a></div></div><div class=\"oke-w-reviews-controls\"><div class=\"oke-w-reviews-count\"> 1 review </div><div class=\"oke-w-reviews-sort\"><div class=\"oke-sortSelect\" medialayout=\"featured\"><label for=\"oke-sortSelect--reviews\" class=\"oke-sortSelect-label\"> Sort </label><select id=\"oke-sortSelect--reviews\" class=\"oke-sortSelect-sort oke-select\"><!----><option value=\"date desc\">Most Recent</option><option value=\"date asc\">Oldest</option><option value=\"helpful desc\">Most Helpful</option><option value=\"has_media desc\" selected=\"true\">Photos &amp; Videos</option><option value=\"rating desc\">Highest Rating</option><option value=\"rating asc\">Lowest Rating</option><option value=\"unhelpful desc\">Least Helpful</option></select></div></div></div><div class=\"oke-w-reviews-main oke-w-reviews-main--nav-divider\"><ul class=\"oke-w-reviews-list\" widgetwidth=\"1200\"><li class=\"oke-w-reviews-list-item\"><div class=\"oke-w-review oke-w-review--featuredMedia\"><div class=\"oke-w-review-side\"><div class=\"oke-w-review-reviewer\"><div class=\"oke-w-reviewer\"><div class=\"oke-w-reviewer-avatar\"><div class=\"oke-avatar\"><strong class=\"oke-avatar-placeholder\"> BC </strong><!----><!----></div></div><div><div class=\"oke-w-reviewer-identity\"><strong class=\"oke-w-reviewer-name\"> Ben C. </strong><!----></div><div class=\"oke-w-reviewer-verified\"> Verified Buyer <span class=\"oke-w-reviewer-verified-icon\"></span></div><!----></div></div><!----></div><!----><div class=\"oke-w-review-side-expandContent\"><!----><div class=\"oke-w-review-recommendation\"><div class=\"oke-w-reviewerRecommendation oke-w-reviewerRecommendation--yes\"><span class=\"oke-w-reviewerRecommendation-text\">I recommend this product</span></div></div><!----></div></div><div class=\"oke-w-review-main\" style=\"grid-template-columns: 1fr 248px;\"><div class=\"oke-w-review-content\"><div class=\"oke-reviewContainer\"><div class=\"oke-reviewContent oke-reviewContent--left\"><div class=\"oke-reviewContent-top\"><div class=\"oke-reviewContent-stars\"><div class=\"oke-stars\"><!----><div class=\"oke-stars-background\"><svg height=\"18\" viewBox=\"0 0 79.22222222222221 14\" aria-hidden=\"true\" role=\"none\"><use x=\"0\" href=\"#oke-star-empty\"></use><use x=\"16.155555555555555\" href=\"#oke-star-empty\"></use><use x=\"32.31111111111111\" href=\"#oke-star-empty\"></use><use x=\"48.46666666666667\" href=\"#oke-star-empty\"></use><use x=\"64.62222222222222\" href=\"#oke-star-empty\"></use></svg></div><div class=\"oke-stars-foreground\" style=\"width: 100%;\"><svg height=\"18\" viewBox=\"0 0 79.22222222222221 14\" aria-hidden=\"true\" role=\"none\"><use x=\"0\" href=\"#oke-star-filled\"></use><use x=\"16.155555555555555\" href=\"#oke-star-filled\"></use><use x=\"32.31111111111111\" href=\"#oke-star-filled\"></use><use x=\"48.46666666666667\" href=\"#oke-star-filled\"></use><use x=\"64.62222222222222\" href=\"#oke-star-filled\"></use></svg></div><span class=\"oke-a11yText\">Rated 5 out of 5 stars</span></div></div><div class=\"oke-reviewContent-date\"><span>2 months ago</span></div></div><div role=\"heading\" aria-level=\"2\" class=\"oke-reviewContent-title oke-title\">5 star</div><div class=\"oke-reviewContent-body oke-bodyText\"><p>Fits perfectly on my new bonito 560.  Solid fit . Love the hatch . </p></div><!----><button type=\"button\" class=\"oke-reviewContent-readMore oke-readMore\"><span class=\"oke-reviewContent-readMore-text oke-bodyText\">Read More</span><!----></button></div><!----></div></div><!----><div class=\"oke-w-review-media\"><div class=\"oke-w-review-media-featured\"><div class=\"oke-mediaCollage\" style=\"height: 266.667px; width: 200px; display: grid; gap: 0px; grid-template-columns: 1fr;\"><div class=\"oke-media oke-mediaCollage-item oke-media--linked oke-is-loading\" style=\"width: 200px;\"><button role=\"button\" type=\"button\" class=\"oke-media-link\"><img alt=\"A white motorboat beached on sandy shore with calm water and sailboat in background under cloudy sky\" draggable=\"false\" class=\"oke-media-image\" style=\"opacity: 0;\"></button></div><!----></div></div><div class=\"oke-w-review-media-thumbnail\"><div class=\"oke-mediaStrip-container\"><ul class=\"oke-mediaStrip oke-mediaStrip--maxImages-1\" style=\"display: flex; flex-wrap: wrap; gap: 4px; justify-content: flex-start; margin-bottom: -4px;\"><li style=\"height: 200px; max-width: 100%;\"><div class=\"oke-media oke-media--linked oke-is-loading\" style=\"width: 150px;\"><button role=\"button\" type=\"button\" class=\"oke-media-link\"><img alt=\"A white motorboat beached on sandy shore with calm water and sailboat in background under cloudy sky\" draggable=\"false\" class=\"oke-media-image\" style=\"opacity: 0;\"></button></div><!----></li></ul></div></div></div><div class=\"oke-w-review-footer\"><div class=\"oke-footerBadges\"><!----><!----><!----></div><div class=\"oke-w-review-helpful\"><div class=\"oke-helpful\"><span class=\"oke-helpful-label\">Was this helpful?</span><div class=\"oke-helpful-vote\"><button type=\"button\" tabindex=\"0\" class=\"oke-helpful-vote-button oke-helpful-vote-button--positive\"><span id=\"oke-helpful-vote-counter-positive-f515caa4-ce03-4035-a651-65c9f78bfc83\" class=\"oke-helpful-vote-counter\"><span class=\"oke-a11yText\">Yes, this review was helpful</span> 0 <span class=\"oke-a11yText\">people voted yes</span></span></button><button type=\"button\" tabindex=\"0\" class=\"oke-helpful-vote-button oke-helpful-vote-button--negative\"><span id=\"oke-helpful-vote-counter-negative-f515caa4-ce03-4035-a651-65c9f78bfc83\" class=\"oke-helpful-vote-counter\"><span class=\"oke-a11yText\">No, this review was not helpful</span> 0 <span class=\"oke-a11yText\">people voted no</span></span></button></div></div></div></div><!----></div></div></li></ul><!----><div class=\"oke-w-reviews-alerts\"><div aria-hidden=\"true\" role=\"alert\" aria-live=\"assertive\" aria-atomic=\"true\" class=\"oke-alert oke-alert--bottom\"><div class=\"oke-alert-inner\"> Loading... </div></div><div aria-hidden=\"true\" role=\"alert\" aria-live=\"assertive\" aria-atomic=\"true\" class=\"oke-alert oke-alert--top\"><div class=\"oke-alert-inner\"> Loading... </div></div></div></div><!----><span role=\"status\" aria-live=\"polite\" class=\"oke-a11yText\"></span></div></div><!----></div></div></div><script type=\"application/json\" data-oke-metafield-data=\"\"> {\"reviews\":[{\"subscriberId\":\"f1836375-f3e7-4b40-bcd3-7a83d0a4c948\",\"reviewId\":\"f515caa4-ce03-4035-a651-65c9f78bfc83\",\"subscriberId_productId\":\"f1836375-f3e7-4b40-bcd3-7a83d0a4c948:shopify-9811142967612\",\"productId\":\"shopify-9811142967612\",\"body\":\"Fits perfectly on my new bonito 560.  Solid fit . Love the hatch . \",\"dateCreated\":\"2025-07-29T06:23:36.734Z\",\"dateUpdated\":\"2025-07-29T06:23:36.734Z\",\"helpfulCount\":0,\"isRecommended\":true,\"languageCode\":\"en\",\"media\":[{\"fullSizeUrl\":\"https://media-dynamic.okendo.io/images/f1836375-f3e7-4b40-bcd3-7a83d0a4c948/e5cb609b-eced-4418-9336-a045752d469a.jpg?d=3200x3200\",\"largeUrl\":\"https://media-dynamic.okendo.io/images/f1836375-f3e7-4b40-bcd3-7a83d0a4c948/e5cb609b-eced-4418-9336-a045752d469a.jpg?d=1600x1600\",\"thumbnailUrl\":\"https://media-dynamic.okendo.io/images/f1836375-f3e7-4b40-bcd3-7a83d0a4c948/e5cb609b-eced-4418-9336-a045752d469a.jpg?d=120x120&crop=center\",\"type\":\"image\",\"alt\":\"A white motorboat beached on sandy shore with calm water and sailboat in background under cloudy sky\",\"dynamicKey\":\"f1836375-f3e7-4b40-bcd3-7a83d0a4c948/e5cb609b-eced-4418-9336-a045752d469a\",\"largePortraitThumbnailUrl\":\"https://media-dynamic.okendo.io/images/f1836375-f3e7-4b40-bcd3-7a83d0a4c948/e5cb609b-eced-4418-9336-a045752d469a.jpg?d=540x720\",\"streamId\":\"e5cb609b-eced-4418-9336-a045752d469a\"}],\"productHandle\":\"upgrades-optional-add-on-1733631328749\",\"productImageUrl\":\"https://cdn.shopify.com/s/files/1/0779/7529/0172/files/pairoflegs_304aa1d3-0a8a-4c0e-b49b-5b9c2fcc790c_x280.jpg?v=1733631821\",\"productName\":\"Upgrades (Optional Add on)\",\"productUrl\":\"//baitboardsdirect.com/products/upgrades-optional-add-on-1733631328749\",\"productVariantName\":\"Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel\",\"rating\":5,\"reviewer\":{\"displayName\":\"Ben C.\",\"isVerified\":true},\"isIncentivized\":false,\"status\":\"approved\",\"title\":\"5 star\",\"unhelpfulCount\":0,\"variantId\":\"50526398153020\"}],\"areReviewsGrouped\":false,\"media\":[{\"subscriberId_productId\":\"f1836375-f3e7-4b40-bcd3-7a83d0a4c948:shopify-9811142967612\",\"productId\":\"shopify-9811142967612\",\"dateCreated\":\"2025-07-29T06:23:36.734Z\",\"dynamicImageKey\":\"f1836375-f3e7-4b40-bcd3-7a83d0a4c948/e5cb609b-eced-4418-9336-a045752d469a\",\"imageAlt\":\"A white motorboat beached on sandy shore with calm water and sailboat in background under cloudy sky\",\"imageUrls\":{\"fullSizeUrl\":\"https://media-dynamic.okendo.io/images/f1836375-f3e7-4b40-bcd3-7a83d0a4c948/e5cb609b-eced-4418-9336-a045752d469a.jpg?d=3200x3200\",\"largeUrl\":\"https://media-dynamic.okendo.io/images/f1836375-f3e7-4b40-bcd3-7a83d0a4c948/e5cb609b-eced-4418-9336-a045752d469a.jpg?d=1600x1600\",\"thumbnailUrl\":\"https://media-dynamic.okendo.io/images/f1836375-f3e7-4b40-bcd3-7a83d0a4c948/e5cb609b-eced-4418-9336-a045752d469a.jpg?d=120x120&crop=center\"},\"reviewId\":\"f515caa4-ce03-4035-a651-65c9f78bfc83\",\"streamId\":\"e5cb609b-eced-4418-9336-a045752d469a\",\"subscriberId\":\"f1836375-f3e7-4b40-bcd3-7a83d0a4c948\",\"type\":\"image\"}],\"reviewAggregate\":{\"dateUpdated\":\"2025-10-20T02:39:41.860Z\",\"mediaCount\":1,\"productId\":\"shopify-9811142967612\",\"productName\":\"Upgrades (Optional Add on)\",\"ratingAndReviewCount\":1,\"ratingAndReviewCountByLevel\":{\"level5Count\":1},\"ratingAndReviewValuesTotal\":5,\"ratingCount\":0,\"ratingCountByLevel\":{},\"ratingValuesTotal\":0,\"recommendationCount\":1,\"replyCount\":0,\"replyWordsTotal\":0,\"reviewCount\":1,\"reviewCountByLevel\":{\"level5Count\":1},\"reviewRatingValuesTotal\":5,\"reviewWordsTotal\":15,\"subscriberId_productId\":\"f1836375-f3e7-4b40-bcd3-7a83d0a4c948:shopify-9811142967612\",\"subscriberId\":\"f1836375-f3e7-4b40-bcd3-7a83d0a4c948\"},\"sort\":{\"defaultSort\":\"has_media desc\"},\"questionCount\":0,\"productAttributes\":[]} </script></div><script id=\"oke-widget-resize\">!(function() { const widgets = document.querySelectorAll('.js-oke-widgetSize'); if (!window.okeResizeObserver && widgets && widgets.length) { window.okeSetWidgetSizes = (allWidgets) => { if (allWidgets) { allWidgets.forEach(widget => { const width = widget.getBoundingClientRect().width; widget.classList.remove('oke-is-small', 'oke-is-medium', 'oke-is-large'); widget.classList.add(width > 960 ? 'oke-is-large' : width > 640 ? 'oke-is-medium' : 'oke-is-small'); }); }  }; let okeMetafieldResizerTimer; window.okeSetWidgetSizes(document.querySelectorAll('.js-oke-widgetSize')); window.okeResizeObserver = new ResizeObserver(entries => { if (entries && entries.length) { if (okeMetafieldResizerTimer) { clearTimeout(okeMetafieldResizerTimer); } okeMetafieldResizerTimer = window.setTimeout(() => { window.okeSetWidgetSizes(entries.map(e => e.target)); }, 100); } }); widgets.forEach((widget) => { window.okeResizeObserver.observe(widget); }); } })();</script>",
+      "description": null,
+      "owner_id": 9811142967612,
+      "created_at": "2025-10-20T13:39:59+11:00",
+      "updated_at": "2025-10-20T13:39:59+11:00",
+      "owner_resource": "product",
+      "type": "string",
+      "admin_graphql_api_id": "gid://shopify/Metafield/110354519359804"
+    },
+    {
+      "id": 110354519392572,
+      "namespace": "okendo",
+      "key": "StarRatingSnippet",
+      "value": "<div data-oke-reviews-version=\"0.81.8\" data-oke-container=\"\" class=\"okeReviews oke-sr\"><div class=\"\"><div class=\"oke-sr-rating\"> 5.0 </div><div class=\"oke-sr-stars\"><div class=\"oke-stars\"><!----><div class=\"oke-stars-background\"><svg height=\"18\" viewBox=\"0 0 79.22222222222221 14\" aria-hidden=\"true\" role=\"none\"><use x=\"0\" href=\"#oke-star-empty\"></use><use x=\"16.155555555555555\" href=\"#oke-star-empty\"></use><use x=\"32.31111111111111\" href=\"#oke-star-empty\"></use><use x=\"48.46666666666667\" href=\"#oke-star-empty\"></use><use x=\"64.62222222222222\" href=\"#oke-star-empty\"></use></svg></div><div class=\"oke-stars-foreground\" style=\"width: 100%;\"><svg height=\"18\" viewBox=\"0 0 79.22222222222221 14\" aria-hidden=\"true\" role=\"none\"><use x=\"0\" href=\"#oke-star-filled\"></use><use x=\"16.155555555555555\" href=\"#oke-star-filled\"></use><use x=\"32.31111111111111\" href=\"#oke-star-filled\"></use><use x=\"48.46666666666667\" href=\"#oke-star-filled\"></use><use x=\"64.62222222222222\" href=\"#oke-star-filled\"></use></svg></div><span class=\"oke-a11yText\">Rated 5.0 out of 5 stars</span></div></div><div class=\"oke-sr-count\"><span class=\"oke-sr-count-number\">1</span><span class=\"oke-sr-label-text\"> Review</span><!----></div><!----></div><script type=\"application/json\" data-oke-metafield-data=\"\"> {\"averageRating\":\"5.0\",\"reviewCount\":1} </script></div>",
+      "description": null,
+      "owner_id": 9811142967612,
+      "created_at": "2025-10-20T13:39:59+11:00",
+      "updated_at": "2025-10-20T13:39:59+11:00",
+      "owner_resource": "product",
+      "type": "multi_line_text_field",
+      "admin_graphql_api_id": "gid://shopify/Metafield/110354519392572"
+    },
+    {
+      "id": 110354519425340,
+      "namespace": "reviews",
+      "key": "rating",
+      "value": "{\"scale_min\":\"1.0\",\"scale_max\":\"5.0\",\"value\":\"5.0\"}",
+      "description": null,
+      "owner_id": 9811142967612,
+      "created_at": "2025-10-20T13:39:59+11:00",
+      "updated_at": "2025-10-20T13:39:59+11:00",
+      "owner_resource": "product",
+      "type": "rating",
+      "admin_graphql_api_id": "gid://shopify/Metafield/110354519425340"
+    },
+    {
+      "id": 110354519458108,
+      "namespace": "reviews",
+      "key": "rating_count",
+      "value": 1,
+      "description": null,
+      "owner_id": 9811142967612,
+      "created_at": "2025-10-20T13:39:59+11:00",
+      "updated_at": "2025-10-20T13:39:59+11:00",
+      "owner_resource": "product",
+      "type": "number_integer",
+      "admin_graphql_api_id": "gid://shopify/Metafield/110354519458108"
+    },
+    {
+      "id": 110354519490876,
+      "namespace": "okendo",
+      "key": "summaryData",
+      "value": "{\"reviewCount\":1,\"reviewAverageValue\":\"5.0\"}",
+      "description": null,
+      "owner_id": 9811142967612,
+      "created_at": "2025-10-20T13:39:59+11:00",
+      "updated_at": "2025-10-20T13:39:59+11:00",
+      "owner_resource": "product",
+      "type": "json_string",
+      "admin_graphql_api_id": "gid://shopify/Metafield/110354519490876"
+    }
+  ]
+}

@@ -1,0 +1,118 @@
+{
+  "handle": "pair-of-316-grade-stainless-steel-mounting-legs-and-bases-for-vessel",
+  "id": 9693186982204,
+  "saved_at": "2026-05-20T04:00:25.246Z",
+  "product": {
+    "id": 9693186982204,
+    "title": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel",
+    "body_html": "",
+    "vendor": "SeaKing",
+    "product_type": "",
+    "created_at": "2024-09-18T20:19:59+10:00",
+    "handle": "pair-of-316-grade-stainless-steel-mounting-legs-and-bases-for-vessel",
+    "updated_at": "2026-05-08T18:53:01+10:00",
+    "published_at": "2025-09-11T16:13:54+10:00",
+    "template_suffix": "",
+    "published_scope": "global",
+    "tags": "",
+    "status": "active",
+    "admin_graphql_api_id": "gid://shopify/Product/9693186982204",
+    "variants": [
+      {
+        "id": 50106633683260,
+        "product_id": 9693186982204,
+        "title": "Default Title",
+        "price": "220.00",
+        "position": 2,
+        "inventory_policy": "deny",
+        "compare_at_price": null,
+        "option1": "Default Title",
+        "option2": null,
+        "option3": null,
+        "created_at": "2024-09-18T20:20:00+10:00",
+        "updated_at": "2025-09-11T16:26:08+10:00",
+        "taxable": true,
+        "barcode": "",
+        "fulfillment_service": "manual",
+        "grams": 0,
+        "inventory_management": "shopify",
+        "requires_shipping": true,
+        "sku": "",
+        "weight": 0,
+        "weight_unit": "kg",
+        "inventory_item_id": 52040774385980,
+        "inventory_quantity": 46,
+        "old_inventory_quantity": 46,
+        "admin_graphql_api_id": "gid://shopify/ProductVariant/50106633683260",
+        "image_id": null
+      }
+    ],
+    "options": [
+      {
+        "id": 12122320929084,
+        "product_id": 9693186982204,
+        "name": "Title",
+        "position": 1,
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "images": [
+      {
+        "id": 46244548411708,
+        "alt": null,
+        "position": 1,
+        "product_id": 9693186982204,
+        "created_at": "2024-04-25T11:37:14+10:00",
+        "updated_at": "2024-09-18T20:19:59+10:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/38939522269500",
+        "width": 1290,
+        "height": 1569,
+        "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/image0.jpg?v=1714009036",
+        "variant_ids": []
+      }
+    ],
+    "image": {
+      "id": 46244548411708,
+      "alt": null,
+      "position": 1,
+      "product_id": 9693186982204,
+      "created_at": "2024-04-25T11:37:14+10:00",
+      "updated_at": "2024-09-18T20:19:59+10:00",
+      "admin_graphql_api_id": "gid://shopify/MediaImage/38939522269500",
+      "width": 1290,
+      "height": 1569,
+      "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/image0.jpg?v=1714009036",
+      "variant_ids": []
+    }
+  },
+  "metafields": [
+    {
+      "id": 96782382399804,
+      "namespace": "mm-google-shopping",
+      "key": "google_product_category",
+      "value": "7092",
+      "description": null,
+      "owner_id": 9693186982204,
+      "created_at": "2024-09-18T20:19:59+10:00",
+      "updated_at": "2024-09-18T20:19:59+10:00",
+      "owner_resource": "product",
+      "type": "string",
+      "admin_graphql_api_id": "gid://shopify/Metafield/96782382399804"
+    },
+    {
+      "id": 102712839242044,
+      "namespace": "custom",
+      "key": "included",
+      "value": "{\"type\":\"root\",\"children\":[{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"value\":\"1 pair x Heavy-duty mounting legs and bases specifically designed for secure installation on vessels.\"}]}]}",
+      "description": null,
+      "owner_id": 9693186982204,
+      "created_at": "2024-12-03T14:50:31+11:00",
+      "updated_at": "2025-09-11T16:13:56+10:00",
+      "owner_resource": "product",
+      "type": "rich_text_field",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102712839242044"
+    }
+  ]
+}

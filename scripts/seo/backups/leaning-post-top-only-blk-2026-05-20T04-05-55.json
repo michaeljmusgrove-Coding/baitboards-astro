@@ -1,0 +1,183 @@
+{
+  "handle": "leaning-post-top-only-blk",
+  "id": 8405093581116,
+  "saved_at": "2026-05-20T04:05:55.532Z",
+  "product": {
+    "id": 8405093581116,
+    "title": "SeaKing Leaning Post Top Only - BLK (700mm x 280mm)",
+    "body_html": "<p>Free Shipping in Australia</p>\n<div data-content-field=\"excerpt\" class=\"ProductItem-details-excerpt\" data-mce-fragment=\"1\">\n<p class=\"\" data-mce-fragment=\"1\">Designed for the serious offshore fisherman, this leaning post is heavy duty with an aluminium plate fibreglassed in for post mounting that will give you piece of mind while fighting your dream pelagic fish offshore in those hairy conditions. Hand made with full composite materials of the highest quality.</p>\n<p class=\"\" data-mce-fragment=\"1\">Inclusions:</p>\n<ul>\n<li>Leaning Post Top</li>\n</ul>\n<p class=\"\" data-mce-fragment=\"1\">Dimensions: 700mm x 280mm</p>\n<p class=\"\" data-mce-fragment=\"1\">Prices include GST.</p>\n</div>\n<div data-animation-role=\"content\" data-item-id=\"63c8c932f51fc8571dfd66b3\" class=\"product-quantity-input\" data-mce-fragment=\"1\"><br></div>",
+    "vendor": "SeaKing",
+    "product_type": "",
+    "created_at": "2023-06-16T14:36:11+10:00",
+    "handle": "leaning-post-top-only-blk",
+    "updated_at": "2026-05-08T18:53:01+10:00",
+    "published_at": "2023-06-16T14:36:11+10:00",
+    "template_suffix": "",
+    "published_scope": "global",
+    "tags": "bait boards",
+    "status": "active",
+    "admin_graphql_api_id": "gid://shopify/Product/8405093581116",
+    "variants": [
+      {
+        "id": 49237089059132,
+        "product_id": 8405093581116,
+        "title": "Default Title",
+        "price": "690.00",
+        "position": 2,
+        "inventory_policy": "deny",
+        "compare_at_price": null,
+        "option1": "Default Title",
+        "option2": null,
+        "option3": null,
+        "created_at": "2024-04-27T13:08:00+10:00",
+        "updated_at": "2025-11-03T10:50:03+11:00",
+        "taxable": true,
+        "barcode": "",
+        "fulfillment_service": "manual",
+        "grams": 10000,
+        "inventory_management": "shopify",
+        "requires_shipping": true,
+        "sku": "",
+        "weight": 10,
+        "weight_unit": "kg",
+        "inventory_item_id": 51176028602684,
+        "inventory_quantity": 0,
+        "old_inventory_quantity": 0,
+        "admin_graphql_api_id": "gid://shopify/ProductVariant/49237089059132",
+        "image_id": null
+      }
+    ],
+    "options": [
+      {
+        "id": 12122394362172,
+        "product_id": 8405093581116,
+        "name": "Title",
+        "position": 1,
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "images": [
+      {
+        "id": 41717103132988,
+        "alt": null,
+        "position": 1,
+        "product_id": 8405093581116,
+        "created_at": "2023-06-16T14:36:11+10:00",
+        "updated_at": "2023-06-16T14:36:13+10:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/34176981401916",
+        "width": 1054,
+        "height": 612,
+        "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/ScreenShot2023-06-16at2.35.36pm.png?v=1686890173",
+        "variant_ids": []
+      },
+      {
+        "id": 41717103198524,
+        "alt": null,
+        "position": 2,
+        "product_id": 8405093581116,
+        "created_at": "2023-06-16T14:36:11+10:00",
+        "updated_at": "2023-06-16T14:36:13+10:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/34176981434684",
+        "width": 1034,
+        "height": 730,
+        "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/ScreenShot2023-06-16at2.35.45pm.png?v=1686890173",
+        "variant_ids": []
+      }
+    ],
+    "image": {
+      "id": 41717103132988,
+      "alt": null,
+      "position": 1,
+      "product_id": 8405093581116,
+      "created_at": "2023-06-16T14:36:11+10:00",
+      "updated_at": "2023-06-16T14:36:13+10:00",
+      "admin_graphql_api_id": "gid://shopify/MediaImage/34176981401916",
+      "width": 1054,
+      "height": 612,
+      "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/ScreenShot2023-06-16at2.35.36pm.png?v=1686890173",
+      "variant_ids": []
+    }
+  },
+  "metafields": [
+    {
+      "id": 102395141259580,
+      "namespace": "mm-google-shopping",
+      "key": "google_product_category",
+      "value": "499942",
+      "description": null,
+      "owner_id": 8405093581116,
+      "created_at": "2024-11-25T21:11:36+11:00",
+      "updated_at": "2024-11-25T21:11:36+11:00",
+      "owner_resource": "product",
+      "type": "string",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102395141259580"
+    },
+    {
+      "id": 102395141325116,
+      "namespace": "mc-facebook",
+      "key": "google_product_category",
+      "value": "499942",
+      "description": null,
+      "owner_id": 8405093581116,
+      "created_at": "2024-11-25T21:11:36+11:00",
+      "updated_at": "2024-11-25T21:11:36+11:00",
+      "owner_resource": "product",
+      "type": "string",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102395141325116"
+    },
+    {
+      "id": 102712816959804,
+      "namespace": "dimension",
+      "key": "products",
+      "value": "{\"type\":\"root\",\"children\":[{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"value\":\"700mm x 280mm\"}]},{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"value\":\"\"}]}]}",
+      "description": null,
+      "owner_id": 8405093581116,
+      "created_at": "2024-12-03T14:44:45+11:00",
+      "updated_at": "2024-12-03T14:44:45+11:00",
+      "owner_resource": "product",
+      "type": "rich_text_field",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102712816959804"
+    },
+    {
+      "id": 102802478793020,
+      "namespace": "shopify",
+      "key": "material",
+      "value": "[\"gid://shopify/Metaobject/122326745404\"]",
+      "description": null,
+      "owner_id": 8405093581116,
+      "created_at": "2024-12-11T18:45:18+11:00",
+      "updated_at": "2024-12-11T18:45:18+11:00",
+      "owner_resource": "product",
+      "type": "list.metaobject_reference",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102802478793020"
+    },
+    {
+      "id": 110665555542332,
+      "namespace": "shopify",
+      "key": "color-pattern",
+      "value": "[\"gid://shopify/Metaobject/186756596028\"]",
+      "description": null,
+      "owner_id": 8405093581116,
+      "created_at": "2025-11-03T10:36:37+11:00",
+      "updated_at": "2025-11-03T10:36:37+11:00",
+      "owner_resource": "product",
+      "type": "list.metaobject_reference",
+      "admin_graphql_api_id": "gid://shopify/Metafield/110665555542332"
+    },
+    {
+      "id": 110670015103292,
+      "namespace": "custom",
+      "key": "add_ons_or_upgrades",
+      "value": "[\"gid://shopify/Product/8405097316668\"]",
+      "description": null,
+      "owner_id": 8405093581116,
+      "created_at": "2025-11-03T16:37:59+11:00",
+      "updated_at": "2025-11-03T16:37:59+11:00",
+      "owner_resource": "product",
+      "type": "list.product_reference",
+      "admin_graphql_api_id": "gid://shopify/Metafield/110670015103292"
+    }
+  ]
+}

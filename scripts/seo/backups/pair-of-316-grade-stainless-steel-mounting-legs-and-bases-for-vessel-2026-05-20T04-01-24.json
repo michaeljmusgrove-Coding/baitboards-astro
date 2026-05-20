@@ -1,0 +1,144 @@
+{
+  "handle": "pair-of-316-grade-stainless-steel-mounting-legs-and-bases-for-vessel",
+  "id": 9693186982204,
+  "saved_at": "2026-05-20T04:01:24.641Z",
+  "product": {
+    "id": 9693186982204,
+    "title": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel",
+    "body_html": "<p>Pair of 316 marine-grade stainless steel mounting legs and bases for installing SeaKing bait boards on Australian fishing vessels.</p>\n<h3>Specifications</h3>\n<ul>\n<li>\n<strong>Material:</strong> 316 marine-grade stainless steel</li>\n<li>\n<strong>Compatibility:</strong> Universal — fits all SeaKing bait board models</li>\n<li>\n<strong>Includes:</strong> Pair of legs + 2 base brackets + mounting hardware</li>\n<li>\n<strong>Finish:</strong> Mirror-polished, salt-corrosion resistant</li>\n</ul>\n<h3>Shipping &amp; warranty</h3>\n<p>Free Australia-wide shipping. 1-year manufacturer warranty.</p>",
+    "vendor": "SeaKing",
+    "product_type": "Bait Board Accessory",
+    "created_at": "2024-09-18T20:19:59+10:00",
+    "handle": "pair-of-316-grade-stainless-steel-mounting-legs-and-bases-for-vessel",
+    "updated_at": "2026-05-20T14:00:47+10:00",
+    "published_at": "2025-09-11T16:13:54+10:00",
+    "template_suffix": "",
+    "published_scope": "global",
+    "tags": "seaking",
+    "status": "active",
+    "admin_graphql_api_id": "gid://shopify/Product/9693186982204",
+    "variants": [
+      {
+        "id": 50106633683260,
+        "product_id": 9693186982204,
+        "title": "Default Title",
+        "price": "220.00",
+        "position": 2,
+        "inventory_policy": "deny",
+        "compare_at_price": null,
+        "option1": "Default Title",
+        "option2": null,
+        "option3": null,
+        "created_at": "2024-09-18T20:20:00+10:00",
+        "updated_at": "2025-09-11T16:26:08+10:00",
+        "taxable": true,
+        "barcode": "",
+        "fulfillment_service": "manual",
+        "grams": 0,
+        "inventory_management": "shopify",
+        "requires_shipping": true,
+        "sku": "",
+        "weight": 0,
+        "weight_unit": "kg",
+        "inventory_item_id": 52040774385980,
+        "inventory_quantity": 46,
+        "old_inventory_quantity": 46,
+        "admin_graphql_api_id": "gid://shopify/ProductVariant/50106633683260",
+        "image_id": null
+      }
+    ],
+    "options": [
+      {
+        "id": 12122320929084,
+        "product_id": 9693186982204,
+        "name": "Title",
+        "position": 1,
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "images": [
+      {
+        "id": 46244548411708,
+        "alt": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel — main product photo",
+        "position": 1,
+        "product_id": 9693186982204,
+        "created_at": "2024-04-25T11:37:14+10:00",
+        "updated_at": "2026-05-20T14:00:47+10:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/38939522269500",
+        "width": 1290,
+        "height": 1569,
+        "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/image0.jpg?v=1714009036",
+        "variant_ids": []
+      }
+    ],
+    "image": {
+      "id": 46244548411708,
+      "alt": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel — main product photo",
+      "position": 1,
+      "product_id": 9693186982204,
+      "created_at": "2024-04-25T11:37:14+10:00",
+      "updated_at": "2026-05-20T14:00:47+10:00",
+      "admin_graphql_api_id": "gid://shopify/MediaImage/38939522269500",
+      "width": 1290,
+      "height": 1569,
+      "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/image0.jpg?v=1714009036",
+      "variant_ids": []
+    }
+  },
+  "metafields": [
+    {
+      "id": 96782382399804,
+      "namespace": "mm-google-shopping",
+      "key": "google_product_category",
+      "value": "7092",
+      "description": null,
+      "owner_id": 9693186982204,
+      "created_at": "2024-09-18T20:19:59+10:00",
+      "updated_at": "2024-09-18T20:19:59+10:00",
+      "owner_resource": "product",
+      "type": "string",
+      "admin_graphql_api_id": "gid://shopify/Metafield/96782382399804"
+    },
+    {
+      "id": 102712839242044,
+      "namespace": "custom",
+      "key": "included",
+      "value": "{\"type\":\"root\",\"children\":[{\"type\":\"paragraph\",\"children\":[{\"type\":\"text\",\"value\":\"1 pair x Heavy-duty mounting legs and bases specifically designed for secure installation on vessels.\"}]}]}",
+      "description": null,
+      "owner_id": 9693186982204,
+      "created_at": "2024-12-03T14:50:31+11:00",
+      "updated_at": "2025-09-11T16:13:56+10:00",
+      "owner_resource": "product",
+      "type": "rich_text_field",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102712839242044"
+    },
+    {
+      "id": 114437919572284,
+      "namespace": "global",
+      "key": "title_tag",
+      "value": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases",
+      "description": null,
+      "owner_id": 9693186982204,
+      "created_at": "2026-05-20T14:00:46+10:00",
+      "updated_at": "2026-05-20T14:00:46+10:00",
+      "owner_resource": "product",
+      "type": "single_line_text_field",
+      "admin_graphql_api_id": "gid://shopify/Metafield/114437919572284"
+    },
+    {
+      "id": 114437919605052,
+      "namespace": "global",
+      "key": "description_tag",
+      "value": "Pair of 316 marine-grade stainless steel mounting legs for SeaKing bait boards. Universal fit. Free Australia-wide shipping, 1-year warranty.",
+      "description": null,
+      "owner_id": 9693186982204,
+      "created_at": "2026-05-20T14:00:46+10:00",
+      "updated_at": "2026-05-20T14:00:46+10:00",
+      "owner_resource": "product",
+      "type": "multi_line_text_field",
+      "admin_graphql_api_id": "gid://shopify/Metafield/114437919605052"
+    }
+  ]
+}

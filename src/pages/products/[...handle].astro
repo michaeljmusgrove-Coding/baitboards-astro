@@ -19,10 +19,10 @@ const savePct = onSale && product.compareAtPrice
   ? Math.round((1 - product.price / product.compareAtPrice) * 100)
   : 0;
 
-// SEO title composition. Bait-board product titles already contain "Bait Board" — adding
-// "Fibreglass Bait Board for Boats Australia" duplicates keywords and pushes past Google's
-// SERP truncation width (~60 chars). For bait boards we drop the qualifier; for accessories
-// and leg-mounts (whose titles lack the keyword) we keep a short qualifier.
+// SEO title + description: prefer Shopify SEO metafields if set (managed via the
+// SEO update pipeline in scripts/seo/), fall back to a built-from-title formula
+// when the metafield is empty. This way the metafield is the source-of-truth for
+// SEO experimentation and the formula is just a sensible default.
 const lowerTitle = product.title.toLowerCase();
 const isBaitBoard = /bait board/i.test(lowerTitle);
 const isLegMount = isBaitBoard && /leaning post|\bskl[-\s]/i.test(lowerTitle);
@@ -32,15 +32,16 @@ const titleQualifier = isLegMount
   : isAccessory
   ? 'Marine Accessory'
   : null;
-const title = titleQualifier
+const fallbackTitle = titleQualifier
   ? `${product.title} | ${titleQualifier} | Bait Boards Direct`
   : `${product.title} | Bait Boards Direct`;
+const title = (product.seo?.title && product.seo.title.trim()) || fallbackTitle;
 
-// SEO description: keyword-rich opener + product description, capped at 160 chars.
 const descriptionPrefix = isAccessory
   ? 'Premium 316 marine-grade stainless steel accessory for SeaKing bait boards. '
   : 'Premium fibreglass bait board with 316 marine stainless rod holders, integrated sink and free Australia-wide shipping. ';
-const description = (descriptionPrefix + product.description).slice(0, 160);
+const fallbackDescription = (descriptionPrefix + product.description).slice(0, 160);
+const description = (product.seo?.description && product.seo.description.trim()) || fallbackDescription;
 
 const priceValidUntil = new Date(Date.now() + 365 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
 
