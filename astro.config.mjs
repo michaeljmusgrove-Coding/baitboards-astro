@@ -26,6 +26,14 @@ export default defineConfig({
         if (page.includes("/404")) return false;
         return true;
       },
+      // Stamp every entry with the build timestamp so Google sees a fresh
+      // lastmod each deploy. Cheap signal; reset on every successful build.
+      // (Per-page mtime would be more accurate but Astro's sitemap integration
+      // doesn't expose source-file paths in the serialize callback.)
+      serialize(item) {
+        item.lastmod = new Date().toISOString();
+        return item;
+      },
     }),
   ],
   vite: {

@@ -446,19 +446,19 @@ const blackRange = [
     </div>
   </section>
 
-  <!-- ═══ Get in Touch Contact Form ═══ -->
+  <!-- ═══ Get in Touch — mailto form (Web3Forms wiring pending; static Astro can't accept POST) ═══ -->
   <section class="bg-[#f7f7f7] py-16 sm:py-20">
     <div class="container max-w-2xl">
       <h2 class="font-heading mb-10 text-[43px] font-extrabold text-[#07272e]">
         Get in touch
       </h2>
-      <form class="space-y-5" method="POST" action="/contact">
+      <form id="home-contact-form" class="space-y-5" method="get" action={`mailto:${site.contact.email}`} enctype="text/plain">
         <div class="grid gap-5 sm:grid-cols-2">
           <label class="flex flex-col gap-1.5">
             <span class="text-xs font-semibold uppercase tracking-wide text-[#07272e]">Name</span>
             <input
               type="text"
-              name="contact[name]"
+              name="Name"
               autocomplete="name"
               class="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-[#07272e] outline-none transition focus:border-[#008c9e]"
             />
@@ -469,7 +469,7 @@ const blackRange = [
             </span>
             <input
               type="email"
-              name="contact[email]"
+              name="Email"
               required
               autocomplete="email"
               class="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-[#07272e] outline-none transition focus:border-[#008c9e]"
@@ -480,7 +480,7 @@ const blackRange = [
           <span class="text-xs font-semibold uppercase tracking-wide text-[#07272e]">Phone</span>
           <input
             type="tel"
-            name="contact[phone]"
+            name="Phone"
             autocomplete="tel"
             class="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-[#07272e] outline-none transition focus:border-[#008c9e]"
           />
@@ -488,13 +488,44 @@ const blackRange = [
         <label class="flex flex-col gap-1.5">
           <span class="text-xs font-semibold uppercase tracking-wide text-[#07272e]">Your message</span>
           <textarea
-            name="contact[body]"
+            name="Message"
             rows="6"
             class="rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-sm text-[#07272e] outline-none transition focus:border-[#008c9e]"
           ></textarea>
         </label>
-        <button type="submit" class="button-accent">Submit now</button>
+        <button type="submit" class="button-accent">Send via email</button>
+        <p class="text-xs text-text-muted">
+          Submitting opens your email app with the message pre-filled. Prefer a faster channel?
+          <a href={`tel:${site.contact.phone.replace(/\s/g, '')}`} class="font-semibold text-[#008c9e] hover:text-[#07272e] underline underline-offset-2">Call Harry on {site.contact.phone}</a>.
+        </p>
       </form>
+      <script is:inline>
+        // Progressive enhancement: hijack submit, build a mailto: URL with subject + body.
+        // Falls back to the form's native mailto action if JS is disabled.
+        (function () {
+          var form = document.getElementById('home-contact-form');
+          if (!form) return;
+          form.addEventListener('submit', function (e) {
+            e.preventDefault();
+            var fd = new FormData(form);
+            var name = (fd.get('Name') || '').toString().trim();
+            var email = (fd.get('Email') || '').toString().trim();
+            var phone = (fd.get('Phone') || '').toString().trim();
+            var msg = (fd.get('Message') || '').toString().trim();
+            var subject = 'Bait Boards Direct enquiry' + (name ? ' from ' + name : '');
+            var body =
+              (name ? 'Name: ' + name + '\n' : '') +
+              (email ? 'Email: ' + email + '\n' : '') +
+              (phone ? 'Phone: ' + phone + '\n' : '') +
+              '\n' + (msg || '');
+            var to = form.getAttribute('action').replace(/^mailto:/, '');
+            var url = 'mailto:' + to +
+              '?subject=' + encodeURIComponent(subject) +
+              '&body=' + encodeURIComponent(body);
+            window.location.href = url;
+          });
+        })();
+      </script>
     </div>
   </section>
 
