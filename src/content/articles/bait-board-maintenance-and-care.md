@@ -43,7 +43,7 @@ This routine takes about 5 minutes weekly during heavy use. Skip during off-seas
 
 Monthly attention focuses on the components that don't show wear in daily use but accumulate problems over time.
 
-**Inspect all stainless hardware for any signs of corrosion or loosening.** 316 stainless is highly corrosion-resistant but not immune. Look for any darkening of the metal surface (early-stage corrosion), any white salt deposits at thread joints, any visible loosening of bolts. Catch loose hardware before it falls out.
+**Inspect all stainless hardware for any signs of corrosion or loosening.** [316 stainless steel](https://en.wikipedia.org/wiki/SAE_316L_stainless_steel) (also called "marine grade" — molybdenum-bearing austenitic alloy) is highly corrosion-resistant but not immune. Look for any darkening of the metal surface (early-stage corrosion), any white salt deposits at thread joints, any visible loosening of bolts. Catch loose hardware before it falls out.
 
 **Check sealant beads at bolt-through joints.** The marine polyurethane sealant applied at install (Sikaflex 291 or equivalent) should still be flexible and intact. If you see cracking, lifting, or visible water ingress, the sealant has failed and needs replacing — failing sealant leads to water ingress into the deck core, which is a much bigger problem than just the bait board.
 

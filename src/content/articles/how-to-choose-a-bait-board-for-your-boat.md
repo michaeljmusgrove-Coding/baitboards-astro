@@ -56,9 +56,9 @@ Match rod holder count to fishing style:
 - **4 rod holders:** serious recreational fishing, occasional charter work. Two anglers running multiple lines, or one angler with backup rigs ready to switch.
 - **6+ rod holders:** tournament fishing, charter operations, heavy game work. Multiple lines deployed simultaneously.
 
-Note that **integrated rod holders should be game-rated** if you're targeting heavy species. The SeaKing rod holders are 316 stainless and rated for marlin, tuna, kingfish — built to handle the shock loads of trolling at speed. Cheaper holders pull out under load.
+Note that **integrated rod holders should be game-rated** if you're targeting heavy species. The SeaKing rod holders are 316 stainless and rated for marlin, tuna, kingfish — built to handle the shock loads of trolling at speed. Cheaper holders pull out under load. The B-series ([browse bait boards with rod holders](/collections/bait-boards-with-rod-holders)) ships with two game-rated holders integrated through the fibreglass shell.
 
-If you need more rod holders than the integrated set, **standalone rod holders** can supplement most boards.
+If you need more rod holders than the integrated set, **standalone rod holders** can supplement most boards. Equally, if you want a board that keeps drinks, knives, and small rigs to hand without losing deck space, see [bait boards with cup holders](/collections/bait-boards-with-cup-holders) for the moulded-in options.
 
 ## Step 5: Think about the working surface
 

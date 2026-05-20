@@ -27,7 +27,7 @@ This guide walks through a complete bait board installation from tool selection 
 **Materials:**
 - 316 marine-grade stainless steel bolts, washers, and nylock nuts (size depends on board — typically M6 or M8)
 - Stainless backing plates or large-diameter penny washers (critical — never bolt without backing)
-- Marine-grade polyurethane sealant (Sikaflex 291 or 3M 4000UV are the standard choices)
+- Marine-grade polyurethane sealant ([Sikaflex 291](https://industry.sika.com/en/home/construction/marine/sealing-and-bonding-products/sikaflex-291.html) or [3M 4000UV](https://www.3m.com.au/3M/en_AU/p/d/b00006822/) are the standard choices)
 - Optional: anti-seize compound for bolt threads
 - Cleaning cloths and isopropyl alcohol or acetone for surface prep
 
@@ -119,7 +119,7 @@ In 20 years of marine fit-outs, the same mistakes come up repeatedly:
 
 **Tightening bolts uneven.** Causes the board to seat slightly distorted. Always cross-pattern tighten.
 
-**Using silicone instead of polyurethane sealant.** Silicone has no place in marine fit-out. Doesn't bond to fibreglass reliably and isn't UV-stable. Use Sikaflex 291, 3M 4000UV, or equivalent marine polyurethane.
+**Using silicone instead of polyurethane sealant.** Silicone has no place in marine fit-out. Doesn't bond to fibreglass reliably and isn't UV-stable. Use [Sikaflex 291](https://industry.sika.com/en/home/construction/marine/sealing-and-bonding-products/sikaflex-291.html), [3M 4000UV](https://www.3m.com.au/3M/en_AU/p/d/b00006822/), or equivalent marine polyurethane.
 
 ## Special case: leg-mount installation (SKL series)
 
