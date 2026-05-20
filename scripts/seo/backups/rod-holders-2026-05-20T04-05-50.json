@@ -1,0 +1,144 @@
+{
+  "handle": "rod-holders",
+  "id": 8405097316668,
+  "saved_at": "2026-05-20T04:05:50.026Z",
+  "product": {
+    "id": 8405097316668,
+    "title": "SeaKing Game Rated Rod Holder",
+    "body_html": "<p> </p>\n<div class=\"ProductItem-details-excerpt\" data-content-field=\"excerpt\" data-mce-fragment=\"1\">\n<p>Our Rod Holder is designed for serious anglers, keeping your gear secure during intense fishing sessions. They are game-rated, which means they’re built to handle the tough demands of game fishing and high drag pressures. Whether you’re chasing Marlin, Tuna, or other large fish, this holder is made to withstand the strength and pressure of battling big catches.</p>\n<p>Made from 316 marine-grade stainless steel, the mounting hardware offers excellent protection against saltwater corrosion. This ensures that your equipment stays strong and reliable, even in harsh marine environments.</p>\n<p>With this high-quality rod holder, you can fish with confidence, knowing your rod is securely in place, no matter the conditions.</p>\n</div>",
+    "vendor": "SeaKing",
+    "product_type": "",
+    "created_at": "2023-06-16T14:37:53+10:00",
+    "handle": "rod-holders",
+    "updated_at": "2026-05-08T18:53:01+10:00",
+    "published_at": "2025-09-12T12:48:46+10:00",
+    "template_suffix": "",
+    "published_scope": "global",
+    "tags": "bait boards",
+    "status": "active",
+    "admin_graphql_api_id": "gid://shopify/Product/8405097316668",
+    "variants": [
+      {
+        "id": 45424556310844,
+        "product_id": 8405097316668,
+        "title": "Default Title",
+        "price": "90.00",
+        "position": 1,
+        "inventory_policy": "continue",
+        "compare_at_price": "120.00",
+        "option1": "Default Title",
+        "option2": null,
+        "option3": null,
+        "created_at": "2023-06-16T14:37:53+10:00",
+        "updated_at": "2026-02-13T16:56:18+11:00",
+        "taxable": true,
+        "barcode": "",
+        "fulfillment_service": "manual",
+        "grams": 0,
+        "inventory_management": "shopify",
+        "requires_shipping": true,
+        "sku": "",
+        "weight": 0,
+        "weight_unit": "kg",
+        "inventory_item_id": 47390413160764,
+        "inventory_quantity": 41,
+        "old_inventory_quantity": 41,
+        "admin_graphql_api_id": "gid://shopify/ProductVariant/45424556310844",
+        "image_id": null
+      }
+    ],
+    "options": [
+      {
+        "id": 10632272675132,
+        "product_id": 8405097316668,
+        "name": "Title",
+        "position": 1,
+        "values": [
+          "Default Title"
+        ]
+      }
+    ],
+    "images": [
+      {
+        "id": 41717115748668,
+        "alt": null,
+        "position": 1,
+        "product_id": 8405097316668,
+        "created_at": "2023-06-16T14:37:53+10:00",
+        "updated_at": "2023-06-16T14:37:55+10:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/34176994410812",
+        "width": 1140,
+        "height": 888,
+        "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/ScreenShot2023-06-16at2.37.08pm.png?v=1686890275",
+        "variant_ids": []
+      }
+    ],
+    "image": {
+      "id": 41717115748668,
+      "alt": null,
+      "position": 1,
+      "product_id": 8405097316668,
+      "created_at": "2023-06-16T14:37:53+10:00",
+      "updated_at": "2023-06-16T14:37:55+10:00",
+      "admin_graphql_api_id": "gid://shopify/MediaImage/34176994410812",
+      "width": 1140,
+      "height": 888,
+      "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/ScreenShot2023-06-16at2.37.08pm.png?v=1686890275",
+      "variant_ids": []
+    }
+  },
+  "metafields": [
+    {
+      "id": 102395141390652,
+      "namespace": "mm-google-shopping",
+      "key": "google_product_category",
+      "value": "499942",
+      "description": null,
+      "owner_id": 8405097316668,
+      "created_at": "2024-11-25T21:11:36+11:00",
+      "updated_at": "2024-11-25T21:11:36+11:00",
+      "owner_resource": "product",
+      "type": "string",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102395141390652"
+    },
+    {
+      "id": 102395141423420,
+      "namespace": "mc-facebook",
+      "key": "google_product_category",
+      "value": "499942",
+      "description": null,
+      "owner_id": 8405097316668,
+      "created_at": "2024-11-25T21:11:36+11:00",
+      "updated_at": "2024-11-25T21:11:36+11:00",
+      "owner_resource": "product",
+      "type": "string",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102395141423420"
+    },
+    {
+      "id": 109870546354492,
+      "namespace": "shopify",
+      "key": "material",
+      "value": "[\"gid://shopify/Metaobject/177442488636\"]",
+      "description": null,
+      "owner_id": 8405097316668,
+      "created_at": "2025-09-12T12:45:56+10:00",
+      "updated_at": "2025-09-12T12:45:56+10:00",
+      "owner_resource": "product",
+      "type": "list.metaobject_reference",
+      "admin_graphql_api_id": "gid://shopify/Metafield/109870546354492"
+    },
+    {
+      "id": 109870552449340,
+      "namespace": "okendo",
+      "key": "summaryData",
+      "value": "{\"reviewCount\":0,\"reviewAverageValue\":\"0.0\"}",
+      "description": null,
+      "owner_id": 8405097316668,
+      "created_at": "2025-09-12T12:47:30+10:00",
+      "updated_at": "2025-09-12T12:47:30+10:00",
+      "owner_resource": "product",
+      "type": "json_string",
+      "admin_graphql_api_id": "gid://shopify/Metafield/109870552449340"
+    }
+  ]
+}

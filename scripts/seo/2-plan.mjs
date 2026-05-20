@@ -150,8 +150,12 @@ function inferProductType(p) {
 
 // ─── Step 4: SEO title and description templates ──────────────────────────
 
+// Truncate at a word boundary without adding ellipsis.
+// Google SERP truncation happens visually at ~580 pixels (~60 chars) for titles
+// and ~155-160 chars for descriptions, but the full string is still indexed and
+// ranks. We just keep it tidy under the safe length without ending mid-word.
 function clamp(s, n) {
-  return s.length <= n ? s : s.slice(0, n - 1).replace(/\s+\S*$/, "") + "…";
+  return s.length <= n ? s : s.slice(0, n).replace(/\s+\S*$/, "");
 }
 
 function proposedSeoTitle(p) {
@@ -224,6 +228,91 @@ function proposedFirstSentenceRewrite(p) {
   return `${model} is a ${mountWord} fibreglass bait board with 316 marine-grade stainless steel hardware, integrated sink, and UV-resistant PE plastic cutting surface — built for Australian saltwater fishing.`;
 }
 
+// ─── Step 5c: full body HTML template ────────────────────────────────────
+
+function proposedBodyHtml(p) {
+  if (p.line === "TEST") return "";
+  if (p.line === "FILLET_TABLE_LINE" && p.consolidation === "DEPRECATE_AND_REDIRECT") {
+    // Leave body alone — these products get archived (status=archived) at apply time
+    return "";
+  }
+
+  // Helpers — derive product attributes
+  const dimMatch = p.title.match(/\((\d{3,4}mm\s*[xX]\s*\d{3,4}mm)\)/i);
+  const dims = dimMatch ? dimMatch[1].replace(/\s*[xX]\s*/, " × ").replace(/mm/g, "mm") : null;
+  const isBlack = /black|blk\b/i.test(p.title);
+  const colorWord = isBlack ? "black" : "white";
+  const isLegMount = /skl[-\s]|leaning post/i.test(p.title);
+  const mountWord = isLegMount ? "leg-mount" : "flat-mount";
+  const mountDesc = isLegMount
+    ? "Permanent leg-mount on deck or transom shelf"
+    : "Transom or gunnel rail flat-mount with stainless brackets";
+  const modelMatch = p.title.match(/(SeaKing\s+(?:Bait Board\s+)?[A-Z0-9-]+)/);
+  const model = modelMatch ? modelMatch[1].replace(/^SeaKing\s+Bait Board\s+/, "SeaKing ").trim() : `The ${p.title.split("(")[0].trim()}`;
+  const tags = (p.proposed_tags || "").split(", ");
+  const boatTypes = [];
+  if (tags.includes("for-tinnies")) boatTypes.push("tinnies");
+  if (tags.includes("for-medium-boats")) boatTypes.push("medium runabouts");
+  if (tags.includes("for-offshore")) boatTypes.push("offshore boats");
+  const boatTypesStr = boatTypes.length ? boatTypes.join(", ") : "Australian fishing vessels of all sizes";
+
+  // Accessories
+  if (p.line === "ACCESSORY_ROD_HOLDER") {
+    return `<p>Game-rated 316 marine-grade stainless steel rod holder for SeaKing bait boards in Australia, built to handle marlin, tuna, and kingfish drag pressures.</p>
+<h3>Specifications</h3>
+<ul>
+<li><strong>Material:</strong> 316 marine-grade stainless steel</li>
+<li><strong>Compatibility:</strong> SeaKing bait board mounting holes (universal fit)</li>
+<li><strong>Rod capacity:</strong> Game-rated for large pelagic fishing</li>
+<li><strong>Finish:</strong> Mirror-polished, salt-corrosion resistant</li>
+</ul>
+<h3>Shipping &amp; warranty</h3>
+<p>Free Australia-wide shipping. 1-year manufacturer warranty. Ships from South East Melbourne within 1-3 business days.</p>`;
+  }
+  if (p.line === "ACCESSORY_LEGS") {
+    return `<p>Pair of 316 marine-grade stainless steel mounting legs and bases for installing SeaKing bait boards on Australian fishing vessels.</p>
+<h3>Specifications</h3>
+<ul>
+<li><strong>Material:</strong> 316 marine-grade stainless steel</li>
+<li><strong>Compatibility:</strong> Universal — fits all SeaKing bait board models</li>
+<li><strong>Includes:</strong> Pair of legs + 2 base brackets + mounting hardware</li>
+<li><strong>Finish:</strong> Mirror-polished, salt-corrosion resistant</li>
+</ul>
+<h3>Shipping &amp; warranty</h3>
+<p>Free Australia-wide shipping. 1-year manufacturer warranty.</p>`;
+  }
+  if (p.line === "UPGRADE_VARIANT") {
+    return `<p>Optional add-on for SeaKing bait boards — choose between extra game-rated rod holders or mounting legs, both in 316 marine-grade stainless steel.</p>
+<p>This product is an add-on only and is not sold separately from a SeaKing bait board.</p>`;
+  }
+
+  // Bait Board / Leaning Post — full structured body
+  const opener = dims
+    ? `<p>The ${model} is a ${dims} ${mountWord} fibreglass bait board with 316 marine-grade stainless steel hardware, an integrated sink and drain, and a UV-resistant PE plastic cutting surface — built for Australian saltwater fishing.</p>`
+    : `<p>${model} is a ${mountWord} fibreglass bait board with 316 marine-grade stainless steel hardware, integrated sink, and UV-resistant PE plastic cutting surface — built for Australian saltwater fishing.</p>`;
+
+  return `${opener}
+<h3>Specifications</h3>
+<ul>
+${dims ? `<li><strong>Dimensions:</strong> ${dims}</li>` : ""}
+<li><strong>Construction:</strong> Hand-laminated fibreglass with ${colorWord} gelcoat finish</li>
+<li><strong>Hardware:</strong> 316 marine-grade stainless steel rod holders + mounting brackets</li>
+<li><strong>Cutting surface:</strong> UV-resistant PE plastic insert</li>
+<li><strong>Sink:</strong> Integrated with drain plug</li>
+<li><strong>Mount type:</strong> ${mountDesc}</li>
+<li><strong>Suitable for:</strong> ${boatTypesStr}</li>
+</ul>
+<h3>What's included</h3>
+<ul>
+<li>SeaKing ${p.model || ""} fibreglass bait board</li>
+<li>2 × game-rated 316 stainless steel rod holders</li>
+<li>Integrated sink with drain plug</li>
+<li>Mounting hardware${isLegMount ? " (including stainless legs and base brackets)" : " (stainless brackets for transom or rail mount)"}</li>
+</ul>
+<h3>Shipping &amp; warranty</h3>
+<p>Free Australia-wide shipping. 1-year manufacturer warranty. Ships from South East Melbourne within 1-3 business days.</p>`.replace(/\n<li>\s*<\/li>/g, "");
+}
+
 // ─── Step 5b: image filename rename template ─────────────────────────────
 
 function proposedFilename(p, image, index) {
@@ -289,13 +378,29 @@ const plan = lines.map((p) => {
 
   p.consolidation = consolidation;
 
+  const proposedTags = inferTags(p).join(", ");
+  // Stash on p so proposedBodyHtml can read it
+  p.proposed_tags = proposedTags;
+
   return {
     ...p,
     proposed_seo_title: proposedSeoTitle(p),
     proposed_seo_description: proposedSeoDescription(p),
-    proposed_tags: inferTags(p).join(", "),
+    proposed_tags: proposedTags,
     proposed_product_type: inferProductType(p),
     proposed_first_sentence: proposedFirstSentenceRewrite(p),
+    proposed_body_html: proposedBodyHtml(p),
+    proposed_images: (p.images || []).map((img, i) => ({
+      id: img.id,
+      position: img.position,
+      current_alt: img.alt || "",
+      current_filename: img.filename,
+      proposed_alt: proposedAltText(p, img, i),
+      proposed_filename: proposedFilename(p, img, i),
+      needs_rename: proposedFilename(p, img, i) !== img.filename,
+      needs_alt_set: !img.alt,
+      src: img.src,
+    })),
     consolidation,
     consolidation_target: consolidationTarget,
     consolidation_notes: consolidationNotes,

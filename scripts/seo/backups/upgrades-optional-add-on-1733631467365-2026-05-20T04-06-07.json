@@ -1,0 +1,177 @@
+{
+  "handle": "upgrades-optional-add-on-1733631467365",
+  "id": 9811143295292,
+  "saved_at": "2026-05-20T04:06:07.840Z",
+  "product": {
+    "id": 9811143295292,
+    "title": "Upgrades (Optional Add on)",
+    "body_html": "",
+    "vendor": "SeaKing",
+    "product_type": "easify_addon_product",
+    "created_at": "2024-12-08T15:17:47+11:00",
+    "handle": "upgrades-optional-add-on-1733631467365",
+    "updated_at": "2026-05-12T20:37:28+10:00",
+    "published_at": "2024-12-08T15:17:48+11:00",
+    "template_suffix": null,
+    "published_scope": "global",
+    "tags": "easify_product_options",
+    "status": "active",
+    "admin_graphql_api_id": "gid://shopify/Product/9811143295292",
+    "variants": [
+      {
+        "id": 50526399398204,
+        "product_id": 9811143295292,
+        "title": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel",
+        "price": "160.00",
+        "position": 2,
+        "inventory_policy": "deny",
+        "compare_at_price": null,
+        "option1": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel",
+        "option2": null,
+        "option3": null,
+        "created_at": "2024-12-08T15:17:49+11:00",
+        "updated_at": "2026-05-12T20:37:29+10:00",
+        "taxable": true,
+        "barcode": null,
+        "fulfillment_service": "manual",
+        "grams": 2000,
+        "inventory_management": null,
+        "requires_shipping": true,
+        "sku": null,
+        "weight": 2,
+        "weight_unit": "kg",
+        "inventory_item_id": 52413703553340,
+        "inventory_quantity": -18,
+        "old_inventory_quantity": -18,
+        "admin_graphql_api_id": "gid://shopify/ProductVariant/50526399398204",
+        "image_id": 49683469828412
+      },
+      {
+        "id": 50526402904380,
+        "product_id": 9811143295292,
+        "title": "2 x Game Rated Rod Holders - Stainless Steel 316 Grade",
+        "price": "110.00",
+        "position": 3,
+        "inventory_policy": "deny",
+        "compare_at_price": null,
+        "option1": "2 x Game Rated Rod Holders - Stainless Steel 316 Grade",
+        "option2": null,
+        "option3": null,
+        "created_at": "2024-12-08T15:22:03+11:00",
+        "updated_at": "2025-12-29T18:09:56+11:00",
+        "taxable": true,
+        "barcode": null,
+        "fulfillment_service": "manual",
+        "grams": 0,
+        "inventory_management": null,
+        "requires_shipping": true,
+        "sku": null,
+        "weight": 0,
+        "weight_unit": "kg",
+        "inventory_item_id": 52413707059516,
+        "inventory_quantity": -8,
+        "old_inventory_quantity": -8,
+        "admin_graphql_api_id": "gid://shopify/ProductVariant/50526402904380",
+        "image_id": 49683469861180
+      }
+    ],
+    "options": [
+      {
+        "id": 12256481116476,
+        "product_id": 9811143295292,
+        "name": "items",
+        "position": 1,
+        "values": [
+          "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel",
+          "2 x Game Rated Rod Holders - Stainless Steel 316 Grade"
+        ]
+      }
+    ],
+    "images": [
+      {
+        "id": 49683468976444,
+        "alt": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel (Discounted bundle))",
+        "position": 1,
+        "product_id": 9811143295292,
+        "created_at": "2024-12-08T15:22:03+11:00",
+        "updated_at": "2024-12-08T15:22:05+11:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/41658828128572",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/pairoflegs_0bd65948-51e3-4b66-83e8-3a5adbcefb0d.jpg?v=1733631725",
+        "variant_ids": []
+      },
+      {
+        "id": 49683469041980,
+        "alt": "2 x Game Rated Rod Holders - Stainless Steel 316 Grade",
+        "position": 2,
+        "product_id": 9811143295292,
+        "created_at": "2024-12-08T15:22:04+11:00",
+        "updated_at": "2024-12-08T15:22:06+11:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/41658828161340",
+        "width": 1041,
+        "height": 731,
+        "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/image0_2_ddf05f26-0ee9-4a66-9bd3-b82afbd04064.jpg?v=1733631726",
+        "variant_ids": []
+      },
+      {
+        "id": 49683469861180,
+        "alt": "2 x Game Rated Rod Holders - Stainless Steel 316 Grade",
+        "position": 3,
+        "product_id": 9811143295292,
+        "created_at": "2024-12-08T15:23:15+11:00",
+        "updated_at": "2024-12-08T15:23:17+11:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/41658828882236",
+        "width": 1041,
+        "height": 731,
+        "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/image0_2_e0f60f3c-c675-4387-bf9c-ba29eae563a8.jpg?v=1733631797",
+        "variant_ids": [
+          50526402904380
+        ]
+      },
+      {
+        "id": 49683469828412,
+        "alt": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel",
+        "position": 4,
+        "product_id": 9811143295292,
+        "created_at": "2024-12-08T15:23:15+11:00",
+        "updated_at": "2024-12-08T15:23:17+11:00",
+        "admin_graphql_api_id": "gid://shopify/MediaImage/41658828915004",
+        "width": 1000,
+        "height": 1000,
+        "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/pairoflegs_48151931-168a-40eb-8689-9879b0e1ed88.jpg?v=1733631797",
+        "variant_ids": [
+          50526399398204
+        ]
+      }
+    ],
+    "image": {
+      "id": 49683468976444,
+      "alt": "Pair of 316 Grade Stainless Steel Mounting Legs and Bases for Vessel (Discounted bundle))",
+      "position": 1,
+      "product_id": 9811143295292,
+      "created_at": "2024-12-08T15:22:03+11:00",
+      "updated_at": "2024-12-08T15:22:05+11:00",
+      "admin_graphql_api_id": "gid://shopify/MediaImage/41658828128572",
+      "width": 1000,
+      "height": 1000,
+      "src": "https://cdn.shopify.com/s/files/1/0779/7529/0172/files/pairoflegs_0bd65948-51e3-4b66-83e8-3a5adbcefb0d.jpg?v=1733631725",
+      "variant_ids": []
+    }
+  },
+  "metafields": [
+    {
+      "id": 102762268262716,
+      "namespace": "seo",
+      "key": "hidden",
+      "value": 1,
+      "description": null,
+      "owner_id": 9811143295292,
+      "created_at": "2024-12-08T15:17:47+11:00",
+      "updated_at": "2024-12-08T15:17:47+11:00",
+      "owner_resource": "product",
+      "type": "number_integer",
+      "admin_graphql_api_id": "gid://shopify/Metafield/102762268262716"
+    }
+  ]
+}
