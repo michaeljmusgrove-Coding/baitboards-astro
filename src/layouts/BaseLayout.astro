@@ -113,7 +113,8 @@ const storeSchema = {
   sameAs: Object.values(site.social).filter((v) => !v.includes('__TODO__')),
 };
 
-// WebSite schema with SearchAction (product search)
+// WebSite schema — SearchAction removed (no on-site search component implemented;
+// the previous urlTemplate /products?q=... returned 404). Re-add when search is wired.
 const websiteSchema = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -123,14 +124,6 @@ const websiteSchema = {
   description: site.tagline,
   inLanguage: 'en-AU',
   publisher: { '@type': 'OnlineStore', '@id': `${site.domain}/#store` },
-  potentialAction: {
-    '@type': 'SearchAction',
-    target: {
-      '@type': 'EntryPoint',
-      urlTemplate: `${site.domain}/products?q={search_term_string}`,
-    },
-    'query-input': 'required name=search_term_string',
-  },
 };
 
 // Display labels for known slugs (overrides auto-capitalisation)
