@@ -87,7 +87,7 @@ const articleSchema = {
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {relatedProducts.map((p) => (
               <a
-                href={`/products/${p.handle}`}
+                href={`/products/${p.handle}?utm_source=articles&utm_medium=internal&utm_campaign=related-products&utm_content=${article.id}`}
                 class="group block overflow-hidden rounded-xl border border-border bg-white transition hover:shadow-md"
               >
                 <div class="aspect-square overflow-hidden bg-bg-alt">

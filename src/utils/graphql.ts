@@ -139,6 +139,11 @@ export const CollectionByHandleQuery = `#graphql
       id
       title
       handle
+      description
+      seo {
+        title
+        description
+      }
       products(first: $first) {
         nodes {
           ...productFragment
