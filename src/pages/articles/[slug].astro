@@ -46,13 +46,84 @@ const articleSchema = {
     image: { '@type': 'ImageObject', url: `${site.domain}${article.data.image}` },
   }),
 };
+
+// HowTo schema — only emitted for the install guide. The article uses
+// `## Step N` headings under "Step 1 ... Step 6" so the step list mirrors
+// what is rendered. Unlocks the HowTo rich-snippet treatment in Google when
+// the page ranks; cheap win on a high-intent how-to query.
+const howToSchema =
+  article.id === 'how-to-install-a-bait-board'
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'HowTo',
+        '@id': `${canonicalUrl}#howto`,
+        name: 'How to Install a Bait Board on an Australian Boat',
+        description:
+          'Step-by-step installation guide for a SeaKing fibreglass bait board on a typical Australian fishing vessel — tools, hardware, mounting position, sealant, and final fit-up.',
+        totalTime: 'PT2H30M',
+        author: { '@id': `${site.domain}/about#founder` },
+        tool: [
+          { '@type': 'HowToTool', name: 'Drill with cobalt or HSS twist drill bit set' },
+          { '@type': 'HowToTool', name: 'Measuring tape and spirit level' },
+          { '@type': 'HowToTool', name: 'Caulking gun' },
+          { '@type': 'HowToTool', name: 'Vacuum cleaner' },
+          { '@type': 'HowToTool', name: 'Masking tape and isopropyl alcohol' },
+        ],
+        supply: [
+          { '@type': 'HowToSupply', name: '316 marine-grade stainless steel bolts, washers, and nylock nuts' },
+          { '@type': 'HowToSupply', name: 'Stainless backing plates or large-diameter penny washers' },
+          { '@type': 'HowToSupply', name: 'Marine-grade polyurethane sealant (Sikaflex 291 or 3M 4000UV)' },
+          { '@type': 'HowToSupply', name: 'Anti-seize compound for stainless bolt threads (optional)' },
+        ],
+        step: [
+          {
+            '@type': 'HowToStep',
+            position: 1,
+            name: 'Choose the mounting position',
+            text: 'Mount the board where you actually fish, not where it looks tidiest from outside the boat. Check access, clearance from other gear, transom-door swing, and that the proposed structural attachment point is solid (tap-test for hollows).',
+          },
+          {
+            '@type': 'HowToStep',
+            position: 2,
+            name: 'Mark and measure carefully',
+            text: 'Place the board exactly where it will mount and mark each bolt hole through the mounting holes. Cross-check measurements from a fixed reference point so the board sits square to the boat centreline. Centre-punch each drill point.',
+          },
+          {
+            '@type': 'HowToStep',
+            position: 3,
+            name: 'Drill the bolt holes',
+            text: 'Use a bit slightly larger than the bolt diameter (bolt + 1 mm for stainless in fibreglass). Drill at low speed with steady pressure. Mask the drill point first to prevent gelcoat chipping. Vacuum holes thoroughly.',
+          },
+          {
+            '@type': 'HowToStep',
+            position: 4,
+            name: 'Seal the holes',
+            text: 'Run a heavy bead of marine polyurethane sealant inside each hole and around the underside of the board mounting flanges. Bolt through immediately so sealant displaces around the bolt threads and squeezes out at the joint. Wipe excess within 30 minutes.',
+          },
+          {
+            '@type': 'HowToStep',
+            position: 5,
+            name: 'Install the bolts',
+            text: 'Drop a stainless bolt with washer through each hole from the top. From underneath use a penny washer or backing plate, then nylock nut. Hand-tighten all bolts first, then cross-pattern snug-plus-a-quarter-turn.',
+          },
+          {
+            '@type': 'HowToStep',
+            position: 6,
+            name: 'Final checks',
+            text: 'Check the board sits flat and level with a spirit level in both directions. Test all rod holders, drain fittings, and accessories. Wait 24 hours for sealant cure before stress-testing.',
+          },
+        ],
+      }
+    : null;
+
+const pageSchemas = howToSchema ? [articleSchema, howToSchema] : articleSchema;
 ---
 
 <BaseLayout
   title={`${article.data.title} | Bait Boards Direct`}
   description={article.data.description}
   canonical={canonicalUrl}
-  schema={articleSchema}
+  schema={pageSchemas}
   ogType="article"
 >
 

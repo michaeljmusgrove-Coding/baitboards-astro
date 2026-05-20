@@ -226,7 +226,7 @@ const productSchema = {
               mobile (order-4 + order-5) so the Add to Cart button is closer
               to the fold. On desktop the natural reading order is preserved
               (description → trust → ATC) via lg:order-* overrides. */}
-          <div class="order-6 lg:order-4 mt-6 border-t border-gray-200 pt-6">
+          <div class="order-7 lg:order-4 mt-6 border-t border-gray-200 pt-6">
             <p class="text-sm leading-relaxed text-text-muted sm:text-base">
               {product.description}
             </p>
@@ -258,9 +258,22 @@ const productSchema = {
             />
           </div>
 
+          {/* Cross-domain checkout reassurance — sits directly under ATC.
+              Shopify checkout runs on baitboardsdirect.myshopify.com so the
+              domain switch needs trust scaffolding (Baymard: ~3-7% abandon on
+              cross-domain checkout). Banner names the platform + wallets at
+              the decision point. */}
+          <div class="order-6 lg:order-7 mt-3 flex items-start gap-2 rounded-lg bg-[#f7f7f7] px-3 py-2.5 text-xs leading-snug text-text-muted">
+            <span aria-hidden="true" class="mt-0.5 flex-shrink-0">🔒</span>
+            <span>
+              Secure checkout powered by <strong class="font-semibold text-[#07272e]">Shopify Pay</strong> (PCI Level 1).
+              Apple Pay, Google Pay &amp; Afterpay accepted.
+            </span>
+          </div>
+
           <a
             href="/collections/bait-boards"
-            class="order-7 mt-5 text-center text-sm text-text-muted underline underline-offset-2 transition-colors hover:text-primary"
+            class="order-8 mt-5 text-center text-sm text-text-muted underline underline-offset-2 transition-colors hover:text-primary"
           >
             &larr; Back to Bait Boards
           </a>
@@ -317,6 +330,8 @@ const productSchema = {
           <img
             src={shopifyImage(product.image, 1200)}
             alt={product.title}
+            width="1200"
+            height="1200"
             class="w-full rounded-xl"
             loading="lazy"
           />
@@ -352,7 +367,13 @@ const productSchema = {
   <section class="border-b border-t border-gray-200 bg-white py-4">
     <div class="container overflow-x-auto">
       <ul class="flex min-w-max items-center justify-center gap-8 list-none p-0 m-0">
-        {['⚡ Fast Delivery', '✅ Trusted Quality', '🇦🇺 Australian Owned', '🔒 Secure Payments', '💬 Customer Support'].map(b => (
+        {[
+          '🚚 Free shipping Australia-wide, no minimum',
+          '⚡ Dispatched within 1–3 business days',
+          '🇦🇺 Handcrafted in Melbourne by a 20-year fibreglass craftsman',
+          '🛡️ 1-year warranty + 30-day returns',
+          '🔒 Secure Shopify Pay — Apple Pay, Google Pay, Afterpay',
+        ].map(b => (
           <li class="whitespace-nowrap text-xs font-semibold uppercase tracking-widest text-[#07272e]">{b}</li>
         ))}
       </ul>
