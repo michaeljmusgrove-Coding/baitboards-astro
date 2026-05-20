@@ -132,6 +132,6 @@ For browsing the offshore-relevant range:
 - [SKL-L06 (leg-mount)](/products/bait-board-skl-l06)
 - [SKL-S05 (smaller leg-mount)](/products/bait-board-skl-s05)
 
-Or use the [Help Me Choose tool](/help-me-choose) — three quick questions and you'll see the model that fits your offshore setup.
+Or [contact us](/contact) with your boat type and offshore setup — we'll recommend the model that fits.
 
 If you'd rather talk it through, we're contactable directly. Send a photo of your boat's cockpit layout and we'll suggest the best board and mounting position based on what we can see.

@@ -27,6 +27,11 @@ const redirects = [
   { from: '/search',   to: '/collections/bait-boards', status: 301 },
   { from: '/password', to: '/', status: 301 },
 
+  // Help-me-choose quiz removed 2026-05-20 (CRO audit — quiz output noise
+  // until per-product recommendation logic is properly defined).
+  // Catch any inbound traffic + GSC-cached URLs.
+  { fromPrefix: '/help-me-choose', to: '/collections/bait-boards', status: 301 },
+
   // Shopify account pages — no account system in Astro build
   { fromPrefix: '/account', to: '/', status: 301 },
 

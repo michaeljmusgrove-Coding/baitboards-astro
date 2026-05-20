@@ -139,6 +139,6 @@ A quality SeaKing fibreglass board treated reasonably should never reach any of 
 
 ## Browse and replace
 
-If your current bait board is showing its age, browse the [SeaKing range](/collections/bait-boards) for replacements, or use the [Help Me Choose tool](/help-me-choose) to find the model that suits your boat. Replacement boards ship with full mounting hardware; we can supply matched sealant and silicone protectant on request.
+If your current bait board is showing its age, browse the [SeaKing range](/collections/bait-boards) for replacements, or [contact us](/contact) with your boat details and we'll recommend the right model. Replacement boards ship with full mounting hardware; we can supply matched sealant and silicone protectant on request.
 
 For more on the materials and construction differences that affect lifespan, see our article on [fibreglass versus aluminium bait boards](/articles/fibreglass-vs-aluminium-bait-boards/) and the [installation guide](/articles/how-to-install-a-bait-board/) covering the install techniques that prevent most maintenance problems before they start.

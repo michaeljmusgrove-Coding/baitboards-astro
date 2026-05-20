@@ -85,7 +85,7 @@ const productSchema = {
 };
 ---
 
-<BaseLayout title={title} description={description} schema={productSchema} preloadImage={shopifyImage(product.image, 1200)} ogType="product" productMeta={{ price: product.price, priceCurrency: 'AUD', availability: product.availableForSale ? 'instock' : 'outofstock' }}>
+<BaseLayout title={title} description={description} schema={productSchema} preloadImage={shopifyImage(product.image, 1200)} preloadImageMobile={shopifyImage(product.image, 600)} ogType="product" productMeta={{ price: product.price, priceCurrency: 'AUD', availability: product.availableForSale ? 'instock' : 'outofstock' }}>
 
   <!-- Breadcrumb -->
   <div class="border-b border-border bg-bg-alt">
@@ -116,12 +116,15 @@ const productSchema = {
             <img
               id="gallery-main"
               src={shopifyImage(product.image, 1200)}
+              srcset={`${shopifyImage(product.image, 600)} 600w, ${shopifyImage(product.image, 1200)} 1200w`}
+              sizes="(max-width: 767px) 100vw, 600px"
               alt={product.title}
               class="h-full w-full object-cover transition-opacity duration-200"
               width="600"
               height="600"
               fetchpriority="high"
               loading="eager"
+              decoding="async"
             />
           </div>
           {product.image2 && (
@@ -217,7 +220,7 @@ const productSchema = {
           <!-- Add to cart -->
           <div class="mt-8" id="sticky-atc-target">
             <AddToCartForm
-              client:load
+              client:visible
               variantId={product.variantId}
               variantQuantityAvailable={product.quantityAvailable}
               variantAvailableForSale={product.availableForSale}

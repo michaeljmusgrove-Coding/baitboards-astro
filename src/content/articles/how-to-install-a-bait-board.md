@@ -150,4 +150,4 @@ Marine fit-out shops typically charge $200–$400 for a flat-mount bait board in
 
 Bait Boards Direct supplies the boards. We don't do installations directly, but our boards come with the standard hardware and a clear installation diagram in the box. If you have questions before or during installation — particularly about mounting position or hardware sizing for an unusual application — get in touch with photos of your boat's gunnel area and we'll advise.
 
-[Browse the SeaKing bait board range](/collections/bait-boards) | [Help Me Choose tool](/help-me-choose) | [Contact us](/contact)
+[Browse the SeaKing bait board range](/collections/bait-boards) | [Contact us](/contact)
