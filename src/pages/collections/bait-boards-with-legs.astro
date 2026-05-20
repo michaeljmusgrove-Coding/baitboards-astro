@@ -73,6 +73,11 @@ const schema = {
                     Save {savePct}%
                   </span>
                 )}
+                {product.availableForSale && product.quantityAvailable > 0 && product.quantityAvailable <= 5 && (
+                  <span class="absolute top-2 right-2 z-10 rounded-full bg-[#c2410c] px-2 py-0.5 text-[10px] font-bold uppercase tracking-wide text-white leading-tight">
+                    Only {product.quantityAvailable} left
+                  </span>
+                )}
                 <img
                   src={shopifyImage(product.image, 400)}
                   alt={product.title}
