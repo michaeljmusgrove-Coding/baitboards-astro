@@ -25,7 +25,8 @@ export const site = {
 
   analytics: {
     ga4: "G-GTL98BHGVW",
-    clarityId: "__TODO__",
+    clarityId: "nzuy3xur33",
+    gtm: "GTM-MMB4D7LX",
     okendoStoreId: "__TODO__",
   },
 

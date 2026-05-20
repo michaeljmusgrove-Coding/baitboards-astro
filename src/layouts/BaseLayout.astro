@@ -296,14 +296,16 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
       })();
     </script>
 
-    <!-- Analytics: GA4 (direct gtag.js) + Microsoft Clarity.
-         GTM removed — strategy is SEO-only, no Google Ads conversion tracking needed.
-         Both deferred until after page load + requestIdleCallback to keep LCP/TBT clean. -->
+    <!-- Analytics: GA4 (direct gtag.js) + Microsoft Clarity + Google Tag Manager.
+         GTM container restored at cutover (Day 1) to preserve continuity with pre-cutover
+         pixel coverage; Day 2 audit will dedup GA4 if present in container.
+         All three deferred until after page load + requestIdleCallback to keep LCP/TBT clean. -->
     <script
       is:inline
       define:vars={{
         ga4Id: site.analytics.ga4,
         clarityId: site.analytics.clarityId,
+        gtmId: site.analytics.gtm,
       }}
     >
       (function () {
@@ -322,6 +324,15 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
               gtag('js', new Date());
               gtag('config', ga4Id);
             };
+          }
+
+          if (gtmId && !gtmId.startsWith('__TODO__')) {
+            window.dataLayer = window.dataLayer || [];
+            window.dataLayer.push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
+            var gtmScript = document.createElement('script');
+            gtmScript.async = true;
+            gtmScript.src = 'https://www.googletagmanager.com/gtm.js?id=' + gtmId;
+            document.head.appendChild(gtmScript);
           }
 
           if (clarityId && !clarityId.startsWith('__TODO__')) {
