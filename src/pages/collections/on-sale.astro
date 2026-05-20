@@ -1,13 +1,17 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
-import { getCollectionByHandle, formatPrice } from '../../utils/shopify';
+import { getCollectionWithMeta, formatPrice } from '../../utils/shopify';
 import { shopifyImage } from '../../utils/shopifyImage';
 import { site } from '../../config/site';
 
-const title = "Bait Boards on Sale Australia — Discounted Fibreglass Models | Bait Boards Direct";
-const description = "Discounted premium fibreglass bait boards Australia. SeaKing models with rod holders and integrated sinks at sale prices. Free Australia-wide shipping. While stocks last.";
+const collection = await getCollectionWithMeta({ handle: 'on-sale' });
+const products = collection?.products ?? [];
 
-const products = await getCollectionByHandle({ handle: 'on-sale' });
+// Prefer Shopify SEO metafields, fall back to hardcoded values.
+const fallbackTitle = "Bait Boards on Sale Australia — Discounted Fibreglass Models | Bait Boards Direct";
+const fallbackDescription = "Discounted premium fibreglass bait boards Australia. SeaKing models with rod holders and integrated sinks at sale prices. Free Australia-wide shipping. While stocks last.";
+const title = collection?.seo.title?.trim() || fallbackTitle;
+const description = collection?.seo.description?.trim() || fallbackDescription;
 
 const schema = {
   '@context': 'https://schema.org',
