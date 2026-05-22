@@ -154,6 +154,34 @@ Three pages show LCP regressions vs Day 0 POST despite TBT improvements on all t
 
 **Recommended action:** re-run PSI for these 3 pages at the Day 7 audit (2026-05-27) — if mobile LCP still shows 5.5-5.9s, investigate hero asset path / CDN cache configuration. If it normalises back to 3-3.5s range, confirmed as variance.
 
+### Variance addendum — re-tested same day (2026-05-22 PM)
+
+After the first Day 2 batch surfaced the 3-page LCP regression pattern, fresh single-URL PSI mobile runs were executed on all three flagged pages. **Variance confirmed on all three.**
+
+| Page | Day 0 POST | Day 2 first run | **Day 2 re-test** | Net vs Day 0 |
+|---|---:|---:|---:|---:|
+| Homepage Perf | 75 | 73 | **85** | **+10** ✅ |
+| Homepage LCP | 3.5 s | 5.9 s ⚠ | **3.5 s** | flat |
+| Homepage TBT | 540 ms | 110 ms | **270 ms** | **−270 ms** ✅ |
+| PDP B01 Perf | 63 | 74 | **91** | **+28** ✅ |
+| PDP B01 LCP | 3.2 s | 5.5 s ⚠ | **3.2 s** | flat |
+| PDP B01 TBT | 2,060 ms 🔴 | 80 ms | **120 ms** | **−1,940 ms** ✅ |
+| Articles Perf | 89 | 74 | **93** | **+4** ✅ |
+| Articles LCP | 2.7 s | 5.2 s ⚠ | **2.7 s** | flat |
+| Articles TBT | 250 ms | 160 ms | **120 ms** | **−130 ms** ✅ |
+
+**Resolution:** the first Day 2 batch caught a cold-edge moment that produced bad LCP readings on 3 pages simultaneously. Re-test on warm cache shows every page is at-or-better-than Day 0 POST. The +28 Perf jump on B01 is the GTM removal's TBT impact (-1,940 ms) finally surfacing in the lab score.
+
+**Deep-dive findings on homepage (via specialised pagespeed analyses):**
+- Render-blocking resources: **0** ✅
+- Third-party impact: **"No significant third-party impact detected"** ✅ (GTM removal closed this surface)
+- Image optimization: **0.00 MB potential savings** ✅ (WebP transforms working as designed; Day 0 POST open finding #2 effectively closed)
+- LCP element analysis: empty (Lighthouse cannot isolate a problematic LCP element)
+- JavaScript: top cost is now our own inline JS (1,510 ms — analytics deferral + Clarity + sticky ATC + gallery). GA4 gtag.js is 425 ms with 60 KiB unused (34% of 174 KiB). Both deferrable but not removable today without breaking deferred-analytics behaviour.
+- Main thread: Style & Layout 39% (954 ms) — Tailwind utility-class footprint + heavy schema rendering. Structural, not a code-only fix.
+
+**No code change indicated.** The page is at the HTML-level optimization ceiling. Next meaningful homepage Perf lever is Day 30+ Google Tag Gateway (estimated +3-5 Perf + ad-blocker recovery).
+
 ---
 
 ## 4. SEO audit comparison (Technical + Content + Schema + GEO)
