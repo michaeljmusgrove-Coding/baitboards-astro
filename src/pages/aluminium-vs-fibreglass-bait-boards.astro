@@ -52,7 +52,7 @@ const schema = [
 
   <section class="bg-dark-hero py-14 text-white">
     <div class="container">
-      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent-on-dark">
+      <p class="mb-2 text-xs font-bold uppercase tracking-widest text-accent-on-dark">
         <a href="/" class="hover:underline">Home</a> &rsaquo; Aluminium vs Fibreglass
       </p>
       <h1 class="font-heading text-3xl font-extrabold sm:text-4xl" style="font-style:normal; text-transform:none;">Aluminium vs Fibreglass Bait Boards</h1>
@@ -92,42 +92,42 @@ const schema = [
           </thead>
           <tbody>
             <tr class="bg-white">
-              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Saltwater corrosion</td>
+              <td class="border border-gray-300 px-4 py-3 font-bold text-[#07272e]">Saltwater corrosion</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">Inert. No corrosion mechanism on the structure.</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">Galvanic corrosion at every dissimilar-metal joint.</td>
             </tr>
             <tr class="bg-bg-alt">
-              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">UV durability</td>
+              <td class="border border-gray-300 px-4 py-3 font-bold text-[#07272e]">UV durability</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">UV-resistant gelcoat layer. Chalks slowly over years.</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">Painted aluminium fades and chips at edges quickly.</td>
             </tr>
             <tr class="bg-white">
-              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Integrated sink design</td>
+              <td class="border border-gray-300 px-4 py-3 font-bold text-[#07272e]">Integrated sink design</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">Moulded into the shell — no joins, no salt accumulation.</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">Plastic insert in aluminium frame — joins where water pools.</td>
             </tr>
             <tr class="bg-bg-alt">
-              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Weight</td>
+              <td class="border border-gray-300 px-4 py-3 font-bold text-[#07272e]">Weight</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">8–22 kg depending on size.</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">6–14 kg — slight edge for portability.</td>
             </tr>
             <tr class="bg-white">
-              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Upfront cost</td>
+              <td class="border border-gray-300 px-4 py-3 font-bold text-[#07272e]">Upfront cost</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">$400–$900 typical retail in AU.</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">$150–$400 typical retail in AU.</td>
             </tr>
             <tr class="bg-bg-alt">
-              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Realistic lifespan in saltwater</td>
+              <td class="border border-gray-300 px-4 py-3 font-bold text-[#07272e]">Realistic lifespan in saltwater</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">10+ years with basic maintenance.</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">3–5 years before hardware failures begin.</td>
             </tr>
             <tr class="bg-white">
-              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Repairability</td>
+              <td class="border border-gray-300 px-4 py-3 font-bold text-[#07272e]">Repairability</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">Sand and re-laminate at any marine repair shop.</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">Welding rare in field; usually replace not repair.</td>
             </tr>
             <tr class="bg-bg-alt">
-              <td class="border border-gray-300 px-4 py-3 font-semibold text-[#07272e]">Lifetime cost</td>
+              <td class="border border-gray-300 px-4 py-3 font-bold text-[#07272e]">Lifetime cost</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">Buy once. Lasts a decade.</td>
               <td class="border border-gray-300 px-4 py-3 text-text-muted">Replace 2–3 times over the same period.</td>
             </tr>
@@ -167,7 +167,7 @@ const schema = [
                 <img src={shopifyImage(product.image, 400)} alt={product.title} class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105" width="400" height="400" loading="lazy" />
               </div>
               <div class="p-3 sm:p-4">
-                <h3 class="font-heading text-xs font-semibold leading-snug text-primary line-clamp-2 sm:text-sm">{product.title}</h3>
+                <h3 class="font-heading text-xs font-bold leading-snug text-primary line-clamp-2 sm:text-sm">{product.title}</h3>
                 <div class="mt-2 flex items-center gap-2 flex-wrap">
                   <span class="text-sm font-bold text-[#07272e]">{formatPrice(product.price)}</span>
                   {onSale && product.compareAtPrice && (

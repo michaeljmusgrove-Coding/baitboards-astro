@@ -28,7 +28,7 @@ const path = Astro.url.pathname;
         <li>
           <a
             href={href}
-            class={`font-heading text-xs font-semibold uppercase tracking-widest transition-colors hover:text-accent-text ${
+            class={`font-heading text-xs font-bold uppercase tracking-widest transition-colors hover:text-accent-text ${
               path.startsWith(href) ? 'text-accent-text' : 'text-[#07272e]'
             }`}
           >
@@ -75,7 +75,7 @@ const path = Astro.url.pathname;
         <li>
           <a
             href={href}
-            class="block border-b border-[#e6e6e6] py-4 font-heading text-sm font-semibold uppercase tracking-widest text-[#07272e] transition-colors hover:text-accent-text"
+            class="block border-b border-[#e6e6e6] py-4 font-heading text-sm font-bold uppercase tracking-widest text-[#07272e] transition-colors hover:text-accent-text"
           >
             {label}
           </a>

@@ -225,7 +225,7 @@
                       <p class="text-gray-500">Your cart is empty</p>
                       <a
                         href="/"
-                        class="font-semibold text-emerald-900 hover:text-emerald-700"
+                        class="font-bold text-emerald-900 hover:text-emerald-700"
                       >
                         Continue Shopping
                         <span aria-hidden="true"> &rarr;</span>
