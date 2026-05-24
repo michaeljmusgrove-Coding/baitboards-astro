@@ -6,19 +6,30 @@ const title = "About Bait Boards Direct — Founded by Harry, 20-Year Fibreglass
 const description = "Bait Boards Direct is founded by Harry, a fibreglass boat builder with 20+ years of marine composite experience. Premium SeaKing fibreglass bait boards shipped Australia-wide from South East Melbourne.";
 ---
 
-<BaseLayout title={title} description={description} preloadImage="/images/about-boatyard.webp">
+<BaseLayout
+  title={title}
+  description={description}
+  preloadImage="/images/about-boatyard.webp"
+  preloadImageMobile="/images/about-boatyard-mobile.webp"
+>
 
-  <!-- Hero banner -->
+  <!-- Hero banner — <picture> serves a 480x320 32 KiB mobile variant on
+       narrow viewports instead of the 1400x932 155 KiB desktop file. Day 4
+       3-run PSI baseline showed median LCP 4.7s on this page; this is the
+       single biggest mobile byte saving available (−120 KiB above the fold). -->
   <section class="relative overflow-hidden bg-dark-hero" style="height: clamp(280px, 40vh, 440px);">
-    <img
-      src="/images/about-boatyard.webp"
-      alt="Boat yard — Bait Boards Direct"
-      class="h-full w-full object-cover object-center"
-      width="1400"
-      height="932"
-      fetchpriority="high"
-      loading="eager"
-    />
+    <picture>
+      <source media="(max-width: 767px)" srcset="/images/about-boatyard-mobile.webp" type="image/webp" width="480" height="320" />
+      <img
+        src="/images/about-boatyard.webp"
+        alt="Boat yard — Bait Boards Direct"
+        class="h-full w-full object-cover object-center"
+        width="1400"
+        height="932"
+        fetchpriority="high"
+        loading="eager"
+      />
+    </picture>
     <div class="absolute inset-0 bg-black/50"></div>
     <div class="absolute inset-0 flex items-center justify-center">
       <h1 class="font-heading text-center text-4xl font-extrabold text-white sm:text-5xl">
