@@ -7,13 +7,15 @@
     classList?: string;
     loading?: "lazy" | "eager";
     sizes: string;
+    fetchpriority?: "high" | "low" | "auto";
   }
 
   let {
     image,
     classList = "",
     loading = "lazy",
-    sizes
+    sizes,
+    fetchpriority = "auto"
   }: Props = $props();
 
   // Values used for srcset attribute of image tag (in pixels)
@@ -38,6 +40,7 @@
     height={image.height}
     {loading}
     {sizes}
+    {fetchpriority}
     srcset={srcSetValues
       .filter((value) => image && value < image.width)
       .map((value) => {

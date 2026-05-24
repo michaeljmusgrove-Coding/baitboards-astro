@@ -15,9 +15,14 @@ const { images } = Astro.props as Props;
 
 <div class="grid gap-4 md:grid-cols-8 lg:gap-6">
   <div class="md:order-2 md:col-span-6">
+    {/* Main PDP image — LCP candidate on every product page. Eager + high
+        fetch priority so the browser fetches it before deferred bundles
+        instead of waiting in the resource queue (Day 4 PSI sweep finding —
+        10 PDPs were clustering at LCP 4.2-4.7s on mobile). */}
     <ShopifyImage
       classList="overflow-hidden rounded-lg h-full object-cover"
       loading="eager"
+      fetchpriority="high"
       image={images.nodes[0]}
       sizes={`
           (min-width: 1540px) 475px,
@@ -47,9 +52,15 @@ const { images } = Astro.props as Props;
         if (index < 3) {
           return (
             <div class="overflow-hidden rounded-lg">
+              {/* Thumbnail strip — eager on the first thumb only (it's
+                  visually adjacent to the main image and likely above
+                  the fold on desktop); rest deferred to lazy so they
+                  don't compete with the LCP fetch. Day 4 PSI fix: the
+                  previous "all eager" pattern was the root of the
+                  4.2-4.7s LCP cluster on PDPs. */}
               <ShopifyImage
                 classList=""
-                loading="eager"
+                loading={index === 0 ? "eager" : "lazy"}
                 image={image}
                 sizes={`
                   (min-width: 1540px) 475px,
