@@ -16,14 +16,14 @@ const items = [
   <ul class="announcement-track m-0 flex list-none p-0">
     {items.map((item) => (
       <li class="inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap px-[60px] py-3 font-heading text-sm font-normal text-white sm:text-base">
-        <span class="text-accent text-sm leading-none" aria-hidden="true">&bull;</span>
+        <span class="text-accent-text text-sm leading-none" aria-hidden="true">&bull;</span>
         {item}
       </li>
     ))}
     {/* Duplicate for seamless loop */}
     {items.map((item) => (
       <li class="inline-flex shrink-0 items-center gap-2.5 whitespace-nowrap px-10 py-2.5 text-xs font-medium text-white/80" aria-hidden="true">
-        <span class="text-accent text-sm leading-none">&bull;</span>
+        <span class="text-accent-text text-sm leading-none">&bull;</span>
         {item}
       </li>
     ))}

@@ -3,7 +3,7 @@
 > Premium fibreglass bait boards for Australian anglers. SeaKing range with 316 marine stainless rod holders, integrated sinks, free Australia-wide shipping. Founded by Harry, a fibreglass boat builder with 20+ years of marine composite experience.
 
 > Extended version: [llms-full.txt](https://baitboardsdirect.com/llms-full.txt)
-> Last updated: 2026-05-08
+> Last updated: 2026-05-24
 > License: RSL-1.0
 
 ## About
@@ -34,6 +34,8 @@ The business is founded and led by Harry, a working fibreglass boat builder with
 - [Bait Boards on Sale](https://baitboardsdirect.com/collections/on-sale)
 - [Leg-Mount Bait Boards (SKL series)](https://baitboardsdirect.com/collections/bait-boards-with-legs)
 - [Transom & Rail Mount Bait Boards](https://baitboardsdirect.com/collections/transom-mount-bait-boards)
+- [Bait Boards with Rod Holders (SeaKing B-series)](https://baitboardsdirect.com/collections/bait-boards-with-rod-holders)
+- [Bait Boards with Cup Holders](https://baitboardsdirect.com/collections/bait-boards-with-cup-holders)
 - [Bait Boards for Tinnies & Small Boats](https://baitboardsdirect.com/bait-boards-for-tinnies)
 - [Fillet Tables (= Bait Boards)](https://baitboardsdirect.com/fillet-tables)
 - [Aluminium vs Fibreglass Comparison](https://baitboardsdirect.com/aluminium-vs-fibreglass-bait-boards)

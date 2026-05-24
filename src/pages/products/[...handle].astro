@@ -86,7 +86,7 @@ const productSchema = {
     priceValidUntil,
     availability: product.availableForSale ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
     itemCondition: "https://schema.org/NewCondition",
-    seller: { "@type": "SportingGoodsStore", "@id": "https://baitboardsdirect.com/#store" },
+    seller: { "@id": "https://baitboardsdirect.com/#store" },
     shippingDetails: {
       "@type": "OfferShippingDetails",
       shippingRate: { "@type": "MonetaryAmount", value: "0", currency: "AUD" },
@@ -115,9 +115,9 @@ const productSchema = {
   <div class="border-b border-border bg-bg-alt">
     <div class="container py-3">
       <p class="text-xs text-text-muted">
-        <a href="/" class="hover:text-accent transition-colors">Home</a>
+        <a href="/" class="hover:text-accent-text transition-colors">Home</a>
         &rsaquo;
-        <a href="/collections/bait-boards" class="hover:text-accent transition-colors">Bait Boards</a>
+        <a href="/collections/bait-boards" class="hover:text-accent-text transition-colors">Bait Boards</a>
         &rsaquo;
         <span class="text-primary">{product.title}</span>
       </p>
@@ -274,6 +274,11 @@ const productSchema = {
               variantId={product.variantId}
               variantQuantityAvailable={product.quantityAvailable}
               variantAvailableForSale={product.availableForSale}
+              productId={product.handle}
+              productName={product.title}
+              productPrice={product.price}
+              productHandle={product.handle}
+              productBrand="SeaKing"
             />
           </div>
 
@@ -481,6 +486,42 @@ const productSchema = {
       >Add to cart</a>
     </div>
   </div>
+
+  {/* GA4 view_item event — fires once on PDP load. Uses requestIdleCallback
+      so it doesn't compete with LCP. Product data is pre-rendered at build
+      time and injected via define:vars so there's no runtime fetch cost. */}
+  <script
+    is:inline
+    define:vars={{
+      ga4Item: {
+        item_id: product.handle,
+        item_name: product.title,
+        price: product.price,
+        item_brand: 'SeaKing',
+        currency: 'AUD',
+      },
+    }}
+  >
+    (function () {
+      function fire() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ ecommerce: null });
+        window.dataLayer.push({
+          event: 'view_item',
+          ecommerce: {
+            currency: 'AUD',
+            value: ga4Item.price || 0,
+            items: [ga4Item],
+          },
+        });
+      }
+      if ('requestIdleCallback' in window) {
+        requestIdleCallback(fire, { timeout: 2000 });
+      } else {
+        setTimeout(fire, 1000);
+      }
+    })();
+  </script>
 
   <script is:inline>
     (function () {

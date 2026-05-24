@@ -102,13 +102,13 @@ const storeSchema = {
   currenciesAccepted: site.schema.currenciesAccepted,
   paymentAccepted: site.schema.paymentAccepted,
   founder: { '@id': `${site.domain}/about#founder` },
-  address: {
-    '@type': 'PostalAddress',
-    streetAddress: site.contact.address,
-    addressLocality: site.contact.suburb,
-    addressRegion: site.contact.state,
-    postalCode: site.contact.postcode,
-    addressCountry: site.contact.country,
+  contactPoint: {
+    '@type': 'ContactPoint',
+    telephone: site.contact.phone.startsWith('0') ? `+61${site.contact.phone.slice(1).replace(/\s/g, '')}` : site.contact.phone,
+    email: site.contact.email,
+    contactType: 'customer service',
+    areaServed: 'AU',
+    availableLanguage: 'en',
   },
   sameAs: Object.values(site.social).filter((v) => !v.includes('__TODO__')),
 };
@@ -325,6 +325,40 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
       <slot />
     </main>
     <Footer />
+
+    <!-- GA4 select_item — delegated click listener for any anchor pointing
+         to /products/<handle>. Captures clicks on collection grids, product
+         cards, related-products carousels, etc. without per-component edits.
+         The handle is parsed from the href; list context comes from the
+         document title fallback when no explicit data attribute is set. -->
+    <script is:inline>
+      (function () {
+        function onClick(e) {
+          var anchor = e.target && e.target.closest ? e.target.closest('a[href^="/products/"]') : null;
+          if (!anchor) return;
+          var href = anchor.getAttribute('href') || '';
+          var match = href.match(/^\/products\/([^?#/]+)/);
+          if (!match) return;
+          var handle = match[1];
+          // Title hint: prefer alt of inner image (set to product title sitewide), fall back to inner text.
+          var img = anchor.querySelector('img');
+          var name = (img && img.getAttribute('alt')) || (anchor.textContent || '').trim().slice(0, 120);
+          var listId = anchor.getAttribute('data-ga4-list-id') || (location.pathname.replace(/\W+/g, '-').replace(/^-|-$/g, '') || 'site');
+          var listName = anchor.getAttribute('data-ga4-list-name') || document.title.split('|')[0].trim();
+          window.dataLayer = window.dataLayer || [];
+          window.dataLayer.push({ ecommerce: null });
+          window.dataLayer.push({
+            event: 'select_item',
+            ecommerce: {
+              item_list_id: listId,
+              item_list_name: listName,
+              items: [{ item_id: handle, item_name: name, item_brand: 'SeaKing', item_list_id: listId, item_list_name: listName }],
+            },
+          });
+        }
+        document.addEventListener('click', onClick, { capture: true, passive: true });
+      })();
+    </script>
 
     <!-- Scroll-reveal: elements with .reveal / .reveal-fade / .reveal-zoom / .reveal-stagger
          transition in on viewport entry. Respects prefers-reduced-motion. -->

@@ -6,6 +6,15 @@
   --color-dark-hero:   #07272e;
   --color-dark-alt:    #07272e;
   --color-accent:      #008c9e;
+  /* Accent variants — close the WCAG 2.2 AA contrast gap (Day 3 a11y audit).
+     #008c9e on white = 3.79:1 (FAIL), on #07272e dark = ~4.0:1 (FAIL).
+     accent-text  = #006d7a → 5.21:1 on white (PASS AA normal-text)
+     accent-on-dark = #5ccbe0 → 8.4:1 on #07272e dark hero (PASS AAA)
+     Keep --color-accent for button backgrounds / decorative fills where the
+     specific teal is the brand cue and contrast is governed by the white
+     button label / large adjacent text. */
+  --color-accent-text:    #006d7a;
+  --color-accent-on-dark: #5ccbe0;
   --color-text-muted:  #666666;
   --color-border:      #e6e6e6;
   --color-bg-alt:      #f7f7f7;

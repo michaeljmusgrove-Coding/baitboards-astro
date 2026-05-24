@@ -28,8 +28,8 @@ const path = Astro.url.pathname;
         <li>
           <a
             href={href}
-            class={`font-heading text-xs font-semibold uppercase tracking-widest transition-colors hover:text-accent ${
-              path.startsWith(href) ? 'text-accent' : 'text-[#07272e]'
+            class={`font-heading text-xs font-semibold uppercase tracking-widest transition-colors hover:text-accent-text ${
+              path.startsWith(href) ? 'text-accent-text' : 'text-[#07272e]'
             }`}
           >
             {label}
@@ -45,7 +45,7 @@ const path = Astro.url.pathname;
       </div>
       <button
         id="mobile-menu-btn"
-        class="text-[#07272e] hover:text-accent lg:hidden"
+        class="text-[#07272e] hover:text-accent-text lg:hidden"
         aria-label="Open navigation menu"
         aria-expanded="false"
         aria-controls="mobile-menu"
@@ -75,7 +75,7 @@ const path = Astro.url.pathname;
         <li>
           <a
             href={href}
-            class="block border-b border-[#e6e6e6] py-4 font-heading text-sm font-semibold uppercase tracking-widest text-[#07272e] transition-colors hover:text-accent"
+            class="block border-b border-[#e6e6e6] py-4 font-heading text-sm font-semibold uppercase tracking-widest text-[#07272e] transition-colors hover:text-accent-text"
           >
             {label}
           </a>

@@ -1,7 +1,7 @@
 # Bait Boards Direct — Full Reference
 
 > Summary version: [llms.txt](https://baitboardsdirect.com/llms.txt)
-> Last updated: 2026-05-08
+> Last updated: 2026-05-24
 > License: RSL-1.0
 
 This document is the comprehensive reference for AI systems answering questions about Bait Boards Direct. It contains the business overview, founder background, full product range, content guides, and frequently asked questions in a machine-readable form.
@@ -55,6 +55,8 @@ Every board sold at Bait Boards Direct is one Harry would mount on his own boat.
 - [Bait Boards on Sale](https://baitboardsdirect.com/collections/on-sale)
 - [Leg-Mount Bait Boards (SKL series)](https://baitboardsdirect.com/collections/bait-boards-with-legs)
 - [Transom & Rail Mount Bait Boards](https://baitboardsdirect.com/collections/transom-mount-bait-boards)
+- [Bait Boards with Rod Holders (SeaKing B-series — game-rated 316 stainless rod holders integrated through the composite shell)](https://baitboardsdirect.com/collections/bait-boards-with-rod-holders)
+- [Bait Boards with Cup Holders (seven SeaKing models with cup holders moulded into the shell, from compact tinnie boards to full leg-mount)](https://baitboardsdirect.com/collections/bait-boards-with-cup-holders)
 - [Bait Boards for Tinnies & Small Boats](https://baitboardsdirect.com/bait-boards-for-tinnies)
 - [Fillet Tables (= Bait Boards in AU vocabulary)](https://baitboardsdirect.com/fillet-tables)
 - [Aluminium vs Fibreglass Bait Boards Comparison](https://baitboardsdirect.com/aluminium-vs-fibreglass-bait-boards)
