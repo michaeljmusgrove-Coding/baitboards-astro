@@ -33,7 +33,12 @@ for (const file of walk(DIST)) {
   while ((m = re.exec(html)) !== null) {
     const attrs = m[1];
     const body = m[2];
-    if (/type=["']application\/ld\+json["']/i.test(attrs)) continue;
+    // Skip data blocks (LD+JSON, plain JSON, importmaps, speculation rules).
+    // Browsers don't enforce script-src CSP on type="application/json" /
+    // "application/ld+json" / "importmap" / "speculationrules" blocks —
+    // they're data, not executable script. Including them blows out the
+    // CSP header above CF's 2000-char line limit unnecessarily.
+    if (/type=["'](?:application\/(?:ld\+)?json|importmap|speculationrules)["']/i.test(attrs)) continue;
     if (body.trim() === '') continue;
     const digest = createHash('sha256').update(body, 'utf8').digest('base64');
     hashes.add(`'sha256-${digest}'`);

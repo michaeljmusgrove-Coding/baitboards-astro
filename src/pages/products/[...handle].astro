@@ -487,41 +487,17 @@ const productSchema = {
     </div>
   </div>
 
-  {/* GA4 view_item event — fires once on PDP load. Uses requestIdleCallback
-      so it doesn't compete with LCP. Product data is pre-rendered at build
-      time and injected via define:vars so there's no runtime fetch cost. */}
-  <script
-    is:inline
-    define:vars={{
-      ga4Item: {
-        item_id: product.handle,
-        item_name: product.title,
-        price: product.price,
-        item_brand: 'SeaKing',
-        currency: 'AUD',
-      },
-    }}
-  >
-    (function () {
-      function fire() {
-        window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ ecommerce: null });
-        window.dataLayer.push({
-          event: 'view_item',
-          ecommerce: {
-            currency: 'AUD',
-            value: ga4Item.price || 0,
-            items: [ga4Item],
-          },
-        });
-      }
-      if ('requestIdleCallback' in window) {
-        requestIdleCallback(fire, { timeout: 2000 });
-      } else {
-        setTimeout(fire, 1000);
-      }
-    })();
-  </script>
+  {/* GA4 page-data — read by the single bundled script in BaseLayout.
+      Kept as type="application/json" so it's CSP-exempt and adds no hash. */}
+  <script type="application/json" id="ga4-page-data" set:html={JSON.stringify({
+    event: 'view_item',
+    item: {
+      item_id: product.handle,
+      item_name: product.title,
+      price: product.price,
+      item_brand: 'SeaKing',
+    },
+  })} />
 
   <script is:inline>
     (function () {
