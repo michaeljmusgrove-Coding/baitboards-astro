@@ -34,7 +34,7 @@ const schema = {
   <!-- Header -->
   <section class="bg-dark-hero py-14 text-white">
     <div class="container max-w-3xl">
-      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent-on-dark">
+      <p class="mb-2 text-xs font-bold uppercase tracking-widest text-accent-on-dark">
         <a href="/" class="hover:underline">Home</a> &rsaquo; Articles
       </p>
       <h1 class="font-heading text-3xl font-extrabold sm:text-4xl">Bait Board Articles &amp; Buying Guides</h1>
@@ -54,7 +54,7 @@ const schema = {
             class="group block rounded-2xl border border-border bg-white p-6 shadow-sm transition hover:border-accent hover:shadow-md sm:p-8"
           >
             <div class="flex flex-col gap-3">
-              <p class="text-xs font-semibold uppercase tracking-widest text-accent-on-dark">
+              <p class="text-xs font-bold uppercase tracking-widest text-accent-on-dark">
                 {article.data.publishedAt.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
               </p>
               <h2 class="font-heading text-xl font-extrabold leading-tight text-primary group-hover:text-accent-text sm:text-2xl">
@@ -63,7 +63,7 @@ const schema = {
               <p class="text-sm leading-relaxed text-text-muted sm:text-base">
                 {article.data.description}
               </p>
-              <span class="mt-2 inline-flex items-center gap-2 text-sm font-semibold text-accent-text transition-all group-hover:gap-3">
+              <span class="mt-2 inline-flex items-center gap-2 text-sm font-bold text-accent-text transition-all group-hover:gap-3">
                 Read article &rarr;
               </span>
             </div>

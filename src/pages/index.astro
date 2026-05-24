@@ -118,8 +118,10 @@ const blackRange = [
     </div>
   </section>
 
-  <!-- Hero slideshow JS -->
-  <script is:inline>
+  {/* Hero slideshow JS — bundled (no is:inline) so it loads as a deferred
+      external chunk; saves ~150-300ms of inline-script execution on the
+      parse path per Day 4 home PSI advisory. */}
+  <script>
     (function () {
       var current = 1;
       var total = 2;
@@ -164,7 +166,7 @@ const blackRange = [
         { icon: '🔒', label: 'Secure Shopify Pay checkout' },
         { icon: '🅿️', label: 'Afterpay available' },
       ].map(item => (
-        <li class="flex items-center gap-2 whitespace-nowrap text-xs font-semibold uppercase tracking-widest text-[#07272e]">
+        <li class="flex items-center gap-2 whitespace-nowrap text-xs font-bold uppercase tracking-widest text-[#07272e]">
           <span aria-hidden="true">{item.icon}</span>
           <span>{item.label}</span>
         </li>
@@ -208,7 +210,7 @@ const blackRange = [
                 />
               </div>
               <div class="p-3 sm:p-4">
-                <h3 class="font-heading text-xs font-semibold leading-snug text-primary line-clamp-2 sm:text-sm">
+                <h3 class="font-heading text-xs font-bold leading-snug text-primary line-clamp-2 sm:text-sm">
                   {product.title}
                 </h3>
                 <div class="mt-2 flex items-center gap-2 flex-wrap">
@@ -273,7 +275,7 @@ const blackRange = [
               {card.title}
             </h3>
             <p class="text-sm leading-relaxed text-gray-600">{card.desc}</p>
-            <span class="mt-4 inline-block text-xs font-semibold uppercase tracking-widest text-[#008c9e]">Explore &rarr;</span>
+            <span class="mt-4 inline-block text-xs font-bold uppercase tracking-widest text-[#008c9e]">Explore &rarr;</span>
           </a>
         ))}
       </div>
@@ -312,7 +314,7 @@ const blackRange = [
               '🛡️ 1-year warranty + 30-day returns',
               '📞 Talk to Harry — 0474 332 034',
             ].map(badge => (
-              <span class="rounded border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-semibold uppercase tracking-wide text-[#07272e]">
+              <span class="rounded border border-gray-200 bg-gray-50 px-3 py-1 text-xs font-bold uppercase tracking-wide text-[#07272e]">
                 {badge}
               </span>
             ))}
@@ -334,7 +336,7 @@ const blackRange = [
             <a href={`/products/${p.handle}`}>
               <img src={shopifyImage(p.image, 800)} alt={p.title} width="800" height="800" class="w-full rounded-xl" loading="lazy" />
             </a>
-            <p class="text-xs font-semibold uppercase tracking-widest text-gray-400">{p.type}</p>
+            <p class="text-xs font-bold uppercase tracking-widest text-gray-400">{p.type}</p>
             <h3 class="font-bold text-[#07272e]">
               <a href={`/products/${p.handle}`} class="hover:text-[#008c9e]">{p.title}</a>
             </h3>
@@ -446,7 +448,7 @@ const blackRange = [
       </p>
       <div class="flex flex-col items-center justify-center gap-3 sm:flex-row">
         <a href={`tel:${site.contact.phone.replace(/\s/g, '')}`} class="button-accent">Call Harry — {site.contact.phone}</a>
-        <a href="/contact" class="text-sm font-semibold text-white/80 underline underline-offset-4 transition-colors hover:text-white">or send a message</a>
+        <a href="/contact" class="text-sm font-bold text-white/80 underline underline-offset-4 transition-colors hover:text-white">or send a message</a>
       </div>
     </div>
   </section>
@@ -460,7 +462,7 @@ const blackRange = [
       <form id="home-contact-form" class="space-y-5" method="get" action={`mailto:${site.contact.email}`} enctype="text/plain">
         <div class="grid gap-5 sm:grid-cols-2">
           <label class="flex flex-col gap-1.5">
-            <span class="text-xs font-semibold uppercase tracking-wide text-[#07272e]">Name</span>
+            <span class="text-xs font-bold uppercase tracking-wide text-[#07272e]">Name</span>
             <input
               type="text"
               name="Name"
@@ -469,7 +471,7 @@ const blackRange = [
             />
           </label>
           <label class="flex flex-col gap-1.5">
-            <span class="text-xs font-semibold uppercase tracking-wide text-[#07272e]">
+            <span class="text-xs font-bold uppercase tracking-wide text-[#07272e]">
               Email <span class="text-red-500">*</span>
             </span>
             <input
@@ -482,7 +484,7 @@ const blackRange = [
           </label>
         </div>
         <label class="flex flex-col gap-1.5">
-          <span class="text-xs font-semibold uppercase tracking-wide text-[#07272e]">Phone</span>
+          <span class="text-xs font-bold uppercase tracking-wide text-[#07272e]">Phone</span>
           <input
             type="tel"
             name="Phone"
@@ -491,7 +493,7 @@ const blackRange = [
           />
         </label>
         <label class="flex flex-col gap-1.5">
-          <span class="text-xs font-semibold uppercase tracking-wide text-[#07272e]">Your message</span>
+          <span class="text-xs font-bold uppercase tracking-wide text-[#07272e]">Your message</span>
           <textarea
             name="Message"
             rows="6"
@@ -501,7 +503,7 @@ const blackRange = [
         <button type="submit" class="button-accent">Send via email</button>
         <p class="text-xs text-text-muted">
           Submitting opens your email app with the message pre-filled. Prefer a faster channel?
-          <a href={`tel:${site.contact.phone.replace(/\s/g, '')}`} class="font-semibold text-[#008c9e] hover:text-[#07272e] underline underline-offset-2">Call Harry on {site.contact.phone}</a>.
+          <a href={`tel:${site.contact.phone.replace(/\s/g, '')}`} class="font-bold text-[#008c9e] hover:text-[#07272e] underline underline-offset-2">Call Harry on {site.contact.phone}</a>.
         </p>
       </form>
       <script is:inline>

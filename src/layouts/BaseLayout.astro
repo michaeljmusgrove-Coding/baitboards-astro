@@ -253,17 +253,15 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
          All families use font-display: swap so text-LCP is not blocked on font
          delivery. -->
     <link rel="preload" href="/fonts/archivo/archivo-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    <link rel="preload" href="/fonts/archivo/archivo-600.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
-    {/* Montserrat 800 preload dropped 2026-05-24 (Day 4 PSI sweep fix 1b) —
-        only used in H1s, font-display:swap handles it cleanly via the
-        metric-matched 'Montserrat Fallback' family. Free 100-200ms FCP win
-        on every page that doesn't have a Montserrat-heavy above-fold
-        block, which is most of the site. */}
+    {/* Font roster trimmed 2026-05-24 PM (Day 4 home perf advisory):
+        Network analysis showed all 6 woff2 files (230 KiB total) loading
+        at VeryHigh/High priority, competing with hero image for Slow 4G
+        bandwidth. Site-wide `font-semibold` → `font-bold` sweep removed
+        every 600-weight usage; Archivo 600 + Montserrat 600 @font-face
+        entries dropped accordingly. Saves ~80 KiB on every page load. */}
     <style>
       @font-face{font-family:'Archivo';font-style:normal;font-weight:400;font-display:swap;src:url('/fonts/archivo/archivo-400.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-      @font-face{font-family:'Archivo';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/archivo/archivo-600.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
       @font-face{font-family:'Archivo';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/archivo/archivo-700.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
-      @font-face{font-family:'Montserrat';font-style:normal;font-weight:600;font-display:swap;src:url('/fonts/montserrat/montserrat-600.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
       @font-face{font-family:'Montserrat';font-style:normal;font-weight:700;font-display:swap;src:url('/fonts/montserrat/montserrat-700.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
       @font-face{font-family:'Montserrat';font-style:normal;font-weight:800;font-display:swap;src:url('/fonts/montserrat/montserrat-800.woff2') format('woff2');unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD}
       /* Metric-matched fallback fonts so the FOUT (flash of unstyled text)
@@ -412,9 +410,11 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
       }
     </script>
 
-    <!-- Scroll-reveal: elements with .reveal / .reveal-fade / .reveal-zoom / .reveal-stagger
-         transition in on viewport entry. Respects prefers-reduced-motion. -->
-    <script is:inline>
+    {/* Scroll-reveal: elements with .reveal / .reveal-fade / .reveal-zoom /
+        .reveal-stagger transition in on viewport entry. Respects
+        prefers-reduced-motion. Bundled (no is:inline) so it loads as a
+        deferred external chunk and doesn't block the parse path. */}
+    <script>
       (function () {
         if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
         var targets = document.querySelectorAll('.reveal, .reveal-fade, .reveal-zoom, .reveal-stagger');
