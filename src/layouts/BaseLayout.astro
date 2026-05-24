@@ -326,38 +326,80 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
     </main>
     <Footer />
 
-    <!-- GA4 select_item — delegated click listener for any anchor pointing
-         to /products/<handle>. Captures clicks on collection grids, product
-         cards, related-products carousels, etc. without per-component edits.
-         The handle is parsed from the href; list context comes from the
-         document title fallback when no explicit data attribute is set. -->
-    <script is:inline>
-      (function () {
-        function onClick(e) {
-          var anchor = e.target && e.target.closest ? e.target.closest('a[href^="/products/"]') : null;
-          if (!anchor) return;
-          var href = anchor.getAttribute('href') || '';
-          var match = href.match(/^\/products\/([^?#/]+)/);
-          if (!match) return;
-          var handle = match[1];
-          // Title hint: prefer alt of inner image (set to product title sitewide), fall back to inner text.
-          var img = anchor.querySelector('img');
-          var name = (img && img.getAttribute('alt')) || (anchor.textContent || '').trim().slice(0, 120);
-          var listId = anchor.getAttribute('data-ga4-list-id') || (location.pathname.replace(/\W+/g, '-').replace(/^-|-$/g, '') || 'site');
-          var listName = anchor.getAttribute('data-ga4-list-name') || document.title.split('|')[0].trim();
-          window.dataLayer = window.dataLayer || [];
-          window.dataLayer.push({ ecommerce: null });
-          window.dataLayer.push({
-            event: 'select_item',
-            ecommerce: {
-              item_list_id: listId,
-              item_list_name: listName,
-              items: [{ item_id: handle, item_name: name, item_brand: 'SeaKing', item_list_id: listId, item_list_name: listName }],
-            },
-          });
+    {/* GA4 ecom listener — single bundled script (Astro processes <script>
+        without is:inline as an external bundle so it doesn't consume a CSP hash).
+        Handles: view_item / view_item_list page events (reads the
+        type="application/json" #ga4-page-data block on the page), and
+        select_item via delegated click on any /products/<handle> anchor. */}
+    <script>
+      function pushEcom(event: string, payload: Record<string, unknown>): void {
+        const dl = ((window as unknown) as { dataLayer?: unknown[] }).dataLayer || [];
+        ((window as unknown) as { dataLayer: unknown[] }).dataLayer = dl;
+        dl.push({ ecommerce: null });
+        dl.push({ event, ecommerce: payload });
+      }
+
+      function firePageEvent(): void {
+        const dataEl = document.getElementById('ga4-page-data');
+        if (!dataEl) return;
+        try {
+          const cfg = JSON.parse(dataEl.textContent || '{}');
+          if (cfg.event === 'view_item' && cfg.item) {
+            pushEcom('view_item', {
+              currency: 'AUD',
+              value: cfg.item.price || 0,
+              items: [cfg.item],
+            });
+          } else if (cfg.event === 'view_item_list' && Array.isArray(cfg.items)) {
+            const items = cfg.items.map((it: Record<string, unknown>) => ({
+              ...it,
+              item_list_id: cfg.list_id,
+              item_list_name: cfg.list_name,
+            }));
+            pushEcom('view_item_list', {
+              item_list_id: cfg.list_id,
+              item_list_name: cfg.list_name,
+              items,
+            });
+          }
+        } catch (_err) {
+          /* silently swallow — malformed JSON should not break the page */
+        }
+      }
+
+      function onClick(e: MouseEvent): void {
+        const target = e.target as Element | null;
+        const anchor = target && target.closest ? target.closest('a[href^="/products/"]') as HTMLAnchorElement | null : null;
+        if (!anchor) return;
+        const href = anchor.getAttribute('href') || '';
+        const match = href.match(/^\/products\/([^?#/]+)/);
+        if (!match) return;
+        const handle = match[1];
+        const img = anchor.querySelector('img');
+        const name = (img && img.getAttribute('alt')) || (anchor.textContent || '').trim().slice(0, 120);
+        const listId = anchor.getAttribute('data-ga4-list-id') || (location.pathname.replace(/\W+/g, '-').replace(/^-|-$/g, '') || 'site');
+        const listName = anchor.getAttribute('data-ga4-list-name') || document.title.split('|')[0].trim();
+        pushEcom('select_item', {
+          item_list_id: listId,
+          item_list_name: listName,
+          items: [{ item_id: handle, item_name: name, item_brand: 'SeaKing', item_list_id: listId, item_list_name: listName }],
+        });
+      }
+
+      function init(): void {
+        if ('requestIdleCallback' in window) {
+          (window as unknown as { requestIdleCallback: (cb: () => void, opts: { timeout: number }) => void }).requestIdleCallback(firePageEvent, { timeout: 2000 });
+        } else {
+          setTimeout(firePageEvent, 1000);
         }
         document.addEventListener('click', onClick, { capture: true, passive: true });
-      })();
+      }
+
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init, { once: true });
+      } else {
+        init();
+      }
     </script>
 
     <!-- Scroll-reveal: elements with .reveal / .reveal-fade / .reveal-zoom / .reveal-stagger
