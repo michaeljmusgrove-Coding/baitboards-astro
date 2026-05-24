@@ -229,6 +229,12 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
     <link rel="canonical" href={canonicalUrl} />
     <link rel="alternate" hreflang="en-AU" href={canonicalUrl} />
     <link rel="alternate" hreflang="x-default" href={canonicalUrl} />
+
+    {/* Pre-establish connection to Shopify CDN — every page eventually fetches
+        product images, cart-state, or checkout redirect from cdn.shopify.com.
+        Preconnect saves ~100-200ms on the first such fetch by warming TLS +
+        DNS in parallel with the HTML parse. Day 4 PSI advisory (free win). */}
+    <link rel="preconnect" href="https://cdn.shopify.com" crossorigin />
     <!-- Favicon set — .ico for legacy browser default requests, .svg for sharp
          vector rendering, .png fallback, apple-touch-icon for iOS home-screen,
          PWA manifest for Android/installable shortcut. -->
