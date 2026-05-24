@@ -2,14 +2,29 @@
   import { preventDefault } from 'svelte/legacy';
 
   import { addCartItem, isCartUpdating, cart } from "../stores/cart";
+  import { addToCart as ga4AddToCart } from "../utils/dataLayer";
 
   interface Props {
     variantId: string;
     variantQuantityAvailable: number;
     variantAvailableForSale: boolean;
+    productId?: string;
+    productName?: string;
+    productPrice?: number;
+    productHandle?: string;
+    productBrand?: string;
   }
 
-  let { variantId, variantQuantityAvailable, variantAvailableForSale }: Props = $props();
+  let {
+    variantId,
+    variantQuantityAvailable,
+    variantAvailableForSale,
+    productId,
+    productName,
+    productPrice,
+    productHandle,
+    productBrand = 'SeaKing',
+  }: Props = $props();
 
   // Check if the variant is already in the cart and if there are any units left
   let variantInCart =
@@ -22,10 +37,23 @@
     const form = e.target as HTMLFormElement;
     const formData = new FormData(form);
     const { id, quantity } = Object.fromEntries(formData);
+    const qty = parseInt(quantity as string);
     const item = {
       id: id as string,
-      quantity: parseInt(quantity as string),
+      quantity: qty,
     };
+    // GA4 add_to_cart push — fires before the network call so even if the
+    // Storefront mutation fails the intent is still measurable. The cart
+    // store will fire its own error state in the UI on failure.
+    if (productName && productHandle) {
+      ga4AddToCart({
+        item_id: productHandle,
+        item_name: productName,
+        price: productPrice,
+        quantity: qty,
+        item_brand: productBrand,
+      });
+    }
     addCartItem(item);
   }
 </script>

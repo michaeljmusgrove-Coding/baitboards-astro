@@ -42,9 +42,9 @@ const articleSchema = {
   publisher: { '@id': `${site.domain}/#store` },
   isPartOf: { '@id': `${site.domain}/#website` },
   mainEntityOfPage: { '@type': 'WebPage', '@id': canonicalUrl },
-  ...(article.data.image && {
-    image: { '@type': 'ImageObject', url: `${site.domain}${article.data.image}` },
-  }),
+  image: article.data.image
+    ? { '@type': 'ImageObject', url: `${site.domain}${article.data.image}` }
+    : [`${site.domain}${site.ogImage}`],
 };
 
 // HowTo schema — only emitted for the install guide. The article uses
@@ -130,7 +130,7 @@ const pageSchemas = howToSchema ? [articleSchema, howToSchema] : articleSchema;
   <!-- Article header -->
   <section class="bg-dark-hero py-14 text-white">
     <div class="container max-w-3xl">
-      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent-on-dark">
         <a href="/" class="hover:underline">Home</a> &rsaquo;
         <a href="/articles" class="hover:underline">Articles</a>
       </p>
@@ -140,7 +140,7 @@ const pageSchemas = howToSchema ? [articleSchema, howToSchema] : articleSchema;
       <p class="mt-4 text-sm text-white/70">
         Published {article.data.publishedAt.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}
         {article.data.updatedAt && ` · Updated ${article.data.updatedAt.toLocaleDateString('en-AU', { year: 'numeric', month: 'long', day: 'numeric' })}`}
-        · By <a href="/about#founder" class="text-accent underline underline-offset-2">Harry, Bait Boards Direct</a>
+        · By <a href="/about#founder" class="text-accent-text underline underline-offset-2">Harry, Bait Boards Direct</a>
       </p>
     </div>
   </section>

@@ -18,6 +18,15 @@ const fallbackDescription = "Bait boards for boats — premium fibreglass SeaKin
 const title = collection?.seo.title?.trim() || fallbackTitle;
 const description = collection?.seo.description?.trim() || fallbackDescription;
 
+// Price-range computed at build time from the live Shopify catalogue.
+// Drives the AggregateOffer block below, which gives Google a "from $X"
+// SERP hint on this collection page (Day 4 schema audit M4).
+const inStockPrices = products
+  .filter((p) => p.availableForSale && typeof p.price === 'number' && p.price > 0)
+  .map((p) => p.price);
+const lowPrice = inStockPrices.length ? Math.min(...inStockPrices) : null;
+const highPrice = inStockPrices.length ? Math.max(...inStockPrices) : null;
+
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
@@ -35,6 +44,16 @@ const schema = {
       name: p.title,
     })),
   },
+  ...(lowPrice !== null && highPrice !== null && {
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'AUD',
+      lowPrice: lowPrice.toFixed(2),
+      highPrice: highPrice.toFixed(2),
+      offerCount: products.length,
+      availability: 'https://schema.org/InStock',
+    },
+  }),
 };
 ---
 
@@ -43,7 +62,7 @@ const schema = {
   <!-- Collection header -->
   <section class="bg-dark-hero py-14 text-white">
     <div class="container">
-      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent-on-dark">
         <a href="/" class="hover:underline">Home</a> &rsaquo; Bait Boards
       </p>
       <h1 class="font-heading text-3xl font-extrabold sm:text-4xl" style="font-style:normal; text-transform:none;">Bait Boards for Boats — Premium Fibreglass Range</h1>
@@ -73,6 +92,7 @@ const schema = {
   <!-- Product grid -->
   <section class="bg-white py-12 sm:py-16">
     <div class="container">
+      <h2 class="sr-only">SeaKing bait board range</h2>
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {products.map((product, index) => {
           const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
@@ -145,25 +165,75 @@ const schema = {
     </div>
   </section>
 
+  {/* GA4 view_item_list event — fires once on collection load via
+      requestIdleCallback so it doesn't compete with LCP. */}
+  <script
+    is:inline
+    define:vars={{
+      listId: 'collection-bait-boards',
+      listName: 'Bait Boards',
+      items: products.map((p, i) => ({
+        item_id: p.handle,
+        item_name: p.title,
+        price: p.price,
+        index: i,
+        item_brand: 'SeaKing',
+        item_list_id: 'collection-bait-boards',
+        item_list_name: 'Bait Boards',
+      })),
+    }}
+  >
+    (function () {
+      function fire() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ ecommerce: null });
+        window.dataLayer.push({
+          event: 'view_item_list',
+          ecommerce: { item_list_id: listId, item_list_name: listName, items: items },
+        });
+      }
+      'requestIdleCallback' in window
+        ? requestIdleCallback(fire, { timeout: 2000 })
+        : setTimeout(fire, 1000);
+    })();
+  </script>
+
   <!-- SEO text block -->
   <section class="border-t border-gray-200 bg-[#f7f7f7] py-14">
     <div class="container max-w-3xl">
       <h2 class="font-heading mb-6 text-2xl font-extrabold text-[#07272e]">
         Bait Boards for Every Boat — Tinnie to Offshore Centre Console
       </h2>
+
+      {/* Microformat answer block — scannable bullet summary at the top of
+          the body copy gives AI Overviews + Perplexity passage-extractors a
+          single citable chunk for "what makes a SeaKing bait board" queries.
+          Matches Day 4 GEO audit recommendation M2 (passage-level citability).
+      */}
+      <div class="mb-8 rounded-2xl border border-[#008c9e]/20 bg-white p-5 sm:p-6">
+        <p class="mb-3 text-xs font-semibold uppercase tracking-widest text-accent-text">What makes a SeaKing bait board</p>
+        <ul class="space-y-2 text-sm leading-relaxed text-[#07272e] sm:text-base">
+          <li><strong>Composite fibreglass shell</strong> — marine-grade gelcoat, UV-stable, electrochemically inert.</li>
+          <li><strong>316 marine stainless hardware</strong> — bolts, rod-holder bases, drain fittings; no galvanic failure mode.</li>
+          <li><strong>Integrated sink + drain</strong> — moulded into the shell during manufacture, not bolted on.</li>
+          <li><strong>Australian-made</strong> — handcrafted in Melbourne by a working fibreglass boat builder.</li>
+          <li><strong>1-year warranty + free AU-wide shipping</strong> — every board, every order.</li>
+        </ul>
+      </div>
+
       <div class="space-y-4 text-sm leading-relaxed text-gray-600">
         <p>
           Whether you need a compact boat bait board for a tinnie or a 900mm offshore-grade
           setup with integrated rod holders, the SeaKing range covers every Australian fishing
           rig. Every board is built from full composite fibreglass — the same material used in
           marine hull construction — with 316 marine-grade stainless steel hardware throughout.
-          For smaller vessels, see our <a href="/bait-boards-for-tinnies" class="text-accent underline underline-offset-2 hover:text-primary">bait boards for tinnies</a> range.
+          For smaller vessels, see our <a href="/bait-boards-for-tinnies" class="text-accent-text underline underline-offset-2 hover:text-primary">bait boards for tinnies</a> range.
         </p>
         <p>
           Not sure whether fibreglass or aluminium is right for your boat? Read our detailed
-          <a href="/aluminium-vs-fibreglass-bait-boards" class="text-accent underline underline-offset-2 hover:text-primary">aluminium vs fibreglass bait boards comparison</a> covering weight,
+          <a href="/aluminium-vs-fibreglass-bait-boards" class="text-accent-text underline underline-offset-2 hover:text-primary">aluminium vs fibreglass bait boards comparison</a> covering weight,
           durability, hardware, and total cost over a 10-year ownership window. For boards
-          that come with rod holders included, the <a href="/collections/bait-boards-with-rod-holders" class="text-accent underline underline-offset-2 hover:text-primary">B-series rod-holder
+          that come with rod holders included, the <a href="/collections/bait-boards-with-rod-holders" class="text-accent-text underline underline-offset-2 hover:text-primary">B-series rod-holder
           range</a> is purpose-built — game-rated 316 stainless holders, integrated through
           the fibreglass shell to transfer marlin/tuna drag load through the board structure.
         </p>

@@ -11,6 +11,7 @@
   import ShopifyImage from "./ShopifyImage.svelte";
   import Money from "./Money.svelte";
   import { clickOutside } from "../utils/click-outside";
+  import { viewCart, removeFromCart as ga4RemoveFromCart } from "../utils/dataLayer";
 
   let cartDrawerEl: HTMLDivElement = $state();
 
@@ -19,15 +20,40 @@
     ? "opacity-50 pointer-events-none"
     : "");
 
-  // Add focus to cart drawer when it opens
+  // Add focus to cart drawer when it opens. Also fires GA4 view_cart event
+  // exactly once per open so the funnel measurement matches user intent
+  // (otherwise we'd push on every reactive re-run).
   run(() => {
     if ($isCartDrawerOpen) {
       document.querySelector("body")?.classList.add("overflow-hidden");
       cartDrawerEl?.focus();
+      const c = $cart;
+      if (c && c.lines?.nodes.length > 0) {
+        const items = c.lines.nodes.map((line) => ({
+          item_id: line.merchandise.product.handle,
+          item_name: line.merchandise.product.title,
+          price: parseFloat(line.cost.amountPerQuantity.amount),
+          quantity: line.quantity,
+          item_brand: 'SeaKing',
+        }));
+        const value = parseFloat(c.cost.subtotalAmount.amount);
+        viewCart(items, value);
+      }
     }
   });
 
   function removeItem(id: string) {
+    const c = $cart;
+    const line = c?.lines?.nodes.find((l) => l.id === id);
+    if (line) {
+      ga4RemoveFromCart({
+        item_id: line.merchandise.product.handle,
+        item_name: line.merchandise.product.title,
+        price: parseFloat(line.cost.amountPerQuantity.amount),
+        quantity: line.quantity,
+        item_brand: 'SeaKing',
+      });
+    }
     removeCartItems([id]);
   }
 

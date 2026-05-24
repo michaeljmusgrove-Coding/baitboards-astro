@@ -5,7 +5,7 @@ import { shopifyImage } from '../../utils/shopifyImage';
 import { site } from '../../config/site';
 
 const title = "Bait Boards with Rod Holders — Game-Rated SeaKing B-Series | Bait Boards Direct";
-const description = "Fibreglass bait boards with rod holders included — the SeaKing B-series with 2 game-rated 316 marine stainless rod holders integrated through the composite shell. Built for marlin, tuna, and kingfish drag loads. Free Australia-wide shipping.";
+const description = "SeaKing B-series fibreglass bait boards with game-rated rod holders integrated through the composite shell — for marlin, tuna, kingfish. Free AU shipping.";
 
 // The B-series — every model in this list ships with 2 game-rated 316 marine
 // stainless rod holders as part of the board, NOT bolted on afterwards. The
@@ -52,7 +52,7 @@ const schema = {
   <!-- Hero -->
   <section class="bg-dark-hero py-14 text-white">
     <div class="container">
-      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent-on-dark">
         <a href="/" class="hover:underline">Home</a> &rsaquo;
         <a href="/collections/bait-boards" class="hover:underline">Bait Boards</a> &rsaquo;
         With Rod Holders
@@ -78,7 +78,7 @@ const schema = {
           On the SeaKing B-series, the rod holder tubes are reinforced through the fibreglass shell during manufacture. The structural connection runs into the board itself, distributing drag load across the whole shell rather than concentrating at the surface fasteners. You get a properly engineered rig that handles the same loads as a transom rod holder, in a bait-board form factor.
         </p>
         <p>
-          If you already own a SeaKing board without rod holders, we also stock the <a href="/products/rod-holders" class="text-accent underline underline-offset-2 hover:text-primary">standalone 316 stainless Game Rated Rod Holder</a> — same 316 marine grade, suited to retrofitting if your board has the structural backing for it. <a href="/contact" class="text-accent underline underline-offset-2 hover:text-primary">Contact us</a> with your board model and we'll confirm fit.
+          If you already own a SeaKing board without rod holders, we also stock the <a href="/products/rod-holders" class="text-accent-text underline underline-offset-2 hover:text-primary">standalone 316 stainless Game Rated Rod Holder</a> — same 316 marine grade, suited to retrofitting if your board has the structural backing for it. <a href="/contact" class="text-accent-text underline underline-offset-2 hover:text-primary">Contact us</a> with your board model and we'll confirm fit.
         </p>
       </div>
     </div>
@@ -152,10 +152,42 @@ const schema = {
   <section class="border-t border-gray-200 bg-white py-10">
     <div class="container max-w-3xl text-center">
       <p class="text-sm text-text-muted sm:text-base">
-        Want a board without rod holders, or a leg-mount configuration? <a href="/collections/bait-boards" class="font-semibold text-accent underline underline-offset-2 hover:text-primary">Browse the full SeaKing bait board range</a> &mdash; every fibreglass model in the catalogue.
+        Want a board without rod holders, or a leg-mount configuration? <a href="/collections/bait-boards" class="font-semibold text-accent-text underline underline-offset-2 hover:text-primary">Browse the full SeaKing bait board range</a> &mdash; every fibreglass model in the catalogue.
       </p>
     </div>
   </section>
+
+  {/* GA4 view_item_list */}
+  <script
+    is:inline
+    define:vars={{
+      listId: 'collection-bait-boards-with-rod-holders',
+      listName: 'Bait Boards with Rod Holders',
+      items: products.map((p, i) => ({
+        item_id: p.handle,
+        item_name: p.title,
+        price: p.price,
+        index: i,
+        item_brand: 'SeaKing',
+        item_list_id: 'collection-bait-boards-with-rod-holders',
+        item_list_name: 'Bait Boards with Rod Holders',
+      })),
+    }}
+  >
+    (function () {
+      function fire() {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ ecommerce: null });
+        window.dataLayer.push({
+          event: 'view_item_list',
+          ecommerce: { item_list_id: listId, item_list_name: listName, items: items },
+        });
+      }
+      'requestIdleCallback' in window
+        ? requestIdleCallback(fire, { timeout: 2000 })
+        : setTimeout(fire, 1000);
+    })();
+  </script>
 
   {/* Standalone rod-holder accessory cross-sell — for users who own a
       non-B-series board and want to upgrade. Genuine adjacent intent. */}

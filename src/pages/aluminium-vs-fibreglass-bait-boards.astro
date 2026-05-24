@@ -5,20 +5,39 @@ import { shopifyImage } from '../utils/shopifyImage';
 import { site } from '../config/site';
 
 const title = "Aluminium vs Fibreglass Bait Boards — Why Fibreglass Wins for Saltwater | Bait Boards Direct";
-const description = "Choosing between aluminium and fibreglass bait boards? Australian saltwater conditions favour fibreglass — no galvanic corrosion at hardware joints, longer lifespan, better integrated sink design. Browse premium fibreglass options below.";
+const description = "Aluminium vs fibreglass bait boards in Australian saltwater: fibreglass wins on galvanic corrosion, lifespan, and sink design. See the SeaKing fibreglass range.";
 
 const products = (await getCollectionByHandle({ handle: 'bait-boards', limit: 8 }));
 
-const schema = {
-  '@context': 'https://schema.org',
-  '@type': 'CollectionPage',
-  '@id': `${site.domain}/aluminium-vs-fibreglass-bait-boards/`,
-  name: 'Aluminium vs Fibreglass Bait Boards',
-  url: `${site.domain}/aluminium-vs-fibreglass-bait-boards/`,
-  description,
-  isPartOf: { '@id': `${site.domain}/#website` },
-  mainEntity: {
+// Schema: Article (was CollectionPage). This page is editorial — a comparison
+// piece, not a product list — so Article is the topically correct type and
+// unlocks the Article rich-result eligibility surfaced by the Day 4 audit.
+const publishedAt = '2026-05-20T00:00:00+10:00';
+const modifiedAt = '2026-05-24T00:00:00+10:00';
+const canonical = `${site.domain}/aluminium-vs-fibreglass-bait-boards`;
+const schema = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    '@id': `${canonical}#article`,
+    headline: 'Aluminium vs Fibreglass Bait Boards — Why Fibreglass Wins for Australian Saltwater',
+    description,
+    url: canonical,
+    datePublished: publishedAt,
+    dateModified: modifiedAt,
+    inLanguage: 'en-AU',
+    image: [`${site.domain}${site.ogImage}`],
+    author: { '@id': `${site.domain}/about#founder` },
+    publisher: { '@id': `${site.domain}/#store` },
+    isPartOf: { '@id': `${site.domain}/#website` },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': canonical },
+    keywords: 'aluminium vs fibreglass bait board, fibreglass bait board, aluminium bait board, marine corrosion, 316 stainless, galvanic corrosion',
+  },
+  {
+    '@context': 'https://schema.org',
     '@type': 'ItemList',
+    '@id': `${canonical}#related-products`,
+    name: 'Premium fibreglass bait boards',
     itemListElement: products.map((p, i) => ({
       '@type': 'ListItem',
       position: i + 1,
@@ -26,14 +45,14 @@ const schema = {
       name: p.title,
     })),
   },
-};
+];
 ---
 
 <BaseLayout title={title} description={description} schema={schema}>
 
   <section class="bg-dark-hero py-14 text-white">
     <div class="container">
-      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent">
+      <p class="mb-2 text-xs font-semibold uppercase tracking-widest text-accent-on-dark">
         <a href="/" class="hover:underline">Home</a> &rsaquo; Aluminium vs Fibreglass
       </p>
       <h1 class="font-heading text-3xl font-extrabold sm:text-4xl" style="font-style:normal; text-transform:none;">Aluminium vs Fibreglass Bait Boards</h1>
@@ -48,6 +67,17 @@ const schema = {
       <h2 class="font-heading mb-6 text-2xl font-extrabold text-[#07272e] sm:text-3xl" style="font-style:normal; text-transform:none;">The short answer</h2>
       <p class="mb-4 text-sm leading-relaxed text-text-muted sm:text-base">
         For Australian saltwater fishing, <strong>composite fibreglass is the better material</strong>. It outlasts aluminium because saltwater + dissimilar metals at hardware joints causes galvanic corrosion in aluminium frames — a slow-motion failure that shows up at year 3, not year 1. Fibreglass with 316 stainless hardware doesn't have that failure mode.
+      </p>
+
+      <h2 class="font-heading mb-6 mt-12 text-2xl font-extrabold text-[#07272e] sm:text-3xl" style="font-style:normal; text-transform:none;">Why corrosion behaviour decides the call</h2>
+      <p class="mb-4 text-sm leading-relaxed text-text-muted sm:text-base">
+        The aluminium-frame failure mode isn't the aluminium itself rusting — aluminium passivates to a thin oxide skin that's actually pretty stable. The failure mode is <strong>galvanic corrosion</strong> at every dissimilar-metal interface: where a stainless bolt meets the aluminium frame, where a brass fitting threads into an aluminium drain, where a steel rivet bridges two aluminium panels. Submerge that junction in salt-laden air (or actual spray), and the more-noble metal accelerates the corrosion of the less-noble one. The 5052 marine-grade aluminium typically used for bait-board frames is roughly position 21 on the <a href="https://en.wikipedia.org/wiki/Galvanic_series" class="text-accent-text underline underline-offset-2 hover:text-primary" rel="noopener">galvanic series</a>; 316 stainless is at position 5. The voltage gap drives current through any electrolyte, and salt spray is a fine electrolyte.
+      </p>
+      <p class="mb-4 text-sm leading-relaxed text-text-muted sm:text-base">
+        Fibreglass is a composite — glass fibre laid up in a polymer resin matrix. It's electrochemically inert. The board itself can't enter a galvanic couple with the hardware because the polymer matrix is a dielectric. That's why 10-year-old SeaKing boards we see come back for cosmetic refresh, not structural rebuild — there's no slow corrosion mechanism eating the structure.
+      </p>
+      <p class="mb-4 text-sm leading-relaxed text-text-muted sm:text-base">
+        Weight is the other axis. An 800mm fibreglass board is typically 6-9 kg fully fitted; the same size aluminium-frame board is 4-6 kg. On a 4m tinnie where every kilogram matters, that 2-3 kg gap is real. On anything from a 4.5m runabout up, the structural rigidity of the fibreglass shell — which doesn't flex under a 20 kg pelagic on a single rod holder — is worth the extra mass. AS/NZS 1530 marine-grade resin systems used in commercial composite construction give the same UV + saltwater resilience as boat hulls — the boards are built to the standards Harry's marine repair shop uses for transom rebuilds, documented in our <a href="/articles/bait-board-maintenance-and-care" class="text-accent-text underline underline-offset-2 hover:text-primary">10+ year maintenance guide</a>.
       </p>
 
       <h2 class="font-heading mb-6 mt-12 text-2xl font-extrabold text-[#07272e] sm:text-3xl" style="font-style:normal; text-transform:none;">Side-by-side comparison</h2>
@@ -113,7 +143,7 @@ const schema = {
         <li>✓ <strong>Kayak applications</strong> — every kilo matters.</li>
       </ul>
       <p class="mt-6 text-sm text-text-muted sm:text-base">
-        For everything else — saltwater fishing, regular use, multi-year ownership horizon — fibreglass is the clearer call. For the full breakdown including welding/repair details, hardware specifications, and care comparisons, see our <a href="/articles/fibreglass-vs-aluminium-bait-boards" class="text-accent underline underline-offset-2 hover:text-primary">in-depth article on fibreglass vs aluminium bait boards</a>.
+        For everything else — saltwater fishing, regular use, multi-year ownership horizon — fibreglass is the clearer call. For the full breakdown including welding/repair details, hardware specifications, and care comparisons, see our <a href="/articles/fibreglass-vs-aluminium-bait-boards" class="text-accent-text underline underline-offset-2 hover:text-primary">in-depth article on fibreglass vs aluminium bait boards</a>.
       </p>
     </div>
   </section>
