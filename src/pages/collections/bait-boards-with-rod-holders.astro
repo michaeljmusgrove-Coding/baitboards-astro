@@ -66,26 +66,15 @@ const schema = {
     </div>
   </section>
 
-  <!-- Why integrated rod holders matter -->
-  <section class="bg-white py-12 sm:py-16">
-    <div class="container max-w-3xl">
-      <h2 class="font-heading mb-6 text-2xl font-bold text-[#07272e] sm:text-3xl" style="font-style:normal; text-transform:none;">Why an integrated rod holder beats a bolt-on</h2>
-      <div class="space-y-4 text-sm leading-relaxed text-text-muted sm:text-base">
-        <p>
-          A rod holder bolted to the top of a bait board carries the entire trolling load through 4–6 small bolts and the laminate skin underneath them. Hook a serious pelagic and the load concentrates exactly there. Most aftermarket rod-holder failures we see in marine workshops are pull-through cracks at the bolt holes — not the rod holder itself.
-        </p>
-        <p>
-          On the SeaKing B-series, the rod holder tubes are reinforced through the fibreglass shell during manufacture. The structural connection runs into the board itself, distributing drag load across the whole shell rather than concentrating at the surface fasteners. You get a properly engineered rig that handles the same loads as a transom rod holder, in a bait-board form factor.
-        </p>
-        <p>
-          If you already own a SeaKing board without rod holders, we also stock the <a href="/products/rod-holders" class="text-accent-text underline underline-offset-2 hover:text-primary">standalone 316 stainless Game Rated Rod Holder</a> — same 316 marine grade, suited to retrofitting if your board has the structural backing for it. <a href="/contact" class="text-accent-text underline underline-offset-2 hover:text-primary">Contact us</a> with your board model and we'll confirm fit.
-        </p>
-      </div>
-    </div>
-  </section>
-
   <!-- Product grid -->
-  <section class="bg-white pb-12 sm:pb-16">
+  <!-- Day 5 PM: moved above the "Why integrated" content section to keep
+       the product grid (the visual anchor users came for) near the top of
+       the viewport. The long 3-paragraph "Why integrated" section that
+       previously sat between hero + grid was pushing the grid below the
+       mobile fold, and the text block was being picked by Lighthouse as
+       the LCP candidate at ~4.6-4.7s. Putting the grid first lets the
+       first product image become the natural LCP candidate. -->
+  <section class="bg-white pt-12 pb-8 sm:pt-16 sm:pb-12">
     <div class="container">
       <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
         {products.map((product, index) => {
@@ -146,6 +135,28 @@ const schema = {
             </a>
           );
         })}
+      </div>
+    </div>
+  </section>
+
+  <!-- Why integrated rod holders matter — moved below the grid 2026-05-25
+       PM. Keeps the E-E-A-T technical-depth content on the page (Google
+       still reads the full document regardless of order; H1 in hero +
+       intro paragraph still anchor the topic) but removes it from the
+       LCP critical path. -->
+  <section class="bg-white pb-12 sm:pb-16">
+    <div class="container max-w-3xl">
+      <h2 class="font-heading mb-6 text-2xl font-bold text-[#07272e] sm:text-3xl" style="font-style:normal; text-transform:none;">Why an integrated rod holder beats a bolt-on</h2>
+      <div class="space-y-4 text-sm leading-relaxed text-text-muted sm:text-base">
+        <p>
+          A rod holder bolted to the top of a bait board carries the entire trolling load through 4–6 small bolts and the laminate skin underneath them. Hook a serious pelagic and the load concentrates exactly there. Most aftermarket rod-holder failures we see in marine workshops are pull-through cracks at the bolt holes — not the rod holder itself.
+        </p>
+        <p>
+          On the SeaKing B-series, the rod holder tubes are reinforced through the fibreglass shell during manufacture. The structural connection runs into the board itself, distributing drag load across the whole shell rather than concentrating at the surface fasteners. You get a properly engineered rig that handles the same loads as a transom rod holder, in a bait-board form factor.
+        </p>
+        <p>
+          If you already own a SeaKing board without rod holders, we also stock the <a href="/products/rod-holders" class="text-accent-text underline underline-offset-2 hover:text-primary">standalone 316 stainless Game Rated Rod Holder</a> — same 316 marine grade, suited to retrofitting if your board has the structural backing for it. <a href="/contact" class="text-accent-text underline underline-offset-2 hover:text-primary">Contact us</a> with your board model and we'll confirm fit.
+        </p>
       </div>
     </div>
   </section>
