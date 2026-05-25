@@ -134,7 +134,7 @@ const pageSchemas = howToSchema ? [articleSchema, howToSchema] : articleSchema;
         <a href="/" class="hover:underline">Home</a> &rsaquo;
         <a href="/articles" class="hover:underline">Articles</a>
       </p>
-      <h1 class="font-heading text-3xl font-extrabold leading-tight sm:text-4xl">
+      <h1 class="font-heading text-3xl font-bold leading-tight sm:text-4xl">
         {article.data.title}
       </h1>
       <p class="mt-4 text-sm text-white/70">
@@ -154,7 +154,7 @@ const pageSchemas = howToSchema ? [articleSchema, howToSchema] : articleSchema;
 
       {relatedProducts.length > 0 && (
         <aside class="mt-16 rounded-2xl border border-border bg-bg-alt p-6 sm:p-8">
-          <h2 class="font-heading mb-6 text-2xl font-extrabold text-primary">Featured in this article</h2>
+          <h2 class="font-heading mb-6 text-2xl font-bold text-primary">Featured in this article</h2>
           <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {relatedProducts.map((p) => (
               <a
