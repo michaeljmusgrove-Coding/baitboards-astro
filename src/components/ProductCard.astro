@@ -18,7 +18,7 @@ const { product } = Astro.props as Props;
   <div class="relative">
     <ShopifyImage
       classList=""
-      loading="eager"
+      loading="lazy"
       image={product?.featuredImage}
       sizes={`
       (min-width: 1540px) 348px,
