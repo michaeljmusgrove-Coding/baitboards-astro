@@ -1,6 +1,6 @@
 ---
 import { site } from '../config/site';
-import CartIcon from './CartIcon.svelte';
+import CartButton from './CartButton.astro';
 
 const navLinks = [
   { href: '/collections/bait-boards', label: 'Bait Boards' },
@@ -41,7 +41,7 @@ const path = Astro.url.pathname;
     <!-- Cart + hamburger -->
     <div class="flex items-center gap-4">
       <div class="text-[#07272e]">
-        <CartIcon client:idle />
+        <CartButton />
       </div>
       <button
         id="mobile-menu-btn"

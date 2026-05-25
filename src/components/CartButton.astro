@@ -1,0 +1,117 @@
+---
+// Static cart icon button + lazy-mounted cart drawer.
+//
+// Replaces the eager `<CartIcon client:idle />` + `<CartDrawer client:idle />`
+// pair that loaded ~60 KiB of Svelte runtime + cart store + Shopify utils +
+// drawer body chunks during the LCP window on Slow 4G (PSI critical request
+// chain showed cart.js completing at 2,541 ms, right inside the LCP window).
+//
+// What this does:
+//   - Renders the cart icon SVG button as static HTML (zero JS at page load).
+//   - Renders the badge with totalQuantity read directly from localStorage
+//     (no bundle dependency — the cart store persists itself there under
+//     the "cart-v2" key).
+//   - On first click of the cart button, dynamic-imports the Svelte cart
+//     drawer + cart store. Vite code-splits these so the chunks only
+//     download on demand.
+//
+// AddToCartForm.svelte on PDPs still imports the cart store directly; its
+// chunk loads when the PDP route loads. That's a separate path; this
+// component handles only the header cart-icon entry point.
+---
+<button id="cart-trigger" type="button" class="relative" aria-label="Open your cart">
+  <span class="sr-only">Open your cart</span>
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    fill="none"
+    viewBox="0 0 24 24"
+    stroke-width="1.5"
+    stroke="currentColor"
+    class="w-7 h-7 sm:w-8 sm:h-8 pointer-events-none"
+  >
+    <path
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z"
+    />
+  </svg>
+  <div
+    id="cart-badge"
+    hidden
+    class="absolute -right-2 -top-1 sm:-right-1 sm:top-0 bg-accent text-primary text-[12px] rounded-full font-bold"
+  >
+    <span id="cart-badge-count" class="w-5 h-5 flex justify-center text-center items-center">0</span>
+  </div>
+</button>
+
+<!-- Mount point for the lazy-loaded CartDrawer Svelte component -->
+<div id="cart-drawer-mount"></div>
+
+<script>
+  // 1) Sync the badge from localStorage immediately (no JS bundle dependency).
+  //    The cart store persists itself under "cart-v2" via @nanostores/persistent.
+  (function syncBadgeFromStorage() {
+    try {
+      var stored = localStorage.getItem('cart-v2');
+      if (!stored) return;
+      var data = JSON.parse(stored);
+      var qty = (data && data.totalQuantity) || 0;
+      if (qty > 0) {
+        var badge = document.getElementById('cart-badge');
+        var count = document.getElementById('cart-badge-count');
+        if (badge && count) {
+          badge.hidden = false;
+          count.textContent = String(qty);
+        }
+      }
+    } catch (e) {}
+  })();
+
+  // 2) Lazy-load the cart store + CartDrawer Svelte component on first click.
+  var loaded = false;
+  var trigger = document.getElementById('cart-trigger');
+  if (trigger) {
+    trigger.addEventListener('click', async function () {
+      // Dynamic import — chunks load on demand, not at page load
+      var [{ mount }, drawerMod, cartStore] = await Promise.all([
+        import('svelte'),
+        import('./CartDrawer.svelte'),
+        import('../stores/cart'),
+      ]);
+
+      if (!loaded) {
+        loaded = true;
+
+        // Validate cart session on first interaction (was previously
+        // done by CartIcon.onMount via initCart()).
+        try {
+          cartStore.initCart();
+        } catch (e) {}
+
+        // Mount the CartDrawer Svelte component into the placeholder div.
+        var target = document.getElementById('cart-drawer-mount');
+        if (target) {
+          mount(drawerMod.default, { target: target });
+        }
+
+        // Keep the badge in sync with cart updates after first load.
+        cartStore.cart.subscribe(function (c) {
+          var qty = (c && c.totalQuantity) || 0;
+          var badge = document.getElementById('cart-badge');
+          var count = document.getElementById('cart-badge-count');
+          if (badge && count) {
+            if (qty > 0) {
+              badge.hidden = false;
+              count.textContent = String(qty);
+            } else {
+              badge.hidden = true;
+            }
+          }
+        });
+      }
+
+      // Open the drawer
+      cartStore.isCartDrawerOpen.set(true);
+    });
+  }
+</script>
