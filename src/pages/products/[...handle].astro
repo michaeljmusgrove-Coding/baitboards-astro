@@ -473,6 +473,7 @@ const productSchema = {
     id="sticky-atc-bar"
     class="md:hidden fixed bottom-0 inset-x-0 z-50 translate-y-full transition-transform duration-300 ease-out bg-white border-t border-gray-200 shadow-[0_-4px_16px_rgba(0,0,0,0.08)]"
     aria-hidden="true"
+    inert
   >
     <div class="container max-w-3xl flex items-center justify-between gap-3 py-3">
       <div class="flex-shrink min-w-0">
@@ -511,6 +512,12 @@ const productSchema = {
         var aboveViewport = !entry.isIntersecting && entry.boundingClientRect.top < 0;
         bar.classList.toggle('translate-y-full', !aboveViewport);
         bar.setAttribute('aria-hidden', aboveViewport ? 'false' : 'true');
+        // Sync `inert` with aria-hidden so the focusable <a> inside the bar
+        // is removed from keyboard tab order while the bar is off-screen.
+        // (aria-hidden alone hides from assistive tech but doesn't affect
+        // tab order — keyboard users would otherwise focus an invisible link.)
+        if (aboveViewport) bar.removeAttribute('inert');
+        else bar.setAttribute('inert', '');
       }, { threshold: 0 });
       observer.observe(sentinel);
     })();
