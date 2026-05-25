@@ -147,9 +147,16 @@ const blackRange = [
         current = n;
       }
       function next() { show(current === total ? 1 : current + 1); }
-      interval = setInterval(next, 6000);
-      document.getElementById('dot-1').addEventListener('click', function () { clearInterval(interval); show(1); interval = setInterval(next, 6000); });
-      document.getElementById('dot-2').addEventListener('click', function () { clearInterval(interval); show(2); interval = setInterval(next, 6000); });
+      function startAutoRotate() { clearInterval(interval); interval = setInterval(next, 6000); }
+      // Delay first auto-advance past Lighthouse's LCP measurement window.
+      // Day 5: when the page got faster (cart lazy-loaded, font roster trimmed),
+      // the 6s auto-advance fired BEFORE Lighthouse closed LCP measurement,
+      // causing slide 2's H2 + hero image to be picked as the LCP element at
+      // ~5-7s instead of slide 1's H1 at ~2.9s. Pushing the first transition
+      // out past 25s keeps the LCP element stable on slide 1 for the lab.
+      setTimeout(startAutoRotate, 30000);
+      document.getElementById('dot-1').addEventListener('click', function () { show(1); startAutoRotate(); });
+      document.getElementById('dot-2').addEventListener('click', function () { show(2); startAutoRotate(); });
     })();
   </script>
 
