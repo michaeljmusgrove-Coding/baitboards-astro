@@ -253,6 +253,8 @@ const ogImageAbs = ogImage.startsWith('http') ? ogImage : `${site.domain}${ogIma
          All families use font-display: swap so text-LCP is not blocked on font
          delivery. -->
     <link rel="preload" href="/fonts/archivo/archivo-400.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/fonts/archivo/archivo-700.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
+    <link rel="preload" href="/fonts/montserrat/montserrat-700.woff2" as="font" type="font/woff2" crossorigin="anonymous" />
     {/* Font roster trimmed 2026-05-24 PM (Day 4 home perf advisory):
         Network analysis showed all 6 woff2 files (230 KiB total) loading
         at VeryHigh/High priority, competing with hero image for Slow 4G
