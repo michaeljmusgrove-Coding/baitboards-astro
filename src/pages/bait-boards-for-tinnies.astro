@@ -153,4 +153,18 @@ const schema = {
     </div>
   </section>
 
+  {/* GA4 view_item_list — read by the bundled script in BaseLayout. */}
+  <script type="application/json" id="ga4-page-data" set:html={JSON.stringify({
+    event: 'view_item_list',
+    list_id: 'feature-bait-boards-for-tinnies',
+    list_name: 'Bait Boards for Tinnies',
+    items: products.map((p, i) => ({
+      item_id: p.handle,
+      item_name: p.title,
+      price: p.price,
+      index: i,
+      item_brand: 'SeaKing',
+    })),
+  })} />
+
 </BaseLayout>
