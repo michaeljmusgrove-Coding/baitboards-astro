@@ -94,7 +94,6 @@ const schema = {
           const savePct = onSale && product.compareAtPrice
             ? Math.round((1 - product.price / product.compareAtPrice) * 100)
             : 0;
-          const isAboveFold = index < 2;
           return (
             <a
               href={`/products/${product.handle}`}
@@ -111,14 +110,19 @@ const schema = {
                     Only {product.quantityAvailable} left
                   </span>
                 )}
+                {/* Day 5 PM fix: product grid is below the fold on mobile
+                    (long hero + "Why integrated" content section pushes it down ~650px),
+                    so eager + fetchpriority="high" was creating a phantom LCP
+                    candidate Lighthouse couldn't resolve — pinned the page red
+                    at LCP 4.7s across 3 consecutive fresh runs. Match the
+                    with-legs / transom-mount pattern: pure lazy, no fetchpriority. */}
                 <img
                   src={shopifyImage(product.image, 400)}
                   alt={product.title}
                   class="h-full w-full object-cover transition-transform duration-300 group-hover:scale-105"
                   width="400"
                   height="400"
-                  loading={isAboveFold ? "eager" : "lazy"}
-                  fetchpriority={index === 0 ? "high" : "auto"}
+                  loading="lazy"
                 />
               </div>
               <div class="p-3 sm:p-4">
