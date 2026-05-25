@@ -195,7 +195,7 @@ const productSchema = {
 
         <!-- Info -->
         <div class="flex flex-col">
-          <h1 class="font-heading text-2xl font-extrabold leading-tight text-primary sm:text-3xl">
+          <h1 class="font-heading text-2xl font-bold leading-tight text-primary sm:text-3xl">
             {product.title}
           </h1>
 
@@ -313,7 +313,7 @@ const productSchema = {
   {accessories.length > 0 && (
     <section class="border-t border-gray-200 bg-white py-12 sm:py-14">
       <div class="container">
-        <h2 class="font-heading mb-2 text-2xl font-extrabold text-[#07272e] sm:text-3xl">
+        <h2 class="font-heading mb-2 text-2xl font-bold text-[#07272e] sm:text-3xl">
           Complete your setup
         </h2>
         <p class="mb-8 max-w-2xl text-sm leading-relaxed text-text-muted sm:text-base">
@@ -335,7 +335,7 @@ const productSchema = {
                   loading="lazy"
                 />
               </div>
-              <h3 class="font-heading line-clamp-2 text-sm font-extrabold text-[#07272e] group-hover:text-[#008c9e]">
+              <h3 class="font-heading line-clamp-2 text-sm font-bold text-[#07272e] group-hover:text-[#008c9e]">
                 {a.title}
               </h3>
               <p class="mt-2 text-sm font-bold text-[#07272e]">{formatPrice(a.price)}</p>
@@ -361,7 +361,7 @@ const productSchema = {
           />
         </div>
         <div>
-          <h2 class="font-heading mb-4 text-3xl font-extrabold text-[#07272e]">
+          <h2 class="font-heading mb-4 text-3xl font-bold text-[#07272e]">
             Why Choose Our Bait Boards
           </h2>
           <p class="mb-6 leading-relaxed text-gray-600">
@@ -407,7 +407,7 @@ const productSchema = {
   <!-- FAQ section -->
   <section class="bg-white py-14">
     <div class="container max-w-3xl">
-      <h2 class="font-heading mb-8 text-3xl font-extrabold text-[#07272e]">FAQs</h2>
+      <h2 class="font-heading mb-8 text-3xl font-bold text-[#07272e]">FAQs</h2>
       <div class="divide-y divide-gray-200">
         {[
           { q: 'Can I use the bait board in saltwater environments?', a: 'Absolutely! Our fiberglass bait boards are specifically crafted for saltwater use, with corrosion-resistant components that ensure long-lasting performance.' },
@@ -431,7 +431,7 @@ const productSchema = {
   <!-- Related guides -->
   <section class="bg-[#f7f7f7] py-14">
     <div class="container">
-      <h2 class="font-heading mb-8 text-3xl font-extrabold text-[#07272e]">Related guides</h2>
+      <h2 class="font-heading mb-8 text-3xl font-bold text-[#07272e]">Related guides</h2>
       <div class="grid gap-6 sm:grid-cols-3">
         {[
           { href: '/articles/how-to-choose-a-bait-board-for-your-boat', title: 'How to choose a bait board for your boat', desc: 'Size, mounting style, rod holders — what actually matters.' },
@@ -442,7 +442,7 @@ const productSchema = {
             href={g.href}
             class="group block rounded-2xl border border-gray-200 bg-white p-6 transition hover:border-[#008c9e] hover:shadow-md"
           >
-            <h3 class="font-heading mb-2 text-base font-extrabold text-[#07272e] group-hover:text-[#008c9e]">
+            <h3 class="font-heading mb-2 text-base font-bold text-[#07272e] group-hover:text-[#008c9e]">
               {g.title}
             </h3>
             <p class="text-sm leading-relaxed text-gray-600">{g.desc}</p>
