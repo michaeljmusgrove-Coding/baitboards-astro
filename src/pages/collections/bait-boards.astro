@@ -27,7 +27,7 @@ const inStockPrices = products
 const lowPrice = inStockPrices.length ? Math.min(...inStockPrices) : null;
 const highPrice = inStockPrices.length ? Math.max(...inStockPrices) : null;
 
-const schema = {
+const collectionSchema = {
   '@context': 'https://schema.org',
   '@type': 'CollectionPage',
   '@id': `${site.domain}/collections/bait-boards`,
@@ -55,9 +55,66 @@ const schema = {
     },
   }),
 };
+
+const faqSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What size bait board do I need for my boat?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Size depends on your transom width and fishing style. Compact models (SK-H10, HH-14) suit tinnies and runabouts from 3.5–5m. Mid-range boards (JJ-12, B01) fit 5–7m vessels. Larger B-series boards suit 7m+ offshore and centre console rigs. Measure your transom rail width as a starting point — most SeaKing boards mount via clamps or bolt-through fittings with no hull drilling required.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between fibreglass and aluminium bait boards?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Fibreglass uses marine-grade gelcoat — UV-stable, electrochemically inert, and fully compatible with 316 stainless hardware without galvanic corrosion. Aluminium is lighter but reacts with stainless bolts and fittings in saltwater over time, leading to pitting and hardware failure. For Australian salt and estuarine fishing conditions, fibreglass is the longer-lasting choice.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do your bait boards come with rod holders?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The B-series boards (B01, B02) include integrated game-rated 316 marine stainless rod holders as standard — rated for marlin and tuna drag loads. All other SeaKing models (SK-H series, JJ-12, HH-14) are sold without rod holders but are compatible with aftermarket holders. If rod holders are essential, start with the B-series.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do I install a bait board on a tinnie?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The SK-H10 and HH-14 are designed for tinnies and clamp directly to the transom — no drilling required on clamp-mount configurations. Installation takes around 20–30 minutes with basic tools. A full installation guide is included with every board.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How much does a bait board cost?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: lowPrice
+          ? `SeaKing bait boards start from $${Math.round(lowPrice)} AUD, with pricing based on board size, model, and included features. Free standard shipping is included on every order — no minimum spend. All prices are in Australian dollars.`
+          : 'SeaKing bait boards are priced by board size, model, and included features. Free standard shipping is included on every order across Australia. Browse the full range for current pricing.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Do you ship Australia-wide?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes — free standard shipping is included on every SeaKing bait board order, Australia-wide. Most boards arrive within 2–5 business days of dispatch. We ship from our Melbourne workshop to all states and territories.',
+      },
+    },
+  ],
+};
 ---
 
-<BaseLayout title={title} description={description} schema={schema}>
+<BaseLayout title={title} description={description} schema={[collectionSchema, faqSchema]}>
 
   <!-- Collection header -->
   <section class="bg-dark-hero py-14 text-white">
@@ -204,6 +261,9 @@ const schema = {
 
       <div class="space-y-4 text-sm leading-relaxed text-gray-600">
         <p>
+          A bait board is a mounted work surface fitted to the rear of a fishing boat — used for cutting bait, rigging lures, and filleting catch at the transom. This page covers the full SeaKing fibreglass range, built for Australian salt and freshwater fishing vessels from 4m tinnies to 9m+ offshore centre consoles. Every board is Australian-made, carries a 1-year warranty, and ships free across Australia.
+        </p>
+        <p>
           Whether you need a bait board for a boat — from a compact 4m tinnie setup to a
           custom bait board for a 9m offshore centre console — the SeaKing range covers every
           Australian fishing rig. Every board is built from full composite fibreglass — the same
@@ -232,6 +292,42 @@ const schema = {
           <li>✓ Game-rated rod holders included on the B-series; standalone holders available for other models</li>
           <li>✓ Free Australia-wide shipping, 30-day returns, 1-year warranty</li>
         </ul>
+      </div>
+
+      <!-- FAQ -->
+      <div class="mt-12">
+        <h2 class="font-heading mb-6 text-2xl font-bold text-[#07272e]">Frequently Asked Questions</h2>
+        <dl class="space-y-6">
+          <div>
+            <dt class="font-bold text-sm text-[#07272e] sm:text-base">What size bait board do I need for my boat?</dt>
+            <dd class="mt-2 text-sm leading-relaxed text-gray-600">Size depends on your transom width and fishing style. Compact models (SK-H10, HH-14) suit tinnies and runabouts from 3.5–5m. Mid-range boards (JJ-12, B01) fit 5–7m vessels. Larger B-series boards suit 7m+ offshore and centre console rigs. Measure your transom rail width as a starting point — most SeaKing boards mount via clamps or bolt-through fittings with no hull drilling required.</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-sm text-[#07272e] sm:text-base">What is the difference between fibreglass and aluminium bait boards?</dt>
+            <dd class="mt-2 text-sm leading-relaxed text-gray-600">Fibreglass uses marine-grade gelcoat — UV-stable, electrochemically inert, and fully compatible with 316 stainless hardware without galvanic corrosion. Aluminium is lighter but reacts with stainless bolts and fittings in saltwater over time. For Australian salt and estuarine conditions, fibreglass is the longer-lasting choice. Read our full <a href="/aluminium-vs-fibreglass-bait-boards" class="text-accent-text underline underline-offset-2 hover:text-primary">aluminium vs fibreglass comparison</a>.</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-sm text-[#07272e] sm:text-base">Do your bait boards come with rod holders?</dt>
+            <dd class="mt-2 text-sm leading-relaxed text-gray-600">The <a href="/collections/bait-boards-with-rod-holders" class="text-accent-text underline underline-offset-2 hover:text-primary">B-series boards (B01, B02)</a> include integrated game-rated 316 marine stainless rod holders as standard — rated for marlin and tuna drag loads. All other SeaKing models (SK-H series, JJ-12, HH-14) are sold without rod holders but are compatible with aftermarket holders.</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-sm text-[#07272e] sm:text-base">How do I install a bait board on a tinnie?</dt>
+            <dd class="mt-2 text-sm leading-relaxed text-gray-600">The SK-H10 and HH-14 are designed for tinnies and clamp directly to the transom — no drilling required on clamp-mount configurations. Installation takes around 20–30 minutes with basic tools. A full installation guide is included with every board. See our <a href="/bait-boards-for-tinnies" class="text-accent-text underline underline-offset-2 hover:text-primary">bait boards for tinnies</a> range for sizing guidance.</dd>
+          </div>
+          <div>
+            <dt class="font-bold text-sm text-[#07272e] sm:text-base">How much does a bait board cost?</dt>
+            <dd class="mt-2 text-sm leading-relaxed text-gray-600">
+              {lowPrice
+                ? <>SeaKing bait boards start from <strong>${Math.round(lowPrice)} AUD</strong>, with pricing based on board size, model, and included features. Free standard shipping is included on every order — no minimum spend.</>
+                : <>SeaKing bait boards are priced by board size, model, and included features. Free standard shipping is included on every order. Browse the full range above for current pricing.</>
+              }
+            </dd>
+          </div>
+          <div>
+            <dt class="font-bold text-sm text-[#07272e] sm:text-base">Do you ship Australia-wide?</dt>
+            <dd class="mt-2 text-sm leading-relaxed text-gray-600">Yes — free standard shipping is included on every SeaKing bait board order, Australia-wide. Most boards arrive within 2–5 business days of dispatch. We ship from our Melbourne workshop to all states and territories.</dd>
+          </div>
+        </dl>
       </div>
     </div>
   </section>
