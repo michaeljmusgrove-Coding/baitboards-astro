@@ -2,6 +2,7 @@
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import NotFoundLayout from "../../layouts/NotFoundLayout.astro";
 import AddToCartForm from "../../components/AddToCartForm.svelte";
+import ProductReviews from "../../components/ProductReviews.astro";
 import { getAllProducts, formatPrice } from "../../utils/shopify";
 import { shopifyImage } from "../../utils/shopifyImage";
 
@@ -33,6 +34,29 @@ export async function getStaticPaths() {
 }
 
 const { product, accessories } = Astro.props;
+
+// Build-time fetch of Judge.me aggregate rating for schema.org AggregateRating injection.
+// Fails gracefully — schema omits AggregateRating if no reviews yet or API unavailable.
+let jmRating: number | null = null;
+let jmReviewCount = 0;
+const jmToken = import.meta.env.JUDGEME_API_TOKEN;
+if (jmToken) {
+  try {
+    const jmRes = await fetch(
+      `https://judge.me/api/v1/products/-1?api_token=${jmToken}&shop_domain=d26601.myshopify.com&handle=${product.handle}`
+    );
+    if (jmRes.ok) {
+      const jmData = await jmRes.json();
+      if (jmData?.product?.reviews_count > 0) {
+        jmRating = jmData.product.rating;
+        jmReviewCount = jmData.product.reviews_count;
+      }
+    }
+  } catch {
+    // silently skip — no reviews data available
+  }
+}
+
 const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
 const savePct = onSale && product.compareAtPrice
   ? Math.round((1 - product.price / product.compareAtPrice) * 100)
@@ -106,6 +130,15 @@ const productSchema = {
       returnFees: "https://schema.org/OriginalShippingFees",
     },
   },
+  ...(jmRating !== null && {
+    aggregateRating: {
+      "@type": "AggregateRating",
+      ratingValue: jmRating.toFixed(1),
+      reviewCount: jmReviewCount,
+      bestRating: "5",
+      worstRating: "1",
+    },
+  }),
 };
 ---
 
@@ -453,12 +486,7 @@ const productSchema = {
     </div>
   </section>
 
-  {/* Customer Reviews section deliberately removed until a review platform
-      (judge.me / Loox / Stamped) is wired up. An empty "Customer Reviews"
-      heading above an empty Okendo widget div is worse than no section
-      (CRO audit 2026-05-20 flagged as HIGH). Add back once the review
-      provider's data-oke-reviews-product-id (or equivalent) is populated
-      with each product's external ID. */}
+  <ProductReviews shopifyId={product.shopifyId} handle={product.handle} reviewCount={jmReviewCount} />
 
   {/* Sticky mobile add-to-cart bar — appears once the in-page AddToCartForm
       scrolls out of view (above the viewport). Hidden on desktop. */}

@@ -26,7 +26,7 @@ export const site = {
   analytics: {
     ga4: "G-GTL98BHGVW",
     clarityId: "nzuy3xur33",
-    okendoStoreId: "__TODO__",
+    judgemeShopDomain: "d26601.myshopify.com",
   },
 
   seo: {
