@@ -49,10 +49,10 @@ export const site = {
   },
 
   schema: {
-    // OnlineStore is a valid Schema.org subtype of Organization (added 2022).
-    // Correct primary type for an online-only retailer with no shopfront — avoids the
-    // address-required signal that LocalBusiness subtypes (e.g. SportingGoodsStore) carry.
-    type: "OnlineStore",
+    // Organization is the Google-supported type for an online-only retailer.
+    // OnlineStore is valid Schema.org but not a recognised Google rich-result type;
+    // using Organization avoids entity-recognition issues in the KG.
+    type: "Organization",
     currenciesAccepted: "AUD",
     paymentAccepted: "Credit Card, PayPal, Afterpay",
     priceRange: "$$",
