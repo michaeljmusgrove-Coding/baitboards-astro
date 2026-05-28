@@ -72,6 +72,7 @@ const makeShopifyRequest = async (
 
 export type NormalizedProduct = {
   handle: string;
+  shopifyId: string;
   title: string;
   price: number;
   compareAtPrice: number | null;
@@ -108,6 +109,7 @@ function normalizeProduct(raw: RawProduct): NormalizedProduct {
   );
   return {
     handle: raw.handle,
+    shopifyId: raw.id.split('/').pop() ?? '',
     title: raw.title,
     price,
     compareAtPrice: compareAtRaw && compareAtRaw > price ? compareAtRaw : null,

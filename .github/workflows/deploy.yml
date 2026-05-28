@@ -36,6 +36,7 @@ jobs:
           PUBLIC_SHOPIFY_SHOP: ${{ secrets.PUBLIC_SHOPIFY_SHOP }}
           PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.PUBLIC_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
           PRIVATE_SHOPIFY_STOREFRONT_ACCESS_TOKEN: ${{ secrets.PRIVATE_SHOPIFY_STOREFRONT_ACCESS_TOKEN }}
+          JUDGEME_API_TOKEN: ${{ secrets.JUDGEME_API_TOKEN }}
           # Inject staging-only X-Robots-Tag when deploying staging.
           DEPLOY_ENV: ${{ github.ref == 'refs/heads/dev' && 'staging' || '' }}
 

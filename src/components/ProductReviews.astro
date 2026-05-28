@@ -1,3 +1,26 @@
 ---
-// Placeholder — replaced with Okendo widget in Phase D.
+interface Props {
+  shopifyId: string;
+  handle: string;
+  reviewCount?: number;
+}
+const { shopifyId, handle, reviewCount = 0 } = Astro.props;
 ---
+
+<section class="border-t border-border py-12">
+  <div class="container max-w-3xl">
+    <h2 class="font-heading mb-8 text-2xl font-bold text-text">Customer Reviews</h2>
+    <div
+      class="jdgm-widget jdgm-review-widget"
+      data-id={shopifyId}
+      data-handle={handle}
+      data-number-of-reviews={reviewCount}>
+    </div>
+  </div>
+</section>
+
+<script
+  src="https://cdn.judge.me/assets/shopify-widgets.js?shop=d26601.myshopify.com"
+  defer
+  is:inline
+></script>
