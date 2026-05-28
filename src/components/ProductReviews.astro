@@ -19,13 +19,9 @@ const { shopifyId, handle, reviewCount = 0 } = Astro.props;
   </div>
 </section>
 
-<!-- Pre-initialise jdgm config before widget script loads (required for headless — no window.Shopify) -->
-<script is:inline>
-  window.jdgm = window.jdgm || {};
-  window.jdgm.SHOP_DOMAIN = 'd26601.myshopify.com';
-  window.jdgm.PLATFORM = 'shopify';
-  window.jdgm.PUBLIC_TOKEN = 'KzLexidX1I2wx23jcKm9c-xKOQl';
-</script>
+<!-- jdgm-init.js sets window.jdgm config (served from 'self', no CSP hash needed).
+     Must be synchronous and before shopify-widgets.js (which is async). -->
+<script src="/js/jdgm-init.js" is:inline></script>
 <script
   src="https://cdn.judge.me/assets/shopify-widgets.js?shop=d26601.myshopify.com"
   async
