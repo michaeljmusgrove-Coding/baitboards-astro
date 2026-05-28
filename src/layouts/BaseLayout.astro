@@ -83,12 +83,12 @@ const founderSchema = {
   worksFor: { '@id': `${site.domain}/#store` },
 };
 
-// Sitewide store schema — OnlineStore (subtype of Organization) is the correct type
-// for an online-only retailer. Avoids the implicit "physical address required" signal
-// that LocalBusiness subtypes (SportingGoodsStore, Store) carry.
+// Sitewide store schema — Organization is the Google-supported type for an
+// online-only retailer. OnlineStore is valid Schema.org but not a recognised
+// Google rich-result type; Organization avoids KG entity-recognition issues.
 const storeSchema = {
   '@context': 'https://schema.org',
-  '@type': 'OnlineStore',
+  '@type': 'Organization',
   '@id': `${site.domain}/#store`,
   name: site.name,
   url: site.domain,
@@ -122,7 +122,7 @@ const websiteSchema = {
   name: site.name,
   description: site.tagline,
   inLanguage: 'en-AU',
-  publisher: { '@type': 'OnlineStore', '@id': `${site.domain}/#store` },
+  publisher: { '@type': 'Organization', '@id': `${site.domain}/#store` },
 };
 
 // LocalBusiness schema — separate entity to the sitewide OnlineStore.
