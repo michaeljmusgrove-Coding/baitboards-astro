@@ -35,26 +35,33 @@ export async function getStaticPaths() {
 
 const { product, accessories } = Astro.props;
 
-// Build-time fetch of Judge.me aggregate rating for schema.org AggregateRating injection.
-// Fails gracefully — schema omits AggregateRating if no reviews yet or API unavailable.
+// Build-time Judge.me fetch — parallel: product (schema AggregateRating) + reviews (display).
+// Both fail gracefully; schema omits AggregateRating and component shows empty state.
 let jmRating: number | null = null;
 let jmReviewCount = 0;
+let jmReviews: any[] = [];
 const jmToken = import.meta.env.JUDGEME_API_TOKEN;
 if (jmToken) {
+  const shopDomain = 'd26601.myshopify.com';
+  const [prodRes, revRes] = await Promise.allSettled([
+    fetch(`https://judge.me/api/v1/products/-1?api_token=${jmToken}&shop_domain=${shopDomain}&handle=${product.handle}`),
+    fetch(`https://judge.me/api/v1/reviews?api_token=${jmToken}&shop_domain=${shopDomain}&handle=${product.handle}&per_page=20&page=1`),
+  ]);
   try {
-    const jmRes = await fetch(
-      `https://judge.me/api/v1/products/-1?api_token=${jmToken}&shop_domain=d26601.myshopify.com&handle=${product.handle}`
-    );
-    if (jmRes.ok) {
-      const jmData = await jmRes.json();
-      if (jmData?.product?.reviews_count > 0) {
-        jmRating = jmData.product.rating;
-        jmReviewCount = jmData.product.reviews_count;
+    if (prodRes.status === 'fulfilled' && prodRes.value.ok) {
+      const d = await prodRes.value.json();
+      if (d?.product?.reviews_count > 0) {
+        jmRating = d.product.rating;
+        jmReviewCount = d.product.reviews_count;
       }
     }
-  } catch {
-    // silently skip — no reviews data available
-  }
+  } catch { /* skip */ }
+  try {
+    if (revRes.status === 'fulfilled' && revRes.value.ok) {
+      const d = await revRes.value.json();
+      jmReviews = d?.reviews ?? [];
+    }
+  } catch { /* skip */ }
 }
 
 const onSale = product.compareAtPrice && product.compareAtPrice > product.price;
@@ -486,7 +493,7 @@ const productSchema = {
     </div>
   </section>
 
-  <ProductReviews shopifyId={product.shopifyId} handle={product.handle} reviewCount={jmReviewCount} />
+  <ProductReviews handle={product.handle} reviews={jmReviews} rating={jmRating} reviewCount={jmReviewCount} />
 
   {/* Sticky mobile add-to-cart bar — appears once the in-page AddToCartForm
       scrolls out of view (above the viewport). Hidden on desktop. */}
